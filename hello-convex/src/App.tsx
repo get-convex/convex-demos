@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { ConvexClient } from "convex-sdk";
 
-const convex = new ConvexClient("http://localhost:8000");
+import convexConfig from "../convex.json";
+const convex = new ConvexClient(convexConfig.host);
 
 function Counter() {
   const [counter, setCounter] = useState(0);
