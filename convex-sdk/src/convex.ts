@@ -2,6 +2,7 @@ import Connection from "./connection";
 import { parseJSON, convexReplacer } from "./index";
 import { AuthenticatedUser } from "./common/auth";
 
+const apiV1Path: string = "/api-v1"
 /** Isomorphic `fetch` for Node.js and browser usage. */
 const fetch: typeof window.fetch =
   typeof window !== "undefined" ? window.fetch : require("node-fetch");
@@ -26,6 +27,10 @@ export class ConvexClient {
     if (address.endsWith("/")) {
       address = address.substring(0, address.length - 1);
     }
+
+	// This client lib speaks the Convex V1 protocol.
+	address = address + apiV1Path;
+
     this.address = address;
     this.connection = new Connection(address);
   }

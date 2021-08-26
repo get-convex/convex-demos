@@ -35,7 +35,7 @@ convex register`,
 
     const config = await readConfig();
 
-    const url = new URL("/put_module", config.host);
+    const url = new URL("/api-v1/put_module", config.host);
 
     const tmpDir = await fs.mkdtemp(path.join(os.tmpdir(), "convex-register-"));
 
