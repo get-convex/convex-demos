@@ -1,3 +1,4 @@
+import { AuthenticatedUser } from "../common/database";
 /**
  * Client broker for a Convex backend. Create one per app and use it to
  * query your data, subscribe to executions of Convex functional queries or GraphQL, and
@@ -6,6 +7,7 @@
 export declare class ConvexClient {
     readonly address: string;
     private connection;
+    private cachedUser?;
     /**
      * Create a new client connected to a Convex backend.
      *
@@ -14,6 +16,30 @@ export declare class ConvexClient {
      */
     constructor(address: string);
     private static parseResponse;
+    /**
+     * Return a URL for starting the Google authentication process. Redirect to this URL to ask your user to sign in.
+     */
+    loginUrl(): string;
+    /**
+     * Is the Convex client currently authenticated?
+     */
+    isAuthenticated(): boolean;
+    /**
+     * Load authentication state (if present) from the browser's cookie.
+     *
+     * @returns Authentication token if present, `null` if not.
+     */
+    private loadCookie;
+    /**
+     * Load the currently authenticated user's information from the server.
+     * @returns `null` if not currently authenticated, an `AuthenticatedUser`
+     * object otherwise.
+     */
+    authenticatedUser(): Promise<AuthenticatedUser | null>;
+    /**
+     * Clear the authentication cookie and reload the page.
+     */
+    logout(): void;
     /**
      * Construct a new handle to a `Query`.
      *

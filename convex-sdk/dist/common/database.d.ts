@@ -1,3 +1,12 @@
+export declare type AuthenticatedUser = {
+    _id: string;
+    subject: string;
+    name?: string;
+    picture_url?: string;
+    email?: string;
+    email_verified?: boolean;
+    locale?: string;
+};
 export declare type TableName = string;
 export declare type DocumentId = string;
 export declare type Value = any;
@@ -19,6 +28,7 @@ export interface Database {
     trace(msg: string): null;
     putModule(path: string, source: string): null;
     table(tableName: TableName): Table;
+    auth(): AuthenticatedUser | null;
 }
 export interface Table {
     /**

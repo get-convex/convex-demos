@@ -26,6 +26,66 @@ export class ConvexClient {
         return parseJSON(respText);
     }
     /**
+     * Return a URL for starting the Google authentication process. Redirect to this URL to ask your user to sign in.
+     */
+    loginUrl() {
+        return `${this.address}/start_authentication`;
+    }
+    /**
+     * Is the Convex client currently authenticated?
+     */
+    isAuthenticated() {
+        return this.loadCookie() !== null;
+    }
+    /**
+     * Load authentication state (if present) from the browser's cookie.
+     *
+     * @returns Authentication token if present, `null` if not.
+     */
+    loadCookie() {
+        if (typeof document === "undefined") {
+            return null;
+        }
+        let cookieStr = document.cookie
+            .split(";")
+            .find((row) => row.startsWith("id="));
+        if (cookieStr === undefined) {
+            return null;
+        }
+        return cookieStr.split("=")[1];
+    }
+    /**
+     * Load the currently authenticated user's information from the server.
+     * @returns `null` if not currently authenticated, an `AuthenticatedUser`
+     * object otherwise.
+     */
+    async authenticatedUser() {
+        if (!this.isAuthenticated()) {
+            return null;
+        }
+        if (this.cachedUser !== undefined) {
+            return { ...this.cachedUser };
+        }
+        const cookie = this.loadCookie();
+        let url = `${this.address}/authenticated_user?auth=${cookie}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(await response.text());
+        }
+        let user = await ConvexClient.parseResponse(response);
+        if (user !== null) {
+            this.cachedUser = { ...user };
+        }
+        return user;
+    }
+    /**
+     * Clear the authentication cookie and reload the page.
+     */
+    logout() {
+        document.cookie = "id=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        window.location.reload();
+    }
+    /**
      * Construct a new handle to a `Query`.
      *
      * @param name The name of the query function.
@@ -88,11 +148,26 @@ export class ConvexClient {
      */
     async invokeQuery(name, args = null) {
         const argsComponent = encodeURIComponent(JSON.stringify(args, convexReplacer));
-        const response = await fetch(`${this.address}/udf?path=${name}&args=${argsComponent}`);
+        let url = `${this.address}/udf?path=${name}&args=${argsComponent}`;
+        const cookie = this.loadCookie();
+        if (cookie !== null) {
+            url += `&auth=${cookie}`;
+        }
+        const response = await fetch(url);
         if (!response.ok) {
             throw new Error(await response.text());
         }
-        return await ConvexClient.parseResponse(response);
+        const parsedResponse = await ConvexClient.parseResponse(response);
+        for (const line of parsedResponse.logs) {
+            console.log(`%c[CONVEX Q(${name})] ${line}`, "color:blue");
+        }
+        if (!parsedResponse.success) {
+            throw new Error(`[CONVEX Q(${name})] ${parsedResponse.value}`);
+        }
+        return {
+            value: parsedResponse.value,
+            token: parsedResponse.token,
+        };
     }
     /**
      * Invoke a transaction on a Convex backend.
@@ -108,7 +183,8 @@ export class ConvexClient {
      *          subscriptions; only queries do that.
      */
     async invokeTransaction(name, args = null) {
-        const body = JSON.stringify({ path: name, args }, convexReplacer);
+        const auth = this.loadCookie();
+        const body = JSON.stringify({ path: name, args, auth }, convexReplacer);
         const response = await fetch(`${this.address}/udf`, {
             body,
             method: "POST",
@@ -119,7 +195,16 @@ export class ConvexClient {
         if (!response.ok) {
             throw new Error(await response.text());
         }
-        return await ConvexClient.parseResponse(response);
+        const parsedResponse = await ConvexClient.parseResponse(response);
+        for (const line of parsedResponse.logs) {
+            console.log(`%c[CONVEX T(${name})] ${line}`, "color:green");
+        }
+        if (!parsedResponse.success) {
+            throw new Error(`%c[CONVEX T(${name})] ${parsedResponse.value}`);
+        }
+        return {
+            value: parsedResponse.value,
+        };
     }
     /**
      * Invoke a GraphQL query on a Convex backend.
@@ -129,6 +214,7 @@ export class ConvexClient {
      * @returns Return value of the query.
      */
     async invokeGql(query, variables = {}) {
+        // TODO: Pass up auth for GraphQL requests.
         const body = JSON.stringify({ query, variables }, convexReplacer);
         const response = await fetch(`${this.address}/graphql`, {
             body,
