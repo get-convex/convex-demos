@@ -1,0 +1,5 @@
+node_modules/
+workspace.code-workspace
+build/
+# Local Netlify folder
+.DS_store

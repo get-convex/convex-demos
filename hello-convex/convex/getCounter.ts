@@ -1,4 +1,4 @@
-import { Database } from "convex-sdk";
+import { Database } from "convex-server";
 
 export default function getCounter(db: Database, _args: {}): number {
   let counter_doc = db.find("counter", {});

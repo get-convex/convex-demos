@@ -10,7 +10,7 @@ function Counter() {
     return convex.query("getCounter").watch({}, setCounter);
   }, []);
 
-  function incrementCounter(e) {
+  function incrementCounter(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     convex.transaction("updateCounter").call();
   }

@@ -1,5 +1,5 @@
 import { parseJSON, convexReplacer, convexReviver, toJSON, } from "./common/values";
-import { ConvexClient } from "./client/convex";
+import { ConvexClient } from "./convex";
 import Long from "long";
 export { 
 // Re-export our version of "long.js"
