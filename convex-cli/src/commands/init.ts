@@ -30,7 +30,7 @@ convex init`,
 
     // TODO: We should authenticate the user and prompt them for project ID + other options.
     const config = {
-      host: "https://demo-app.convex.io",
+      host: "https://convex-demo-1.zerowatt.io",
       functions: "convex/",
     };
     console.log("Writing configuration...");
@@ -51,9 +51,9 @@ convex init`,
       }
     }
 
-    console.log(
-      chalk.green(`\nDone! To continue, you install "convex-sdk" in your project folder.
-See the documentation at https://convex.readme.io/ for more information.`)
-    );
+    console.log(chalk.green("Done!"));
+    console.log("Your Convex Cloud URL is", chalk.green(config.host));
+    console.log(`Install the Convex SDK to continue.
+See the documentation at https://learn.zerowatt.io/ for more information.`);
   }
 }
