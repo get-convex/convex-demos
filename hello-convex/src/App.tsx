@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ConvexClient } from "convex-sdk";
 
 const convex = new ConvexClient("http://localhost:8000");
