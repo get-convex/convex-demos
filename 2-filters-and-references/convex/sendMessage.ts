@@ -13,5 +13,5 @@ export default async function sendMessage(
     author,
     time: Date.now(),
   };
-  await db.insert("messages", message);
+  await db.insert("messages2", message);
 }

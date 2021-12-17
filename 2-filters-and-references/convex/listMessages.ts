@@ -10,7 +10,7 @@ export default async function listMessages(
     return [];
   }
   return await db
-    .table("messages")
+    .table("messages2")
     .filter(eq(field("channel"), channel.strongRef()))
     .collect();
 }
