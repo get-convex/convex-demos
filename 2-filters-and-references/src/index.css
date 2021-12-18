@@ -5,6 +5,10 @@ main {
   margin: 0 auto;
 }
 
+.list-group-item:hover {
+  background: #f8f9fa;
+}
+
 .channel-item:hover {
   background: #f8f9fa;
   color: black;
