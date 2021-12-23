@@ -1,18 +1,15 @@
-import { DatabaseWriter } from "@convex-dev/server";
+import { dbWriter } from "@convex-dev/server";
 
-export default async function incrementCounter(
-  db: DatabaseWriter,
-  increment: number
-) {
-  let counterDoc = await db.table("counter_table").first();
+export default async function incrementCounter(increment: number) {
+  let counterDoc = await dbWriter.table("counter_table").first();
   if (counterDoc === null) {
     counterDoc = {
       counter: increment,
     };
-    await db.insert("counter_table", counterDoc);
+    await dbWriter.insert("counter_table", counterDoc);
   } else {
     counterDoc.counter += increment;
-    await db.update(counterDoc._id, counterDoc);
+    await dbWriter.update(counterDoc._id, counterDoc);
   }
   // Like console.log but relays log messages from the server to client.
   console.log(`Value of counter is now ${counterDoc.counter}`);

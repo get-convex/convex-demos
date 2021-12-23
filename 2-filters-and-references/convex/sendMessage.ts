@@ -1,8 +1,7 @@
-import { DatabaseWriter, Id } from "@convex-dev/server";
+import { dbWriter, Id } from "@convex-dev/server";
 
 // Send a message to the given chat channel.
 export default async function sendMessage(
-  db: DatabaseWriter,
   channel: Id,
   body: string,
   author: string
@@ -13,5 +12,5 @@ export default async function sendMessage(
     author,
     time: Date.now(),
   };
-  await db.insert("messages2", message);
+  await dbWriter.insert("messages", message);
 }
