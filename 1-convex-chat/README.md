@@ -18,7 +18,7 @@ First run `npm install` to pull in the required dependencies including the
 Convex SDK/CLI.
 
 Initialize a convex project using
-`npx convex init --email <your email address> --betaKey <your beta key>`.
+`npx convex init --email <your email address> --beta-key <your beta key>`.
 
 Before you can interact with the Convex Cloud you need to first deploy your
 `/convex` functions with `npx convex push`. This command should be re-run any

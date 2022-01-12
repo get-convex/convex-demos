@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { ConvexClient, useInflight, useQuery } from "@convex-dev/react";
+import { ConvexClient, useQuery } from "@convex-dev/react";
 
 // Initialize Convex Client and connect to server in convex.json.
 import convexConfig from "../convex.json";
