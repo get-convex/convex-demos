@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { ReactClient, useQuery } from "@convex-dev/react";
+import { ReactClient, Id, useQuery } from "@convex-dev/react";
 import { Message } from "./common";
 
 // Initialize Convex Client and connect to server in convex.json.
@@ -8,9 +8,26 @@ import convexConfig from "../convex.json";
 const convex = new ReactClient(convexConfig.origin);
 const randomName = "User " + Math.floor(Math.random() * 10000);
 
+// Hello World.
+fetch("/.netlify/functions/hello", { headers: { Accept: "application/json" } })
+  .then((response) => response.json())
+  .then((body) => console.log(body))
+  .catch((error) => console.log(error));
+
 // Render a chat message.
 function MessageView(props: { message: Message }) {
   const message = props.message;
+  if (message.format == "giphy") {
+    return (
+      <div>
+        <div>
+          <strong>{message.author}:</strong>
+        </div>
+        <iframe src={message.body} />
+        <div className="giphy-attribution">Powered By GIPHY</div>
+      </div>
+    );
+  }
   return (
     <div>
       <strong>{message.author}:</strong> {message.body}
@@ -24,7 +41,7 @@ export default function App() {
   const channels = useQuery(convex.query("listChannels")) || [];
 
   // Records the Convex document ID for the currently selected channel.
-  const [channelId, setChannelId] = useState(null);
+  const [channelId, setChannelId] = useState<Id | null>(null);
 
   // Run `addChannel.ts` as a mutation to create a new channel when
   // `handleAddChannel` is triggered.
@@ -50,9 +67,23 @@ export default function App() {
     event.preventDefault();
     if (newMessageText) {
       setNewMessageText(""); // reset text entry box
-      await convex
-        .mutation("sendMessage")
-        .call(channelId, newMessageText, randomName);
+
+      // If a /giphy command is entered call into the Netlify function to post
+      // relevant GIF to channel.
+      if (newMessageText.startsWith("/giphy ")) {
+        await fetch("/.netlify/functions/post-gif", {
+          method: "POST",
+          body: JSON.stringify({
+            channel: channelId!._replace(),
+            name: randomName,
+            query: newMessageText.slice(7),
+          }),
+        });
+      } else {
+        await convex
+          .mutation("sendMessage")
+          .call(channelId, "text", newMessageText, randomName);
+      }
     }
   }
 

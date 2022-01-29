@@ -10,15 +10,14 @@ origin specified in `convex.json` using the JavaScript SDK.
 ## Documentation
 
 This directory serves as the basis for the
-[Hello Convex tutorial](https://docs.convex.dev/getting-started/hello-convex).
+[Hello Convex tutorial](https://docs.convex.dev/getting-started/basics/hello-convex).
 
 ## Running
 
 First run `npm install` to pull in the required dependencies including the
 Convex SDK/CLI.
 
-Initialize a convex project using
-`npx convex init --email <your email address> --beta-key <your beta key>`.
+Initialize a convex project using `npx convex init --beta-key <your beta key>`.
 
 Before you can interact with the Convex Cloud you need to first deploy your
 `/convex` functions with `npx convex push`. This command should be re-run any

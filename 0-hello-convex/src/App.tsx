@@ -1,7 +1,7 @@
-import { ConvexClient, useQuery } from "@convex-dev/react";
+import { ReactClient, useQuery } from "@convex-dev/react";
 
 import convexConfig from "../convex.json";
-const convex = new ConvexClient(convexConfig.origin);
+const convex = new ReactClient(convexConfig.origin);
 
 export default function App() {
   // Watch the results of the Convex function `getCounter` and call
@@ -10,9 +10,9 @@ export default function App() {
 
   function incrementCounter(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    // Execute the Convex function `incrementCounter` as a transaction
+    // Execute the Convex function `incrementCounter` as a mutation
     // that updates the counter value.
-    return convex.transaction("incrementCounter").call(1);
+    return convex.mutation("incrementCounter").call(1);
   }
 
   return (
