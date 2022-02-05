@@ -74,7 +74,7 @@ export default function App() {
         await fetch("/.netlify/functions/post-gif", {
           method: "POST",
           body: JSON.stringify({
-            channel: channelId!._replace(),
+            channel: channelId!.toJSON(),
             name: randomName,
             query: newMessageText.slice(7),
           }),

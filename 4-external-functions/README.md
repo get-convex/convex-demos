@@ -1,4 +1,4 @@
-# 3-external-functions
+# 4-external-functions
 
 This example implements a Netlify function that calls out to a third party
 (GIPHY) and writes to Convex.
