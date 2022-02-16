@@ -1,9 +1,9 @@
 import { Handler } from "@netlify/functions";
-import { ConvexClient, Id } from "@convex-dev/browser";
+import { HTTPConvexClient, Id } from "@convex-dev/browser";
 import fetch from "node-fetch";
 
 import convexConfig from "../../convex.json";
-const convex = new ConvexClient(convexConfig.origin);
+const convex = new HTTPConvexClient(convexConfig.origin);
 
 // Replace this with your own GIPHY key obtained at
 // https://developers.giphy.com/ -> Create Account.
@@ -22,7 +22,8 @@ function giphyUrl(query: string) {
 const handler: Handler = async (event, context) => {
   const params = JSON.parse(event.body!);
   const channelId = Id.fromJSON(params.channel);
-  const name = params.name;
+  const token = params.token;
+  convex.setAuth(token);
 
   // Fetch GIF url from GIPHY.
   const gif = await fetch(giphyUrl(params.query))
@@ -30,7 +31,7 @@ const handler: Handler = async (event, context) => {
     .then((json) => json.data.embed_url);
 
   // Write GIF url to Convex.
-  await convex.mutation("sendMessage").call(channelId, "giphy", gif, name);
+  await convex.mutation("sendMessage").call(channelId, "giphy", gif);
 
   return {
     statusCode: 200,

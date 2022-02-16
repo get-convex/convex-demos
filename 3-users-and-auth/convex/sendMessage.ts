@@ -1,11 +1,7 @@
 import { dbWriter, Id, auth, db, eq, field } from "@convex-dev/server";
 
 // Send a message to the given chat channel.
-export default async function sendMessage(
-  channel: Id,
-  format: string,
-  body: string
-) {
+export default async function sendMessage(channel: Id, body: string) {
   let identity = await auth.getUserIdentity();
   if (!identity) {
     throw new Error("Unauthenticated call to sendMessage");
@@ -16,7 +12,6 @@ export default async function sendMessage(
     .unique();
   const message = {
     channel: channel.strongRef(),
-    format,
     body,
     time: Date.now(),
     user: user._id.strongRef(),

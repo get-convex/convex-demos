@@ -13,3 +13,9 @@ export type Channel = {
   _id: Id;
   name: string;
 };
+
+export type User = {
+  _id: Id;
+  name: string;
+  tokenIdentifier: string;
+};

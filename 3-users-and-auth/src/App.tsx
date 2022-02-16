@@ -1,13 +1,12 @@
-import { useState, FormEvent } from "react";
-import { ReactClient, Id, useQuery } from "@convex-dev/react";
+import { useState, FormEvent, useEffect } from "react";
+import { Id, ReactClient, useQuery } from "@convex-dev/react";
 import { Message } from "./common";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Initialize Convex Client and connect to server in convex.json.
 import convexConfig from "../convex.json";
 
 const convex = new ReactClient(convexConfig.origin);
-const randomName = "User " + Math.floor(Math.random() * 10000);
-
 // Render a chat message.
 function MessageView(props: { message: Message }) {
   const message = props.message;
@@ -30,9 +29,7 @@ function ChatBox(props: { channelId: Id }) {
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
     setNewMessageText(""); // reset text entry box
-    await convex
-      .mutation("sendMessage")
-      .call(props.channelId, newMessageText, randomName);
+    await convex.mutation("sendMessage").call(props.channelId, newMessageText);
   }
 
   return (
@@ -71,13 +68,68 @@ function ChatBox(props: { channelId: Id }) {
   );
 }
 
+function LoginLogout() {
+  let { isAuthenticated, isLoading, loginWithRedirect, logout, user } =
+    useAuth0();
+  if (isLoading) {
+    return <button className="btn btn-primary">Loading...</button>;
+  }
+  if (isAuthenticated) {
+    return (
+      <div>
+        {/* We know that Auth0 provides the user's name, but another provider
+        might not. */}
+        <p>Logged in as {user!.name}</p>
+        <button
+          className="btn btn-primary"
+          onClick={() => logout({ returnTo: window.location.origin })}
+        >
+          Log out
+        </button>
+      </div>
+    );
+  } else {
+    return (
+      <button className="btn btn-primary" onClick={loginWithRedirect}>
+        Log in
+      </button>
+    );
+  }
+}
+
 export default function App() {
+  let { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
+  const [userId, setUserId] = useState<Id | null>(null);
+  // Pass the ID token to the Convex client when logged in, and clear it when logged out.
+  // After setting the ID token, call the `storeUser` mutation function to store
+  // the current user in the `users` table and return the `Id` value.
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+    if (isAuthenticated) {
+      getIdTokenClaims().then(async (claims) => {
+        // Get the raw ID token from the claims.
+        let token = claims!.__raw;
+        // Pass it to the Convex client.
+        convex.setAuth(token);
+        // Store the user in the database.
+        let id = await convex.mutation("storeUser").call();
+        setUserId(id);
+      });
+    } else {
+      // Tell the Convex client to clear all authentication state.
+      convex.clearAuth();
+      setUserId(null);
+    }
+  }, [isAuthenticated, isLoading, getIdTokenClaims]);
+
   // Dynamically update `channels` in response to the output of
   // `listChannels.ts`.
   const channels = useQuery(convex.query("listChannels")) || [];
 
   // Records the Convex document ID for the currently selected channel.
-  const [channelId, setChannelId] = useState<Id>();
+  const [channelId, setChannelId] = useState<Id | null>(null);
 
   // Run `addChannel.ts` as a mutation to create a new channel when
   // `handleAddChannel` is triggered.
@@ -93,10 +145,12 @@ export default function App() {
   return (
     <main className="py-4">
       <h1 className="text-center">Convex Chat</h1>
-      <p className="text-center">
-        <span className="badge bg-dark">{randomName}</span>
-      </p>
-
+      <div className="text-center">
+        <span>
+          <LoginLogout />
+        </span>
+      </div>
+      <br />
       <div className="main-content">
         <div className="channel-box">
           <div className="list-group shadow-sm my-3">
@@ -123,12 +177,13 @@ export default function App() {
               onChange={(event) => setNewChannelName(event.target.value)}
               className="form-control w-50"
               placeholder="Add a channel..."
+              disabled={userId === null}
             />
             <input
               type="submit"
               value="Add"
               className="ms-2 btn btn-primary"
-              disabled={!newChannelName}
+              disabled={!newChannelName || userId === null}
             />
           </form>
         </div>

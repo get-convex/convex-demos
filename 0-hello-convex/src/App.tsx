@@ -4,8 +4,7 @@ import convexConfig from "../convex.json";
 const convex = new ReactClient(convexConfig.origin);
 
 export default function App() {
-  // Watch the results of the Convex function `getCounter` and call
-  // `setCounter` on the return value.
+  // Watch the results of the Convex function `getCounter`.
   const counter = useQuery(convex.query("getCounter")) ?? 0;
 
   function incrementCounter(e: React.MouseEvent<HTMLButtonElement>) {

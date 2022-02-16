@@ -28,10 +28,8 @@ export default function App() {
   const [newMessageText, setNewMessageText] = useState("");
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
-    if (newMessageText) {
-      setNewMessageText(""); // reset text entry box
-      await convex.mutation("sendMessage").call(newMessageText, randomName);
-    }
+    setNewMessageText(""); // reset text entry box
+    await convex.mutation("sendMessage").call(newMessageText, randomName);
   }
   return (
     <main className="py-4">
@@ -62,7 +60,12 @@ export default function App() {
           className="form-control w-50"
           placeholder="Write a message…"
         />
-        <input type="submit" value="Send" className="ms-2 btn btn-primary" />
+        <input
+          type="submit"
+          value="Send"
+          className="ms-2 btn btn-primary"
+          disabled={!newMessageText}
+        />
       </form>
     </main>
   );
