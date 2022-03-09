@@ -3,23 +3,23 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "rm -rf dist && tsc && vite build",
     "clean": "",
     "serve": "vite preview"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "@convex-dev/react": "0.0.51",
-    "@convex-dev/browser": "0.0.51",
-    "@convex-dev/server": "0.0.51",
-    "@netlify/functions": "^0.11.0",
+    "@convex-dev/react": "0.0.56",
+    "@convex-dev/browser": "0.0.56",
+    "@convex-dev/server": "0.0.56",
+    "@netlify/functions": "^1.0.0",
     "bootstrap": "^5.0.2",
     "node-fetch": "^2.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@convex-dev/cli": "0.0.51",
+    "@convex-dev/cli": "0.0.56",
     "@types/node": "~16.11.12",
     "@types/node-fetch": "^2.5.3",
     "@types/react": "^17.0.19",

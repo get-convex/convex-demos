@@ -1,17 +1,14 @@
-import { ReactClient, useQuery } from "@convex-dev/react";
-
-import convexConfig from "../convex.json";
-const convex = new ReactClient(convexConfig.origin);
+import { useQuery, useMutation } from "../convex/_generated";
 
 export default function App() {
   // Watch the results of the Convex function `getCounter`.
-  const counter = useQuery(convex.query("getCounter")) ?? 0;
+  const counter = useQuery("getCounter") ?? 0;
+  const increment = useMutation("incrementCounter");
 
-  function incrementCounter(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
+  function incrementCounter() {
     // Execute the Convex function `incrementCounter` as a mutation
     // that updates the counter value.
-    return convex.mutation("incrementCounter").call(1);
+    return increment(1);
   }
 
   return (
