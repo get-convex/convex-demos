@@ -1,9 +1,12 @@
 import { useState, FormEvent, useEffect } from "react";
-import { Id } from "@convex-dev/react";
+import { Id, ReactClient, useQuery } from "@convex-dev/react";
 import { Message } from "./common";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation, useQuery, useConvex } from "../convex/_generated";
 
+// Initialize Convex Client and connect to server in convex.json.
+import convexConfig from "../convex.json";
+
+const convex = new ReactClient(convexConfig.origin);
 // Render a chat message.
 function MessageView(props: { message: Message }) {
   const message = props.message;
@@ -17,8 +20,8 @@ function MessageView(props: { message: Message }) {
 function ChatBox(props: { channelId: Id }) {
   // Dynamically update `messages` in response to the output of
   // `listMessages.ts`.
-  const messages = useQuery("listMessages", props.channelId) || [];
-  const sendMessage = useMutation("sendMessage");
+  const messages =
+    useQuery(convex.query("listMessages"), props.channelId) || [];
 
   // Run `sendMessage.ts` as a mutation to record a chat message when
   // `handleSendMessage` triggered.
@@ -26,7 +29,7 @@ function ChatBox(props: { channelId: Id }) {
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
     setNewMessageText(""); // reset text entry box
-    await sendMessage(props.channelId, newMessageText);
+    await convex.mutation("sendMessage").call(props.channelId, newMessageText);
   }
 
   return (
@@ -97,9 +100,6 @@ function LoginLogout() {
 export default function App() {
   let { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const [userId, setUserId] = useState<Id | null>(null);
-  const convex = useConvex();
-  const storeUser = useMutation("storeUser");
-  const addChannel = useMutation("addChannel");
   // Pass the ID token to the Convex client when logged in, and clear it when logged out.
   // After setting the ID token, call the `storeUser` mutation function to store
   // the current user in the `users` table and return the `Id` value.
@@ -114,9 +114,7 @@ export default function App() {
         // Pass it to the Convex client.
         convex.setAuth(token);
         // Store the user in the database.
-        // Recall that `storeUser` gets the user information via the `auth`
-        // object on the server. You don't need to pass anything manually here.
-        let id = await storeUser();
+        let id = await convex.mutation("storeUser").call();
         setUserId(id);
       });
     } else {
@@ -124,11 +122,11 @@ export default function App() {
       convex.clearAuth();
       setUserId(null);
     }
-  }, [isAuthenticated, isLoading, getIdTokenClaims, convex, storeUser]);
+  }, [isAuthenticated, isLoading, getIdTokenClaims]);
 
   // Dynamically update `channels` in response to the output of
   // `listChannels.ts`.
-  const channels = useQuery("listChannels") || [];
+  const channels = useQuery(convex.query("listChannels")) || [];
 
   // Records the Convex document ID for the currently selected channel.
   const [channelId, setChannelId] = useState<Id | null>(null);
@@ -140,7 +138,7 @@ export default function App() {
   async function handleAddChannel(event: FormEvent) {
     event.preventDefault();
     setNewChannelName("");
-    let channel = await addChannel(newChannelName);
+    let channel = await convex.mutation("addChannel").call(newChannelName);
     setChannelId(channel._id);
   }
 

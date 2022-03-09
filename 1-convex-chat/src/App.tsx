@@ -1,7 +1,11 @@
 import { useState, FormEvent } from "react";
-import { useMutation, useQuery } from "../convex/_generated";
+import { ReactClient, useQuery } from "@convex-dev/react";
 import { Message } from "./common";
 
+// Initialize Convex Client and connect to server in convex.json.
+import convexConfig from "../convex.json";
+
+const convex = new ReactClient(convexConfig.origin);
 const randomName = "User " + Math.floor(Math.random() * 10000);
 
 // Render a chat message.
@@ -17,16 +21,15 @@ function MessageView(props: { message: Message }) {
 export default function App() {
   // Dynamically update `messages` in response to the output of
   // `listMessages.ts`.
-  const messages = useQuery("listMessages") || [];
+  const messages = useQuery(convex.query("listMessages")) || [];
 
   // Run `sendMessage.ts` as a mutation to record a chat message when
   // `handleSendMessage` triggered.
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation("sendMessage");
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
     setNewMessageText(""); // reset text entry box
-    await sendMessage(newMessageText, randomName);
+    await convex.mutation("sendMessage").call(newMessageText, randomName);
   }
   return (
     <main className="py-4">

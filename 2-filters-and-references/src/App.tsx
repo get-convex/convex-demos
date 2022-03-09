@@ -1,8 +1,11 @@
 import { useState, FormEvent } from "react";
-import { Id } from "@convex-dev/react";
+import { ReactClient, Id, useQuery } from "@convex-dev/react";
 import { Message } from "./common";
-import { useMutation, useQuery } from "../convex/_generated";
 
+// Initialize Convex Client and connect to server in convex.json.
+import convexConfig from "../convex.json";
+
+const convex = new ReactClient(convexConfig.origin);
 const randomName = "User " + Math.floor(Math.random() * 10000);
 
 // Render a chat message.
@@ -18,8 +21,8 @@ function MessageView(props: { message: Message }) {
 function ChatBox(props: { channelId: Id }) {
   // Dynamically update `messages` in response to the output of
   // `listMessages.ts`.
-  const messages = useQuery("listMessages", props.channelId) || [];
-  const sendMessage = useMutation("sendMessage");
+  const messages =
+    useQuery(convex.query("listMessages"), props.channelId) || [];
 
   // Run `sendMessage.ts` as a mutation to record a chat message when
   // `handleSendMessage` triggered.
@@ -27,7 +30,9 @@ function ChatBox(props: { channelId: Id }) {
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
     setNewMessageText(""); // reset text entry box
-    await sendMessage(props.channelId, newMessageText, randomName);
+    await convex
+      .mutation("sendMessage")
+      .call(props.channelId, newMessageText, randomName);
   }
 
   return (
@@ -69,7 +74,7 @@ function ChatBox(props: { channelId: Id }) {
 export default function App() {
   // Dynamically update `channels` in response to the output of
   // `listChannels.ts`.
-  const channels = useQuery("listChannels") || [];
+  const channels = useQuery(convex.query("listChannels")) || [];
 
   // Records the Convex document ID for the currently selected channel.
   const [channelId, setChannelId] = useState<Id>();
@@ -78,12 +83,10 @@ export default function App() {
   // `handleAddChannel` is triggered.
   const [newChannelName, setNewChannelName] = useState("");
 
-  const addChannel = useMutation("addChannel");
-
   async function handleAddChannel(event: FormEvent) {
     event.preventDefault();
     setNewChannelName("");
-    let channel = await addChannel(newChannelName);
+    let channel = await convex.mutation("addChannel").call(newChannelName);
     setChannelId(channel._id);
   }
 
