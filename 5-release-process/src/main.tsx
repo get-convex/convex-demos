@@ -2,7 +2,15 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
+import { ConvexProvider, ReactClient } from "@convex-dev/react";
 import { Auth0Provider } from "@auth0/auth0-react";
+
+// Initialize Convex Client and connect to either dev or prod
+// deployments.
+import convexDevConfig from "../convex.json";
+import convexProdConfig from "../convex.prod.json";
+const convexConfig = import.meta.env.DEV ? convexDevConfig : convexProdConfig;
+const convex = new ReactClient(convexConfig.origin);
 
 ReactDOM.render(
   <StrictMode>
@@ -14,7 +22,9 @@ ReactDOM.render(
       // allows auth0 to cache the authentication state locally
       cacheLocation="localstorage"
     >
-      <App />
+      <ConvexProvider client={convex}>
+        <App />
+      </ConvexProvider>
     </Auth0Provider>
   </StrictMode>,
   document.getElementById("root")

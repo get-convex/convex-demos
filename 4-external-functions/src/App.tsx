@@ -1,12 +1,9 @@
 import { useState, FormEvent, useEffect } from "react";
-import { Id, ReactClient, useQuery } from "@convex-dev/react";
+import { Id } from "@convex-dev/react";
 import { Message } from "./common";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useMutation, useQuery, useConvex } from "../convex/_generated";
 
-// Initialize Convex Client and connect to server in convex.json.
-import convexConfig from "../convex.json";
-
-const convex = new ReactClient(convexConfig.origin);
 // Hello World.
 fetch("/.netlify/functions/hello", { headers: { Accept: "application/json" } })
   .then((response) => response.json())
@@ -37,8 +34,8 @@ function MessageView(props: { message: Message }) {
 function ChatBox(props: { channelId: Id; idToken: string | null }) {
   // Dynamically update `messages` in response to the output of
   // `listMessages.ts`.
-  const messages =
-    useQuery(convex.query("listMessages"), props.channelId) || [];
+  const messages = useQuery("listMessages", props.channelId) || [];
+  const sendMessage = useMutation("sendMessage");
 
   // Run `sendMessage.ts` as a mutation to record a chat message when
   // `handleSendMessage` triggered.
@@ -59,9 +56,7 @@ function ChatBox(props: { channelId: Id; idToken: string | null }) {
         }),
       });
     } else {
-      await convex
-        .mutation("sendMessage")
-        .call(props.channelId, "text", newMessageText);
+      await sendMessage(props.channelId, "text", newMessageText);
     }
   }
 
@@ -110,14 +105,12 @@ function LoginLogout() {
   if (isAuthenticated) {
     return (
       <div>
-        {/* We know that Auth0 provides the user's name, but it's worth checking
-        depending on the provider. */}
+        {/* We know that Auth0 provides the user's name, but another provider
+        might not. */}
         <p>Logged in as {user!.name}</p>
         <button
           className="btn btn-primary"
-          onClick={() => {
-            logout({ returnTo: window.location.origin });
-          }}
+          onClick={() => logout({ returnTo: window.location.origin })}
         >
           Log out
         </button>
@@ -135,6 +128,9 @@ function LoginLogout() {
 export default function App() {
   let { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const [userId, setUserId] = useState<Id | null>(null);
+  const convex = useConvex();
+  const storeUser = useMutation("storeUser");
+  const addChannel = useMutation("addChannel");
   const [idToken, setIdToken] = useState<string | null>(null);
   // Pass the ID token to the Convex client when logged in, and clear it when logged out.
   // After setting the ID token, call the `storeUser` mutation function to store
@@ -151,7 +147,7 @@ export default function App() {
         // Pass it to the Convex client.
         convex.setAuth(token);
         // Store the user in the database.
-        let id = await convex.mutation("storeUser").call();
+        let id = await storeUser();
         setUserId(id);
       });
     } else {
@@ -159,11 +155,11 @@ export default function App() {
       convex.clearAuth();
       setUserId(null);
     }
-  }, [isAuthenticated, isLoading, getIdTokenClaims]);
+  }, [isAuthenticated, isLoading, getIdTokenClaims, convex, storeUser]);
 
   // Dynamically update `channels` in response to the output of
   // `listChannels.ts`.
-  const channels = useQuery(convex.query("listChannels")) || [];
+  const channels = useQuery("listChannels") || [];
 
   // Records the Convex document ID for the currently selected channel.
   const [channelId, setChannelId] = useState<Id | null>(null);
@@ -175,7 +171,7 @@ export default function App() {
   async function handleAddChannel(event: FormEvent) {
     event.preventDefault();
     setNewChannelName("");
-    let channel = await convex.mutation("addChannel").call(newChannelName);
+    let channel = await addChannel(newChannelName);
     setChannelId(channel._id);
   }
 
@@ -224,7 +220,10 @@ export default function App() {
             />
           </form>
         </div>
-        {channelId ? <ChatBox channelId={channelId} idToken={idToken} /> : null}
+
+        {
+          channelId ? <ChatBox channelId={channelId} idToken={idToken} /> : null
+        }
       </div>
     </main>
   );

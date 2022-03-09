@@ -18,6 +18,10 @@ function giphyUrl(query: string) {
   );
 }
 
+interface GiphyResponse {
+  data: { embed_url: string };
+}
+
 // Post a GIF chat message corresponding to the query string.
 const handler: Handler = async (event, context) => {
   const params = JSON.parse(event.body!);
@@ -27,7 +31,7 @@ const handler: Handler = async (event, context) => {
 
   // Fetch GIF url from GIPHY.
   const gif = await fetch(giphyUrl(params.query))
-    .then((response) => response.json())
+    .then((response) => response.json() as Promise<GiphyResponse>)
     .then((json) => json.data.embed_url);
 
   // Write GIF url to Convex.
