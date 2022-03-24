@@ -1,8 +1,8 @@
-import { Handler } from "@netlify/functions";
 import { HTTPConvexClient, Id } from "@convex-dev/browser";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 import fetch from "node-fetch";
 
-import convexConfig from "../../convex.json";
+import convexConfig from "../convex.json";
 const convex = new HTTPConvexClient(convexConfig.origin);
 
 // Replace this with your own GIPHY key obtained at
@@ -23,24 +23,25 @@ interface GiphyResponse {
 }
 
 // Post a GIF chat message corresponding to the query string.
-const handler: Handler = async (event, context) => {
-  const params = JSON.parse(event.body!);
+export default async function handler(
+  request: VercelRequest,
+  response: VercelResponse
+) {
+  // The `VercelRequest` object automatically deserializes the request body
+  // according to the `Content-Type` headers, so we don't need to manually parse
+  // the JSON here.
+  const params = request.body;
   const channelId = Id.fromJSON(params.channel);
   const token = params.token;
   convex.setAuth(token);
 
   // Fetch GIF url from GIPHY.
   const gif = await fetch(giphyUrl(params.query))
-    .then((response) => response.json() as Promise<GiphyResponse>)
-    .then((json) => json.data.embed_url);
+    .then(response => response.json() as Promise<GiphyResponse>)
+    .then(json => json.data.embed_url);
 
   // Write GIF url to Convex.
-  await convex.mutation("sendMessage").call(channelId, "giphy", gif);
+  await convex.mutation("sendMessage")(channelId, "giphy", gif);
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(gif),
-  };
-};
-
-export { handler };
+  response.status(200).json(gif);
+}

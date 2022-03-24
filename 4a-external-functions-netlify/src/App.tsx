@@ -6,9 +6,9 @@ import { useMutation, useQuery, useConvex } from "../convex/_generated";
 
 // Hello World.
 fetch("/.netlify/functions/hello", { headers: { Accept: "application/json" } })
-  .then((response) => response.json())
-  .then((body) => console.log(body))
-  .catch((error) => console.log(error));
+  .then(response => response.json())
+  .then(body => console.log(body))
+  .catch(error => console.log(error));
 
 // Render a chat message.
 function MessageView(props: { message: Message }) {
@@ -81,7 +81,7 @@ function ChatBox(props: { channelId: Id; idToken: string | null }) {
       >
         <input
           value={newMessageText}
-          onChange={(event) => setNewMessageText(event.target.value)}
+          onChange={event => setNewMessageText(event.target.value)}
           className="form-control w-50"
           placeholder="Write a message…"
         />
@@ -140,7 +140,7 @@ export default function App() {
       return;
     }
     if (isAuthenticated) {
-      getIdTokenClaims().then(async (claims) => {
+      getIdTokenClaims().then(async claims => {
         // Get the raw ID token from the claims.
         let token = claims!.__raw;
         setIdToken(token);
@@ -207,7 +207,7 @@ export default function App() {
           >
             <input
               value={newChannelName}
-              onChange={(event) => setNewChannelName(event.target.value)}
+              onChange={event => setNewChannelName(event.target.value)}
               className="form-control w-50"
               placeholder="Add a channel..."
               disabled={userId === null}

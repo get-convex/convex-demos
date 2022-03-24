@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "@convex-dev/react": "0.0.56",
-    "@convex-dev/browser": "0.0.56",
-    "@convex-dev/server": "0.0.56",
+    "@convex-dev/react": "0.0.62",
+    "@convex-dev/browser": "0.0.62",
+    "@convex-dev/server": "0.0.62",
     "@netlify/functions": "^1.0.0",
     "bootstrap": "^5.0.2",
     "node-fetch": "^2.6.1",
@@ -19,7 +19,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@convex-dev/cli": "0.0.56",
+    "@convex-dev/cli": "0.0.62",
     "@types/node": "~16.11.12",
     "@types/node-fetch": "^2.5.3",
     "@types/react": "^17.0.19",

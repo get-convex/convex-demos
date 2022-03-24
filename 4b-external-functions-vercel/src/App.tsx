@@ -4,6 +4,12 @@ import { Message } from "./common";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery, useConvex } from "../convex/_generated";
 
+// Hello World.
+fetch("/api/hello")
+  .then(response => response.text())
+  .then(text => console.log(text))
+  .catch(error => console.log(error));
+
 // Render a chat message.
 function MessageView(props: { message: Message }) {
   const message = props.message;
@@ -38,11 +44,12 @@ function ChatBox(props: { channelId: Id; idToken: string | null }) {
     event.preventDefault();
     setNewMessageText(""); // reset text entry box
 
-    // If a /giphy command is entered call into the Netlify function to post
+    // If a /giphy command is entered call into the Vercel function to post
     // relevant GIF to channel.
     if (newMessageText.startsWith("/giphy ")) {
-      await fetch("/.netlify/functions/post-gif", {
+      await fetch("/api/post-gif", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           channel: props.channelId!.toJSON(),
           token: props.idToken,
@@ -99,8 +106,8 @@ function LoginLogout() {
   if (isAuthenticated) {
     return (
       <div>
-        {/* We know that Auth0 provides the user's name, but it's worth checking
-        depending on the provider. */}
+        {/* We know that Auth0 provides the user's name, but another provider
+        might not. */}
         <p>Logged in as {user!.name}</p>
         <button
           className="btn btn-primary"
@@ -214,7 +221,10 @@ export default function App() {
             />
           </form>
         </div>
-        {channelId ? <ChatBox channelId={channelId} idToken={idToken} /> : null}
+
+        {
+          channelId ? <ChatBox channelId={channelId} idToken={idToken} /> : null
+        }
       </div>
     </main>
   );

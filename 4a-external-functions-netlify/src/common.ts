@@ -1,8 +1,8 @@
-import { StrongRef, Id } from "@convex-dev/server";
+import { Id } from "@convex-dev/server";
 
 export type Message = {
   _id: Id;
-  channel: StrongRef;
+  channel: Id;
   format: string; // "text" or "giphy"
   body: string;
   author: string;

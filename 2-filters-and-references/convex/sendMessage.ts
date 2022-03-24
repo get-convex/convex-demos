@@ -7,7 +7,7 @@ export default async function sendMessage(
   author: string
 ) {
   const message = {
-    channel: channel.strongRef(),
+    channel,
     body,
     author,
     time: Date.now(),

@@ -51,7 +51,7 @@ function ChatBox(props: { channelId: Id }) {
       >
         <input
           value={newMessageText}
-          onChange={(event) => setNewMessageText(event.target.value)}
+          onChange={event => setNewMessageText(event.target.value)}
           className="form-control w-50"
           placeholder="Write a message…"
         />
@@ -117,7 +117,7 @@ export default function App() {
           >
             <input
               value={newChannelName}
-              onChange={(event) => setNewChannelName(event.target.value)}
+              onChange={event => setNewChannelName(event.target.value)}
               className="form-control w-50"
               placeholder="Add a channel..."
             />

@@ -50,7 +50,7 @@ function ChatBox(props: { channelId: Id }) {
       >
         <input
           value={newMessageText}
-          onChange={(event) => setNewMessageText(event.target.value)}
+          onChange={event => setNewMessageText(event.target.value)}
           className="form-control w-50"
           placeholder="Write a message…"
         />
@@ -108,7 +108,7 @@ export default function App() {
       return;
     }
     if (isAuthenticated) {
-      getIdTokenClaims().then(async (claims) => {
+      getIdTokenClaims().then(async claims => {
         // Get the raw ID token from the claims.
         let token = claims!.__raw;
         // Pass it to the Convex client.
@@ -176,7 +176,7 @@ export default function App() {
           >
             <input
               value={newChannelName}
-              onChange={(event) => setNewChannelName(event.target.value)}
+              onChange={event => setNewChannelName(event.target.value)}
               className="form-control w-50"
               placeholder="Add a channel..."
               disabled={userId === null}

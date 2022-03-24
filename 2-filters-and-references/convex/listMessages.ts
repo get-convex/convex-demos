@@ -1,13 +1,10 @@
-import { db, eq, field, Id } from "@convex-dev/server";
+import { db, Id } from "@convex-dev/server";
 import { Message } from "../src/common";
 
 // List all chat messages in the given channel.
 export default async function listMessages(channel: Id): Promise<Message[]> {
-  if (channel === null) {
-    return [];
-  }
   return await db
     .table("messages")
-    .filter(eq(field("channel"), channel.strongRef()))
+    .filter(q => q.eq(q.field("channel"), channel))
     .collect();
 }

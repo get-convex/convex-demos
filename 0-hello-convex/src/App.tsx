@@ -3,8 +3,8 @@ import { useQuery, useMutation } from "../convex/_generated";
 export default function App() {
   // Watch the results of the Convex function `getCounter`.
   const counter = useQuery("getCounter") ?? 0;
-  const increment = useMutation("incrementCounter");
 
+  const increment = useMutation("incrementCounter");
   function incrementCounter() {
     // Execute the Convex function `incrementCounter` as a mutation
     // that updates the counter value.

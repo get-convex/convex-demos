@@ -12,10 +12,10 @@ export default async function sendMessage(
   }
   const user = await db
     .table("users")
-    .filter(q => q.eq(q.field("tokenIdentifier"), identity!.tokenIdentifier))
+    .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier))
     .unique();
   const message = {
-    channel,
+    channel: channel,
     format,
     body,
     time: Date.now(),
