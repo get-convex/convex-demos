@@ -1,8 +1,8 @@
-import { db, Id } from "@convex-dev/server";
+import { query, Id } from "@convex-dev/server";
 import { Message } from "../src/common";
 
 // List all chat messages in the given channel.
-export default async function listMessages(channel: Id): Promise<Message[]> {
+export default query(async ({ db }, channel: Id): Promise<Message[]> => {
   const messages = await db
     .table("messages")
     .filter(q => q.eq(q.field("channel"), channel))
@@ -22,4 +22,4 @@ export default async function listMessages(channel: Id): Promise<Message[]> {
       }
     })
   );
-}
+});

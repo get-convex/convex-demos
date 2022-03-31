@@ -1,16 +1,16 @@
-import { dbWriter } from "@convex-dev/server";
+import { mutation } from "@convex-dev/server";
 
-export default async function incrementCounter(increment: number) {
-  let counterDoc = await dbWriter.table("counter_table").first();
+export default mutation(async ({ db }, increment: number) => {
+  let counterDoc = await db.table("counter_table").first();
   if (counterDoc === null) {
     counterDoc = {
       counter: increment,
     };
-    await dbWriter.insert("counter_table", counterDoc);
+    db.insert("counter_table", counterDoc);
   } else {
     counterDoc.counter += increment;
-    await dbWriter.update(counterDoc._id, counterDoc);
+    db.update(counterDoc._id, counterDoc);
   }
   // Like console.log but relays log messages from the server to client.
   console.log(`Value of counter is now ${counterDoc.counter}`);
-}
+});

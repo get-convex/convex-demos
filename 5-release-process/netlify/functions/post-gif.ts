@@ -1,9 +1,9 @@
 import { Handler } from "@netlify/functions";
-import { HTTPConvexClient, Id } from "@convex-dev/browser";
+import { ConvexHttpClient, Id } from "@convex-dev/browser";
 import fetch from "node-fetch";
 
 import convexConfig from "../../convex.json";
-const convex = new HTTPConvexClient(convexConfig.origin);
+const convex = new ConvexHttpClient(convexConfig.origin);
 
 // Replace this with your own GIPHY key obtained at
 // https://developers.giphy.com/ -> Create Account.

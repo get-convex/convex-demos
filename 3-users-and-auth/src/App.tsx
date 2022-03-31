@@ -140,8 +140,8 @@ export default function App() {
   async function handleAddChannel(event: FormEvent) {
     event.preventDefault();
     setNewChannelName("");
-    let channel = await addChannel(newChannelName);
-    setChannelId(channel._id);
+    let id = await addChannel(newChannelName);
+    setChannelId(id);
   }
 
   return (
