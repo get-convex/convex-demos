@@ -1,4 +1,5 @@
-import { ConvexHttpClient, Id } from "@convex-dev/browser";
+import { ConvexHttpClient } from "convex-dev/browser";
+import { Id } from "convex-dev/values";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import fetch from "node-fetch";
 

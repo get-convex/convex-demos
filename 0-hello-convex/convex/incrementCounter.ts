@@ -1,4 +1,4 @@
-import { mutation } from "@convex-dev/server";
+import { mutation } from "convex-dev/server";
 
 export default mutation(async ({ db }, increment: number) => {
   let counterDoc = await db.table("counter_table").first();

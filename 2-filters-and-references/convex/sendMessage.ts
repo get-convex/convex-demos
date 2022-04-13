@@ -1,4 +1,5 @@
-import { mutation, Id } from "@convex-dev/server";
+import { mutation } from "convex-dev/server";
+import { Id } from "convex-dev/values";
 
 // Send a message to the given chat channel.
 export default mutation(({ db }, channel: Id, body: string, author: string) => {

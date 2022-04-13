@@ -1,4 +1,4 @@
-import { query } from "@convex-dev/server";
+import { query } from "convex-dev/server";
 
 export default query(async ({ db }): Promise<number> => {
   let counterDoc = await db.table("counter_table").first();

@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import { ConvexProvider, ConvexReactClient } from "@convex-dev/react";
+import { ConvexProvider, ConvexReactClient } from "convex-dev/react";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 // Initialize Convex Client and connect to either dev or prod

@@ -1,5 +1,6 @@
 import { Handler } from "@netlify/functions";
-import { ConvexHttpClient, Id } from "@convex-dev/browser";
+import { ConvexHttpClient } from "convex-dev/browser";
+import { Id } from "convex-dev/values";
 import fetch from "node-fetch";
 
 import convexConfig from "../../convex.json";

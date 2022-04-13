@@ -1,4 +1,4 @@
-import { query } from "@convex-dev/server";
+import { query } from "convex-dev/server";
 import { Message } from "../src/common";
 
 // List all chat messages.
