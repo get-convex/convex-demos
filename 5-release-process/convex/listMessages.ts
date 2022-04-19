@@ -13,7 +13,7 @@ export default query(async ({ db }, channel: Id): Promise<Message[]> => {
       // For each message in this channel, fetch the `User` who wrote it and
       // insert their name into the `author` field.
       if (message.user) {
-        const user = await db.get(message.user.id());
+        const user = await db.get(message.user);
         return {
           author: user.name,
           ...message,
