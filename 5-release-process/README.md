@@ -1,12 +1,12 @@
 # 5-release-process
 
-This example implements handling for multiple deployments of the same project to
-different convex instances.
+This example demonstrates how to create multiple Convex deployments for the same
+project.
 
-The project is built with [React](https://reactjs.org/) and
+The app is built with [React](https://reactjs.org/) and
 [TypeScript](https://www.typescriptlang.org/), bundled using
-[Vite](https://vitejs.dev/). It connects to a Convex server running at the
-origin specified in `convex.json` using the JavaScript SDK.
+[Vite](https://vitejs.dev/). It connects to a Convex deployment using the React
+client.
 
 ## Documentation
 
@@ -20,12 +20,12 @@ Convex SDK/CLI.
 
 Initialize a convex project using `npx convex init --beta-key <your beta key>`.
 Initialize a second convex deployment
-`npx convex init --beta-key <your beta key> --deployment prod`.
+`npx convex init --beta-key <your beta key> --deployment-type prod`.
 
 Before you can interact with the Convex Cloud you need to first deploy your
 `/convex` functions with `npx convex push` and
-`npx convex push --deployment prod`. These command should be re-run any time
-these functions are changed.
+`npx convex push --deployment-type prod`. These command should be re-run any
+time these functions are changed.
 
 Deploy your Convex app to Netlify following the
 [Deployment tutorial](https://docs.convex.dev/getting-started/deployment/hosting).

@@ -66,7 +66,7 @@ function ChatBox(props: { channelId: Id }) {
 }
 
 function LoginLogout() {
-  let { isAuthenticated, isLoading, loginWithRedirect, logout, user } =
+  const { isAuthenticated, isLoading, loginWithRedirect, logout, user } =
     useAuth0();
   if (isLoading) {
     return <button className="btn btn-primary">Loading...</button>;
@@ -95,7 +95,7 @@ function LoginLogout() {
 }
 
 export default function App() {
-  let { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
+  const { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const [userId, setUserId] = useState<Id | null>(null);
   const convex = useConvex();
   const storeUser = useMutation("storeUser");
@@ -110,13 +110,13 @@ export default function App() {
     if (isAuthenticated) {
       getIdTokenClaims().then(async claims => {
         // Get the raw ID token from the claims.
-        let token = claims!.__raw;
+        const token = claims!.__raw;
         // Pass it to the Convex client.
         convex.setAuth(token);
         // Store the user in the database.
         // Recall that `storeUser` gets the user information via the `auth`
         // object on the server. You don't need to pass anything manually here.
-        let id = await storeUser();
+        const id = await storeUser();
         setUserId(id);
       });
     } else {
@@ -140,7 +140,7 @@ export default function App() {
   async function handleAddChannel(event: FormEvent) {
     event.preventDefault();
     setNewChannelName("");
-    let id = await addChannel(newChannelName);
+    const id = await addChannel(newChannelName);
     setChannelId(id);
   }
 

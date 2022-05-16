@@ -4,10 +4,10 @@ This example integrates an authentication provider (Auth0) with the chat demo
 from the previous example,
 [`2-filters-and-references`](https://github.com/get-convex/convex-demos/tree/main/2-filters-and-references).
 
-The project is built with [React](https://reactjs.org/) and
+The app is built with [React](https://reactjs.org/) and
 [TypeScript](https://www.typescriptlang.org/), bundled using
-[Vite](https://vitejs.dev/). It connects to a Convex server running at the
-origin specified in `convex.json` using the JavaScript SDK.
+[Vite](https://vitejs.dev/). It connects to a Convex deployment running at the
+origin specified in `convex.json` using the React client.
 
 ## Documentation
 

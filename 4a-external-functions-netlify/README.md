@@ -3,10 +3,10 @@
 This example implements a Netlify function that calls out to a third party
 (GIPHY) and writes to Convex.
 
-The project is built with [React](https://reactjs.org/) and
+The app is built with [React](https://reactjs.org/) and
 [TypeScript](https://www.typescriptlang.org/), bundled using
-[Vite](https://vitejs.dev/). It connects to a Convex server running at the
-origin specified in `convex.json` using the JavaScript SDK.
+[Vite](https://vitejs.dev/). It connects to a Convex deployment running at the
+origin specified in `convex.json` using the React client.
 
 ## Documentation
 

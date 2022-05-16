@@ -1,11 +1,11 @@
 # 2-filters-and-references
 
-This example uses the Convex SDK to build a multi-channel real-time chat app.
+This example uses the Convex SDK to build a multi-channel realtime chat app.
 
-The project is built with [React](https://reactjs.org/) and
+The app is built with [React](https://reactjs.org/) and
 [TypeScript](https://www.typescriptlang.org/), bundled using
-[Vite](https://vitejs.dev/). It connects to a Convex server running at the
-origin specified in `convex.json` using the JavaScript SDK.
+[Vite](https://vitejs.dev/). It connects to a Convex deployment running at the
+origin specified in `convex.json` using the React client.
 
 ## Documentation
 
