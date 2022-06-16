@@ -12,7 +12,7 @@ origin specified in `convex.json` using the React client.
 ## Documentation
 
 This directory serves as the end state for the
-[Users and Authentication](https://docs.convex.dev/getting-started/basics/users-and-authentication)
+[Users and Authentication](https://docs.convex.dev/getting-started/basics/users-and-auth)
 tutorial.
 
 ## Running

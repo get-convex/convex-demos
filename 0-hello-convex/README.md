@@ -10,7 +10,7 @@ origin specified in `convex.json` using the React client.
 ## Documentation
 
 This directory serves as the basis for the
-[Hello Convex tutorial](https://docs.convex.dev/getting-started/basics/hello-convex).
+[Hello Convex tutorial](https://docs.convex.dev/getting-started/hello-convex).
 
 ## Running
 

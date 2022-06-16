@@ -11,7 +11,7 @@ client.
 ## Documentation
 
 This directory serves as the basis for the
-[Relase Process tutorial](https://docs.convex.dev/getting-started/release-process).
+[Relase Process tutorial](https://docs.convex.dev/getting-started/deployment/release-process).
 
 ## Running
 
