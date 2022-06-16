@@ -1,4 +1,4 @@
-import { mutation } from "convex-dev/server";
+import { mutation } from "./_generated/server";
 
 export default mutation(async ({ db }, increment: number) => {
   let counterDoc = await db.table("counter_table").first();
@@ -9,7 +9,7 @@ export default mutation(async ({ db }, increment: number) => {
     db.insert("counter_table", counterDoc);
   } else {
     counterDoc.counter += increment;
-    db.update(counterDoc._id, counterDoc);
+    db.replace(counterDoc._id, counterDoc);
   }
   // Like console.log but relays log messages from the server to client.
   console.log(`Value of counter is now ${counterDoc.counter}`);

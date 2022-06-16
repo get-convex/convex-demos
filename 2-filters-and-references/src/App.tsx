@@ -1,7 +1,7 @@
 import { useState, FormEvent } from "react";
 import { Id } from "convex-dev/values";
 import { Message } from "./common";
-import { useMutation, useQuery } from "../convex/_generated";
+import { useMutation, useQuery } from "../convex/_generated/react";
 
 const randomName = "User " + Math.floor(Math.random() * 10000);
 

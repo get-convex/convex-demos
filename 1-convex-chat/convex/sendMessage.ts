@@ -1,4 +1,4 @@
-import { mutation } from "convex-dev/server";
+import { mutation } from "./_generated/server";
 
 // Send a chat message.
 export default mutation(({ db }, body: string, author: string) => {

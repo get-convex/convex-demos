@@ -1,6 +1,6 @@
 # 0-hello-convex
 
-This example uses the Convex SDK to build a basic counter application.
+This example uses Convex to build a basic counter application.
 
 The app is built with [React](https://reactjs.org/) and
 [TypeScript](https://www.typescriptlang.org/), bundled using
@@ -15,7 +15,7 @@ This directory serves as the basis for the
 ## Running
 
 First run `npm install` to pull in the required dependencies including the
-Convex SDK/CLI.
+Convex npm package.
 
 Initialize a convex project using `npx convex init --beta-key <your beta key>`.
 

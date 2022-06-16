@@ -18,7 +18,7 @@ tutorial.
 ## Running
 
 First run `npm install` to pull in the required dependencies including the
-Convex SDK/CLI.
+Convex npm package.
 
 Initialize a convex project using `npx convex init --beta-key <your beta key>`.
 

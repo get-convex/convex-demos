@@ -1,6 +1,6 @@
 # 2-filters-and-references
 
-This example uses the Convex SDK to build a multi-channel realtime chat app.
+This example uses Convex to build a multi-channel realtime chat app.
 
 The app is built with [React](https://reactjs.org/) and
 [TypeScript](https://www.typescriptlang.org/), bundled using
@@ -15,7 +15,7 @@ This directory serves as the basis for the
 ## Running
 
 First run `npm install` to pull in the required dependencies including the
-Convex SDK/CLI.
+Convex npm package.
 
 Initialize a convex project using `npx convex init --beta-key <your beta key>`.
 

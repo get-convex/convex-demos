@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from "../convex/_generated";
+import { useQuery, useMutation } from "../convex/_generated/react";
 
 export default function App() {
   // Watch the results of the Convex function `getCounter`.

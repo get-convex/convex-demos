@@ -1,4 +1,4 @@
-import { mutation } from "convex-dev/server";
+import { mutation } from "./_generated/server";
 import { Id } from "convex-dev/values";
 import { User } from "../src/common";
 
@@ -28,10 +28,9 @@ export default mutation(async ({ db, auth }): Promise<Id> => {
     .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier))
     .first();
   if (user !== null) {
-    // If we've seen this identity before but the name has changed, update the value.
+    // If we've seen this identity before but the name has changed, patch the value.
     if (user.name != identity.name) {
-      user.name = identity.name!;
-      db.update(user._id, user);
+      db.patch(user._id, { name: identity.name! });
     }
     return user._id;
   }
