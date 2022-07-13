@@ -18,9 +18,11 @@ This directory serves as the basis for the
 First run `npm install` to pull in the required dependencies including the
 Convex npm package.
 
-Initialize a convex project using `npx convex init --beta-key <your beta key>`.
-Initialize a second convex deployment
-`npx convex init --beta-key <your beta key> --deployment-type prod`.
+Login with `npx convex login`.
+
+Initialize a convex project using `npx convex init`.
+
+Initialize a second convex deployment `npx convex init --deployment-type prod`.
 
 Before you can interact with the Convex Cloud you need to first deploy your
 `/convex` functions with `npx convex push` and
