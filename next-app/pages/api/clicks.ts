@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import convexConfig from "../../convex.json";
-import { ConvexHttpClient } from "convex-dev/browser";
+import { ConvexHttpClient } from "convex/browser";
 
 const convex = new ConvexHttpClient(convexConfig.origin);
 type Data = {

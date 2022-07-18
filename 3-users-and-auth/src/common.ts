@@ -1,4 +1,4 @@
-import { Id } from "convex-dev/values";
+import { Id } from "convex/values";
 
 export type Message = {
   _id: Id;

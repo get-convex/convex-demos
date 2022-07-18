@@ -1,5 +1,5 @@
 import { mutation } from "./_generated/server";
-import { Id } from "convex-dev/values";
+import { Id } from "convex/values";
 import { User } from "../src/common";
 
 // Insert or update the user in a Convex table then return the document's Id.

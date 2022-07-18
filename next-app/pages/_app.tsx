@@ -3,8 +3,8 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-import { ConvexReactClient } from "convex-dev/react";
-import { ConvexProviderWithAuth0 } from "convex-dev/react-auth0";
+import { ConvexReactClient } from "convex/react";
+import { ConvexProviderWithAuth0 } from "convex/react-auth0";
 import convexConfig from "../convex.json";
 import { useAuth0 } from "@auth0/auth0-react";
 const convex = new ConvexReactClient(convexConfig.origin);

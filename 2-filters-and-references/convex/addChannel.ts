@@ -1,5 +1,5 @@
 import { mutation } from "./_generated/server";
-import { Id } from "convex-dev/values";
+import { Id } from "convex/values";
 
 // Create a new chat channel.
 export default mutation(({ db }, name: string): Id => {

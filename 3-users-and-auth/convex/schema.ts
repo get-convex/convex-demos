@@ -1,4 +1,4 @@
-import { defineSchema, defineTable, s } from "convex-dev/schema";
+import { defineSchema, defineTable, s } from "convex/schema";
 
 export default defineSchema({
   channels: defineTable({

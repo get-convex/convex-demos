@@ -1,5 +1,5 @@
 import { useState, FormEvent, useEffect } from "react";
-import { Id } from "convex-dev/values";
+import { Id } from "convex/values";
 import { Message } from "./common";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery, useConvex } from "../convex/_generated/react";

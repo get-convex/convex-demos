@@ -4,7 +4,7 @@
 
 import type { AppProps } from "next/app";
 
-import { ConvexProvider, ConvexReactClient } from "convex-dev/react";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import convexConfig from "../convex.json";
 const convex = new ConvexReactClient(convexConfig.origin);
 

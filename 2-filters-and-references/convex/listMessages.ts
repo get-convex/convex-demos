@@ -1,5 +1,5 @@
 import { query } from "./_generated/server";
-import { Id } from "convex-dev/values";
+import { Id } from "convex/values";
 import { Message } from "../src/common";
 
 // List all chat messages in the given channel.

@@ -5,10 +5,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with
 npx create-next-app@latest --ts
 ```
 
-After creating the project, convex-dev was installed:
+After creating the project, convex was installed:
 
 ```bash
-npm install convex-dev.
+npm install convex.
 ```
 
 Convex functions were added to the `convex/` directory and a provider was added

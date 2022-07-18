@@ -5,8 +5,8 @@
 
 import type { AppProps } from "next/app";
 
-import { ConvexReactClient } from "convex-dev/react";
-import { ConvexProviderWithAuth0 } from "convex-dev/react-auth0";
+import { ConvexReactClient } from "convex/react";
+import { ConvexProviderWithAuth0 } from "convex/react-auth0";
 import convexConfig from "../convex.json";
 
 const convex = new ConvexReactClient(convexConfig.origin);
