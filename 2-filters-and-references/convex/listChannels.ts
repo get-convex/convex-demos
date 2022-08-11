@@ -1,7 +1,7 @@
+import { Document } from "./_generated/dataModel";
 import { query } from "./_generated/server";
-import { Channel } from "../src/common";
 
 // List all chat channels.
-export default query(async function listChannels({ db }): Promise<Channel[]> {
+export default query(async ({ db }): Promise<Document<"channels">[]> => {
   return await db.table("channels").collect();
 });

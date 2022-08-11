@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && tsc && vite build",
+    "build": "shx rm -rf dist && tsc && vite build",
     "clean": "",
     "serve": "vite preview"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "convex": "0.1.6",
+    "convex": "0.1.7",
     "bootstrap": "^5.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -19,6 +19,7 @@
     "@types/react-dom": "^17.0.17",
     "@vitejs/plugin-react": "^1.3.1",
     "typescript": "~4.7.4",
-    "vite": "^2.3.8"
+    "vite": "^2.3.8",
+    "shx": "~0.3.4"
   }
 }

@@ -1,9 +1,14 @@
+import { Id } from "./_generated/dataModel";
 import { mutation } from "./_generated/server";
-import { Id } from "convex/values";
 
 // Send a message to the given chat channel.
 export default mutation(
-  async ({ db, auth }, channel: Id, format: string, body: string) => {
+  async (
+    { db, auth },
+    channel: Id<"channels">,
+    format: string,
+    body: string
+  ) => {
     const identity = await auth.getUserIdentity();
     if (!identity) {
       throw new Error("Unauthenticated call to sendMessage");
@@ -16,7 +21,6 @@ export default mutation(
       channel,
       format,
       body,
-      time: Date.now(),
       user: user._id,
     };
     db.insert("messages", message);

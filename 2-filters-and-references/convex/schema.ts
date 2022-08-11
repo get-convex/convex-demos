@@ -5,12 +5,8 @@ export default defineSchema({
     name: s.string(),
   }),
   messages: defineTable({
+    author: s.string(),
     body: s.string(),
     channel: s.id("channels"),
-    user: s.id("users"),
-  }),
-  users: defineTable({
-    name: s.string(),
-    tokenIdentifier: s.string(),
   }),
 });

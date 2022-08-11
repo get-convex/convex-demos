@@ -1,6 +1,5 @@
+import { Document, Id } from "./_generated/dataModel";
 import { mutation } from "./_generated/server";
-import { Id } from "convex/values";
-import { User } from "../src/common";
 
 // Insert or update the user in a Convex table then return the document's Id.
 //
@@ -17,14 +16,14 @@ import { User } from "../src/common";
 // presence of which depends on the identity provider chosen. It's up to the
 // application developer to determine which ones are available and to decide
 // which of those need to be persisted.
-export default mutation(async ({ db, auth }): Promise<Id> => {
+export default mutation(async ({ db, auth }): Promise<Id<"users">> => {
   const identity = await auth.getUserIdentity();
   if (!identity) {
     throw new Error("Called storeUser without authentication present");
   }
 
   // Check if we've already stored this identity before.
-  const user: User | null = await db
+  const user: Document<"users"> | null = await db
     .table("users")
     .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier))
     .first();

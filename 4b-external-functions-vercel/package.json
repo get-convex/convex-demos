@@ -3,13 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "rm -rf dist && tsc && vite build",
+    "build": "shx rm -rf dist && tsc && vite build",
     "clean": "",
     "serve": "vite preview"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "convex": "0.1.6",
+    "convex": "0.1.7",
     "bootstrap": "^5.0.2",
     "node-fetch": "^2.6.1",
     "react": "^17.0.2",
@@ -27,6 +27,7 @@
     "@vercel/build-utils": "^5.0.0",
     "@vercel/frameworks": "^1.0.0",
     "@vercel/routing-utils": "^1.12.0",
-    "@types/glob": "^7.2.0"
+    "@types/glob": "^7.2.0",
+    "shx": "~0.3.4"
   }
 }

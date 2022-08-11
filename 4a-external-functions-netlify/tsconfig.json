@@ -15,5 +15,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["./src", "./convex", "./netlify/functions"]
+  "include": ["./src", "./netlify/functions"]
 }

@@ -1,11 +1,11 @@
 import { useState, FormEvent } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
-import { Message } from "./common";
+import { Document } from "../convex/_generated/dataModel";
 
 const randomName = "User " + Math.floor(Math.random() * 10000);
 
 // Render a chat message.
-function MessageView(props: { message: Message }) {
+function MessageView(props: { message: Document<"messages"> }) {
   const message = props.message;
   return (
     <div>
@@ -42,7 +42,7 @@ export default function App() {
           >
             <MessageView message={message} />
             <div className="ml-auto text-secondary text-nowrap">
-              {new Date(message.time).toLocaleTimeString()}
+              {new Date(message._creationTime).toLocaleTimeString()}
             </div>
           </li>
         ))}

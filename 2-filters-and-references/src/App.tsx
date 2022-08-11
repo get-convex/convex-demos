@@ -1,12 +1,11 @@
 import { useState, FormEvent } from "react";
-import { Id } from "convex/values";
-import { Message } from "./common";
+import { Document, Id } from "../convex/_generated/dataModel";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
 const randomName = "User " + Math.floor(Math.random() * 10000);
 
 // Render a chat message.
-function MessageView(props: { message: Message }) {
+function MessageView(props: { message: Document<"messages"> }) {
   const message = props.message;
   return (
     <div>
@@ -15,7 +14,7 @@ function MessageView(props: { message: Message }) {
   );
 }
 
-function ChatBox(props: { channelId: Id }) {
+function ChatBox(props: { channelId: Id<"channels"> }) {
   // Dynamically update `messages` in response to the output of
   // `listMessages.ts`.
   const messages = useQuery("listMessages", props.channelId) || [];
@@ -40,7 +39,7 @@ function ChatBox(props: { channelId: Id }) {
           >
             <MessageView message={message} />
             <div className="ml-auto text-secondary text-nowrap">
-              {new Date(message.time).toLocaleTimeString()}
+              {new Date(message._creationTime).toLocaleTimeString()}
             </div>
           </li>
         ))}
@@ -72,7 +71,7 @@ export default function App() {
   const channels = useQuery("listChannels") || [];
 
   // Records the Convex document ID for the currently selected channel.
-  const [channelId, setChannelId] = useState<Id>();
+  const [channelId, setChannelId] = useState<Id<"channels">>();
 
   // Run `addChannel.ts` as a mutation to create a new channel when
   // `handleAddChannel` is triggered.
@@ -97,9 +96,9 @@ export default function App() {
       <div className="main-content">
         <div className="channel-box">
           <div className="list-group shadow-sm my-3">
-            {channels.map((channel: any) => (
+            {channels.map(channel => (
               <a
-                key={channel._id}
+                key={channel._id.toString()}
                 className="list-group-item channel-item d-flex justify-content-between"
                 style={{
                   display: "block",

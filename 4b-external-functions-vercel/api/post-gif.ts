@@ -1,9 +1,9 @@
 import { ConvexHttpClient } from "convex/browser";
-import { Id } from "convex/values";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import fetch from "node-fetch";
-
 import convexConfig from "../convex.json";
+import { Id } from "../convex/_generated/dataModel";
+
 const convex = new ConvexHttpClient(convexConfig.origin);
 
 // Replace this with your own GIPHY key obtained at
@@ -32,7 +32,7 @@ export default async function handler(
   // according to the `Content-Type` headers, so we don't need to manually parse
   // the JSON here.
   const params = request.body;
-  const channelId = Id.fromJSON(params.channel);
+  const channelId = new Id("channels", params.channel);
   const token = params.token;
   convex.setAuth(token);
 

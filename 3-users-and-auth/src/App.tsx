@@ -1,11 +1,11 @@
 import { useState, FormEvent, useEffect } from "react";
-import { Id } from "convex/values";
-import { Message } from "./common";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "../convex/_generated/react";
+import type { MessageWithAuthor } from "../convex/listMessages";
+import { Id } from "../convex/_generated/dataModel";
 
 // Render a chat message.
-function MessageView(props: { message: Message }) {
+function MessageView(props: { message: MessageWithAuthor }) {
   const message = props.message;
   return (
     <div>
@@ -14,7 +14,7 @@ function MessageView(props: { message: Message }) {
   );
 }
 
-function ChatBox(props: { channelId: Id }) {
+function ChatBox(props: { channelId: Id<"channels"> }) {
   // Dynamically update `messages` in response to the output of
   // `listMessages.ts`.
   const messages = useQuery("listMessages", props.channelId) || [];
@@ -32,14 +32,14 @@ function ChatBox(props: { channelId: Id }) {
   return (
     <div className="chat-box">
       <ul className="list-group shadow-sm my-3">
-        {messages.slice(-10).map((message: any) => (
+        {messages.slice(-10).map(message => (
           <li
-            key={message._id}
+            key={message._id.toString()}
             className="list-group-item d-flex justify-content-between"
           >
             <MessageView message={message} />
             <div className="ml-auto text-secondary text-nowrap">
-              {new Date(message.time).toLocaleTimeString()}
+              {new Date(message._creationTime).toLocaleTimeString()}
             </div>
           </li>
         ))}
@@ -101,7 +101,7 @@ export function Login() {
 }
 
 export default function App() {
-  const [userId, setUserId] = useState<Id | null>(null);
+  const [userId, setUserId] = useState<Id<"users"> | null>(null);
   const storeUser = useMutation("storeUser");
   const addChannel = useMutation("addChannel");
   // Call the `storeUser` mutation function to store
@@ -123,7 +123,7 @@ export default function App() {
   const channels = useQuery("listChannels") || [];
 
   // Records the Convex document ID for the currently selected channel.
-  const [channelId, setChannelId] = useState<Id | null>(null);
+  const [channelId, setChannelId] = useState<Id<"channels"> | null>(null);
 
   // Run `addChannel.ts` as a mutation to create a new channel when
   // `handleAddChannel` is triggered.
@@ -148,9 +148,9 @@ export default function App() {
       <div className="main-content">
         <div className="channel-box">
           <div className="list-group shadow-sm my-3">
-            {channels.map((channel: any) => (
+            {channels.map(channel => (
               <a
-                key={channel._id}
+                key={channel._id.toString()}
                 className="list-group-item channel-item d-flex justify-content-between"
                 style={{
                   display: "block",

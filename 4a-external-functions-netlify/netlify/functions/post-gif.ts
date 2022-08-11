@@ -1,9 +1,9 @@
 import { Handler } from "@netlify/functions";
 import { ConvexHttpClient } from "convex/browser";
-import { Id } from "convex/values";
 import fetch from "node-fetch";
-
 import convexConfig from "../../convex.json";
+import { Id } from "../../convex/_generated/dataModel";
+
 const convex = new ConvexHttpClient(convexConfig.origin);
 
 // Replace this with your own GIPHY key obtained at
@@ -26,7 +26,7 @@ interface GiphyResponse {
 // Post a GIF chat message corresponding to the query string.
 const handler: Handler = async (event, context) => {
   const params = JSON.parse(event.body!);
-  const channelId = Id.fromJSON(params.channel);
+  const channelId = new Id("channels", params.channel);
   const token = params.token;
   convex.setAuth(token);
 
