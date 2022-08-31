@@ -1,7 +1,7 @@
 import { mutation } from "./_generated/server";
 
 export default mutation(async ({ db }, increment: number) => {
-  let counterDoc = await db.table("counter_table").first();
+  const counterDoc = await db.table("counter_table").first();
   if (counterDoc === null) {
     db.insert("counter_table", {
       counter: increment,

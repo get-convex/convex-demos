@@ -5,9 +5,11 @@ import styles from "../styles/Home.module.css";
 
 import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithAuth0 } from "convex/react-auth0";
-import convexConfig from "../convex.json";
 import { useAuth0 } from "@auth0/auth0-react";
-const convex = new ConvexReactClient(convexConfig.origin);
+import convexConfig from "../convex.json";
+import clientConfig from "../convex/_generated/clientConfig";
+
+const convex = new ConvexReactClient(clientConfig);
 const authInfo = convexConfig.authInfo[0];
 
 export default function MyApp({ Component, pageProps }: AppProps) {

@@ -7,7 +7,7 @@ export default defineSchema({
   messages: defineTable({
     body: s.string(),
     channel: s.id("channels"),
-    format: s.string(), // "text" or "giphy"
+    format: s.union(s.literal("text"), s.literal("giphy")),
     user: s.id("users"),
   }),
   users: defineTable({

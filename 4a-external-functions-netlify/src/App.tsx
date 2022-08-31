@@ -1,6 +1,6 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation, useQuery, useConvex } from "../convex/_generated/react";
+import { useMutation, useQuery } from "../convex/_generated/react";
 import type { MessageWithAuthor } from "../convex/listMessages";
 import { Id } from "../convex/_generated/dataModel";
 
@@ -31,7 +31,7 @@ function MessageView(props: { message: MessageWithAuthor }) {
   );
 }
 
-function ChatBox(props: { channelId: Id<"channels">; idToken: string | null }) {
+function ChatBox(props: { channelId: Id<"channels"> }) {
   // Dynamically update `messages` in response to the output of
   // `listMessages.ts`.
   const messages = useQuery("listMessages", props.channelId) || [];
@@ -39,6 +39,7 @@ function ChatBox(props: { channelId: Id<"channels">; idToken: string | null }) {
 
   // Run `sendMessage.ts` as a mutation to record a chat message when
   // `handleSendMessage` triggered.
+  const { getIdTokenClaims } = useAuth0();
   const [newMessageText, setNewMessageText] = useState("");
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
@@ -47,11 +48,12 @@ function ChatBox(props: { channelId: Id<"channels">; idToken: string | null }) {
     // If a /giphy command is entered call into the Netlify function to post
     // relevant GIF to channel.
     if (newMessageText.startsWith("/giphy ")) {
+      const idTokenClaims = await getIdTokenClaims();
       await fetch("/.netlify/functions/post-gif", {
         method: "POST",
         body: JSON.stringify({
           channel: props.channelId.id,
-          token: props.idToken,
+          token: idTokenClaims!.__raw,
           query: newMessageText.slice(7),
         }),
       });
@@ -96,66 +98,58 @@ function ChatBox(props: { channelId: Id<"channels">; idToken: string | null }) {
   );
 }
 
-function LoginLogout() {
-  const { isAuthenticated, isLoading, loginWithRedirect, logout, user } =
-    useAuth0();
+function Logout() {
+  const { logout, user } = useAuth0();
+  return (
+    <div>
+      {/* We know this component only renders if the user is logged in. */}
+      <p>Logged in{user!.name ? ` as ${user!.name}` : ""}</p>
+      <button
+        className="btn btn-primary"
+        onClick={() => logout({ returnTo: window.location.origin })}
+      >
+        Log out
+      </button>
+    </div>
+  );
+}
+
+export function Login() {
+  const { isLoading, loginWithRedirect } = useAuth0();
   if (isLoading) {
     return <button className="btn btn-primary">Loading...</button>;
   }
-  if (isAuthenticated) {
-    return (
-      <div>
-        {/* We know that Auth0 provides the user's name, but another provider
-        might not. */}
-        <p>Logged in as {user!.name}</p>
-        <button
-          className="btn btn-primary"
-          onClick={() => logout({ returnTo: window.location.origin })}
-        >
-          Log out
-        </button>
+  return (
+    <main className="py-4">
+      <h1 className="text-center">Convex Chat</h1>
+      <div className="text-center">
+        <span>
+          <button className="btn btn-primary" onClick={loginWithRedirect}>
+            Log in
+          </button>
+        </span>
       </div>
-    );
-  } else {
-    return (
-      <button className="btn btn-primary" onClick={loginWithRedirect}>
-        Log in
-      </button>
-    );
-  }
+    </main>
+  );
 }
 
 export default function App() {
-  const { isAuthenticated, isLoading, getIdTokenClaims } = useAuth0();
   const [userId, setUserId] = useState<Id<"users"> | null>(null);
-  const convex = useConvex();
   const storeUser = useMutation("storeUser");
   const addChannel = useMutation("addChannel");
-  const [idToken, setIdToken] = useState<string | null>(null);
-  // Pass the ID token to the Convex client when logged in, and clear it when logged out.
-  // After setting the ID token, call the `storeUser` mutation function to store
+  // Call the `storeUser` mutation function to store
   // the current user in the `users` table and return the `Id` value.
   useEffect(() => {
-    if (isLoading) {
-      return;
+    // Store the user in the database.
+    // Recall that `storeUser` gets the user information via the `auth`
+    // object on the server. You don't need to pass anything manually here.
+    async function createUser() {
+      const id = await storeUser();
+      setUserId(id);
     }
-    if (isAuthenticated) {
-      getIdTokenClaims().then(async claims => {
-        // Get the raw ID token from the claims.
-        const token = claims!.__raw;
-        setIdToken(token);
-        // Pass it to the Convex client.
-        convex.setAuth(token);
-        // Store the user in the database.
-        const id = await storeUser();
-        setUserId(id);
-      });
-    } else {
-      // Tell the Convex client to clear all authentication state.
-      convex.clearAuth();
-      setUserId(null);
-    }
-  }, [isAuthenticated, isLoading, getIdTokenClaims, convex, storeUser]);
+    createUser();
+    return () => setUserId(null);
+  }, [storeUser]);
 
   // Dynamically update `channels` in response to the output of
   // `listChannels.ts`.
@@ -180,7 +174,7 @@ export default function App() {
       <h1 className="text-center">Convex Chat</h1>
       <div className="text-center">
         <span>
-          <LoginLogout />
+          <Logout />
         </span>
       </div>
       <br />
@@ -220,10 +214,7 @@ export default function App() {
             />
           </form>
         </div>
-
-        {
-          channelId ? <ChatBox channelId={channelId} idToken={idToken} /> : null
-        }
+        {channelId ? <ChatBox channelId={channelId} /> : null}
       </div>
     </main>
   );

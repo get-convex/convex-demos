@@ -5,8 +5,9 @@ import App, { Login } from "./App";
 import { ConvexProviderWithAuth0 } from "convex/react-auth0";
 import { ConvexReactClient } from "convex/react";
 import convexConfig from "../convex.json";
+import clientConfig from "../convex/_generated/clientConfig";
 
-const convex = new ConvexReactClient(convexConfig.origin);
+const convex = new ConvexReactClient(clientConfig);
 const authInfo = convexConfig.authInfo[0];
 
 ReactDOM.render(

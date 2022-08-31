@@ -6,7 +6,7 @@ export default mutation(
     if (!identity) {
       throw new Error("Unauthenticated call to incrementCounter");
     }
-    let counterDoc = await db
+    const counterDoc = await db
       .table("counter_table")
       .filter(q => q.eq(q.field("name"), counterName))
       .first();

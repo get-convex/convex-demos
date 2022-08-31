@@ -8,8 +8,9 @@ import type { AppProps } from "next/app";
 import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithAuth0 } from "convex/react-auth0";
 import convexConfig from "../convex.json";
+import clientConfig from "../convex/_generated/clientConfig";
 
-const convex = new ConvexReactClient(convexConfig.origin);
+const convex = new ConvexReactClient(clientConfig);
 const authInfo = convexConfig.authInfo[0];
 
 export default function MyApp({ Component, pageProps }: AppProps) {

@@ -6,7 +6,7 @@ export default mutation(
   async (
     { db, auth },
     channel: Id<"channels">,
-    format: string,
+    format: "text" | "giphy",
     body: string
   ) => {
     const identity = await auth.getUserIdentity();

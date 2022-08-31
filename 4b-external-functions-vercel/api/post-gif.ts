@@ -1,10 +1,10 @@
 import { ConvexHttpClient } from "convex/browser";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import fetch from "node-fetch";
-import convexConfig from "../convex.json";
+import clientConfig from "../convex/_generated/clientConfig";
 import { Id } from "../convex/_generated/dataModel";
 
-const convex = new ConvexHttpClient(convexConfig.origin);
+const convex = new ConvexHttpClient(clientConfig);
 
 // Replace this with your own GIPHY key obtained at
 // https://developers.giphy.com/ -> Create Account.

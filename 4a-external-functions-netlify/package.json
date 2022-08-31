@@ -4,12 +4,11 @@
   "scripts": {
     "dev": "vite",
     "build": "shx rm -rf dist && tsc && vite build",
-    "clean": "",
     "serve": "vite preview"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "convex": "0.1.8",
+    "convex": "0.1.9",
     "@netlify/functions": "^1.0.0",
     "bootstrap": "^5.0.2",
     "node-fetch": "^2.6.1",
