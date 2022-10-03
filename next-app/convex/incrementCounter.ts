@@ -7,11 +7,11 @@ export default mutation(
       throw new Error("Unauthenticated call to incrementCounter");
     }
     const counterDoc = await db
-      .table("counter_table")
+      .query("counter_table")
       .filter(q => q.eq(q.field("name"), counterName))
       .first();
     if (counterDoc === null) {
-      db.insert("counter_table", {
+      await db.insert("counter_table", {
         name: counterName,
         counter: increment,
       });
@@ -19,7 +19,7 @@ export default mutation(
       console.log("Created counter.");
     } else {
       counterDoc.counter += increment;
-      db.replace(counterDoc._id, counterDoc);
+      await db.replace(counterDoc._id, counterDoc);
       console.log(`Value of counter is now ${counterDoc.counter}.`);
     }
   }
