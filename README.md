@@ -3,7 +3,7 @@
 
 ## Welcome to Convex
 
-**Convex is the global state management platform for web developers.**
+**Convex is the reactive backend-as-a-service for web developers.**
 
 Convex makes it dead simple to store your app's shared state and sync it
 everywhere. As a developer, you interact with your shared state using JavaScript
