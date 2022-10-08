@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "convex": "0.2.0",
+    "convex": "0.2.1",
     "@netlify/functions": "^1.0.0",
     "bootstrap": "^5.0.2",
     "node-fetch": "^2.6.1",
