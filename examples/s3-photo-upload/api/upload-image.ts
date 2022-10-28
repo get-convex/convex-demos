@@ -3,6 +3,7 @@ import clientConfig from "../convex/_generated/clientConfig";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { v4 as uuidv4 } from "uuid";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { API } from "../convex/_generated/api";
 
 const allowedContentTypes = new Set([
   "image/jpeg",
@@ -14,7 +15,7 @@ const allowedContentTypes = new Set([
   "image/tiff",
 ]);
 
-const convex = new ConvexHttpClient(clientConfig);
+const convex = new ConvexHttpClient<API>(clientConfig);
 
 const bucket = process.env.BUCKET_NAME!;
 const s3 = new S3Client({
@@ -48,8 +49,11 @@ export default async function handler(
     })
   );
 
+  // There should only be a single 'author' query parameter present
+  const author = params.author as string;
+
   // Write S3 key into the Convex chat messages table.
-  await convex.mutation("sendMessage")(key, params.author, "s3");
+  await convex.mutation("sendMessage")(key, author, "s3");
 
   response.status(200);
 }

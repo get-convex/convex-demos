@@ -3,8 +3,9 @@ import { ConvexHttpClient } from "convex/browser";
 import fetch from "node-fetch";
 import clientConfig from "../../convex/_generated/clientConfig";
 import { Id } from "../../convex/_generated/dataModel";
+import { API } from "../../convex/_generated/api";
 
-const convex = new ConvexHttpClient(clientConfig);
+const convex = new ConvexHttpClient<API>(clientConfig);
 
 // Replace this with your own GIPHY key obtained at
 // https://developers.giphy.com/ -> Create Account.

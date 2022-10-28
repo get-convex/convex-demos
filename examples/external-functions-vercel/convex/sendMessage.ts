@@ -15,7 +15,9 @@ export default mutation(
     }
     const user = await db
       .query("users")
-      .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier))
+      .withIndex("by_token", q =>
+        q.eq("tokenIdentifier", identity.tokenIdentifier)
+      )
       .unique();
     const message = {
       channel,
