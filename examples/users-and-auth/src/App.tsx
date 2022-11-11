@@ -114,7 +114,7 @@ export default function App() {
       const id = await storeUser();
       setUserId(id);
     }
-    createUser();
+    createUser().catch(console.error);
     return () => setUserId(null);
   }, [storeUser]);
 

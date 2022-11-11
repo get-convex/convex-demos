@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.9.0",
-    "convex": "0.3.1",
+    "convex": "0.4.0",
     "bootstrap": "^5.0.2",
     "node-fetch": "^2.6.1",
     "react": "^17.0.2",

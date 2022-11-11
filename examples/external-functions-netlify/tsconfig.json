@@ -15,5 +15,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["./src", "./netlify/functions"]
+  "include": ["./src", "./netlify/functions", "vite.config.ts"]
 }
