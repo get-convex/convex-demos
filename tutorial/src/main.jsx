@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
 import "./index.css";
 import App from "./App";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import clientConfig from "../convex/_generated/clientConfig";
 
 const convex = new ConvexReactClient(clientConfig);
