@@ -8,10 +8,10 @@ export default function App() {
   const sendMessage = useMutation("sendMessage");
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
-  function handleSendMessage(event) {
+  async function handleSendMessage(event) {
     event.preventDefault();
-    sendMessage(newMessageText, name);
     setNewMessageText("");
+    await sendMessage(newMessageText, name);
   }
   return (
     <main>
@@ -21,7 +21,7 @@ export default function App() {
       </p>
       <ul>
         {messages.map(message => (
-          <li key={message._id}>
+          <li key={message._id.toString()}>
             <span>{message.author}:</span>
             <span>{message.body}</span>
             <span>{new Date(message._creationTime).toLocaleTimeString()}</span>

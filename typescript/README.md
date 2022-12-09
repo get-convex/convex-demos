@@ -1,7 +1,7 @@
-# TypeScript Example App
+# TypeScript and Schema Example App
 
 This example demonstrates how to write a Convex app in
-[TypeScript](https://www.typescriptlang.org/).
+[TypeScript](https://docs.convex.dev/using/typescript).
 
 The Convex functions are written in `.ts` files and the React components use
 `.tsx`.
@@ -16,13 +16,5 @@ Run:
 
 ```
 npm install
-npx convex dev
-```
-
-In a separate terminal:
-
-```
 npm run dev
 ```
-
-Then visit [localhost:3000](http://localhost:3000).
