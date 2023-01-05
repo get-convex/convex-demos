@@ -25,7 +25,7 @@ Auth0.
 Run
 
 ```
-npx convex add
+npx convex auth add
 ```
 
 to configure Convex with your Auth0 URL and application ID. Instructions at
