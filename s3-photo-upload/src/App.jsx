@@ -67,7 +67,7 @@ export default function App() {
           ref={imageInput}
           onChange={event => setSelectedImage(event.target.files[0])}
           className="ms-2 btn btn-primary"
-          disabled={newMessageText != ""}
+          disabled={newMessageText !== ""}
         />
         <input
           type="submit"

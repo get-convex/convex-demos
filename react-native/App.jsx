@@ -1,7 +1,7 @@
+import process from 'process';
 import React, {useState, StrictMode} from 'react';
 import {useMutation, useQuery} from './convex/_generated/react';
 import {ConvexProvider, ConvexReactClient} from 'convex/react';
-import clientConfig from './convex/_generated/clientConfig';
 import styles from './styles';
 import {
   FlatList,
@@ -59,7 +59,7 @@ function InnerApp() {
 }
 
 const App = () => {
-  const convex = new ConvexReactClient(clientConfig, {
+  const convex = new ConvexReactClient(process.env.REACT_APP_CONVEX_URL, {
     // We need to disable this to be compatible with React Native
     unsavedChangesWarning: false,
   });

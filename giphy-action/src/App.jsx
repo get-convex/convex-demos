@@ -26,6 +26,9 @@ export default function App() {
       <p className="badge">
         <span>{name}</span>
       </p>
+      <div className="instructions">
+        To send a GIF, use <span>/giphy message</span>
+      </div>
       <ul>
         {messages.map(message => (
           <li key={message._id.toString()}>

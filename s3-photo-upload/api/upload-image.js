@@ -1,5 +1,4 @@
 import { ConvexHttpClient } from "convex/browser";
-import clientConfig from "../convex/_generated/clientConfig";
 import { v4 as uuidv4 } from "uuid";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
@@ -13,7 +12,7 @@ const allowedContentTypes = new Set([
   "image/tiff",
 ]);
 
-const convex = new ConvexHttpClient(clientConfig);
+const convex = new ConvexHttpClient(import.meta.env.VITE_CONVEX_URL);
 
 const bucket = process.env.BUCKET_NAME;
 const s3 = new S3Client({

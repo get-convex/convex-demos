@@ -15,6 +15,9 @@ export default action(async ({ mutation }, query, author) => {
   // Fetch GIF url from GIPHY.
   const data = await fetch(giphyUrl(query));
   const json = await data.json();
+  if (!data.ok) {
+    throw new Error(`Giphy errored: ${JSON.stringify(json)}`);
+  }
   const gif_embed_url = json.data.embed_url;
 
   // Write GIF url to Convex.

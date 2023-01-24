@@ -25,29 +25,15 @@ Auth0.
 Run
 
 ```
-npx convex add
+npx convex auth add
 ```
 
 to configure Convex with your Auth0 URL and application ID. Instructions at
 https://docs.convex.dev/using/auth#configuring-convex.
 
-Run:
+Finally, run:
 
 ```
-npx convex dev
-
-```
-
-In a separate terminal:
-
-```
-
 npm run dev
-
-```
-
-Then visit [localhost:3000](http://localhost:3000).
-
-```
 
 ```

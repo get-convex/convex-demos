@@ -38,6 +38,13 @@ h1 {
   font-size: 0.75em;
 }
 
+.instructions {
+  text-align: center;
+}
+.instructions span {
+  color: #6c757d;
+}
+
 .giphy-attribution {
   font-size: x-small;
   font-weight: bold;

@@ -36,22 +36,13 @@ export default function App() {
               </li>
             ))}
           </ul>
-          <form
-            onSubmit={handleAddChannel}
-            className="d-flex justify-content-center"
-          >
+          <form onSubmit={handleAddChannel}>
             <input
               value={newChannelName}
               onChange={event => setNewChannelName(event.target.value)}
-              className="form-control w-50"
               placeholder="Add a channel..."
             />
-            <input
-              type="submit"
-              value="Add"
-              className="ms-2 btn btn-primary"
-              disabled={!newChannelName}
-            />
+            <input type="submit" value="Add" disabled={!newChannelName} />
           </form>
         </div>
         {channelId ? <ChatBox channelId={channelId} name={name} /> : null}
