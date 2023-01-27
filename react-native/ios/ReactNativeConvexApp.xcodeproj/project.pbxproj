@@ -484,8 +484,8 @@
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-ReactNativeConvexApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphonesimulator]" = "iPhone Developer";
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ReactNativeConvexApp/Info.plist;
@@ -511,8 +511,8 @@
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-ReactNativeConvexApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphonesimulator]" = "iPhone Developer";
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = ReactNativeConvexApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

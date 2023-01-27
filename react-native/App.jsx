@@ -1,15 +1,15 @@
-import process from 'process';
-import React, {useState, StrictMode} from 'react';
-import {useMutation, useQuery} from './convex/_generated/react';
-import {ConvexProvider, ConvexReactClient} from 'convex/react';
-import styles from './styles';
+import { ConvexProvider, ConvexReactClient } from 'convex/react';
+import { CONVEX_URL } from 'env';
+import React, { StrictMode, useState } from 'react';
 import {
   FlatList,
   SafeAreaView,
   Text,
   TextInput,
-  View,
+  View
 } from 'react-native';
+import { useMutation, useQuery } from './convex/_generated/react';
+import styles from './styles';
 
 function InnerApp() {
   const messages = useQuery('listMessages') || [];
@@ -59,7 +59,7 @@ function InnerApp() {
 }
 
 const App = () => {
-  const convex = new ConvexReactClient(process.env.REACT_APP_CONVEX_URL, {
+  const convex = new ConvexReactClient(CONVEX_URL, {
     // We need to disable this to be compatible with React Native
     unsavedChangesWarning: false,
   });
