@@ -1,0 +1,64 @@
+@import url(https://fonts.googleapis.com/css2?family=Inter&family=Roboto+Flex:wdth;wght@25..151;100..1000&display=swap);
+
+/* Variables */
+:root {
+  --color-white: #ffffff;
+  --color-n1: #f6f6f6;
+  --color-n2: #f1f1f1;
+  --color-n3: #e5e5e5;
+  --color-n4: #d7d7d7;
+  --color-n5: #c2c2c2;
+  --color-n6: #adadad;
+  --color-n7: #939393;
+  --color-n8: #797979;
+  --color-n9: #6e6e6e;
+  --color-n10: #3f3f3f;
+  --color-n11: #292929;
+  --color-n12: #141414;
+  --color-n13: #111111;
+  --color-black: #000000;
+
+  --color-p1: #f4e9f1;
+  --color-p2: #e3d0df;
+  --color-p3: #d7b3cf;
+  --color-p4: #8d2676;
+  --color-p5: #711e5e;
+  --color-p6: #47133b;
+
+  --size-3xs: 0.5rem;
+  --size-2xs: 0.625rem;
+  --size-xs: 0.6875rem;
+  --size-sm: 0.875rem;
+  --size-md: 1rem;
+  --size-lg: 1.125rem;
+  --size-xl: 1.25rem;
+  --size-2xl: 2.375rem;
+  --size-3xl: 2.5rem;
+  --size-4xl: 2.625rem;
+  --size-5xl: 2.875rem;
+  --size-6xl: 3.125rem;
+  --size-7xl: 3.5rem;
+  --size-8xl: 3.75rem;
+
+  --font-family-display: "Roboto Flex", sans-serif;
+  --font-family-body: "Inter", sans-serif;
+
+  --font-stretch-max: 151%;
+
+  --line-height-none: 1;
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: var(--font-family-body);
+  margin: 0;
+  padding: 0;
+}
