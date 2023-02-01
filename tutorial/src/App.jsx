@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
 export default function App() {
@@ -13,10 +13,6 @@ export default function App() {
     setNewMessageText("");
     await sendMessage(newMessageText, name);
   }
-
-  useEffect(() => {
-    messagesList.current.scrollTop = messagesList.current.scrollHeight;
-  }, [messages]);
 
   return (
       <main>
