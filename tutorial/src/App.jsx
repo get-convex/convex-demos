@@ -15,28 +15,37 @@ export default function App() {
   }
 
   return (
-      <main>
-        <header>
-          <h1>Convex Chat</h1>
-          <span>{name}</span>
-        </header>
-        <ul ref={messagesList}>
-          {messages.map(message => (
-            <li key={message._id.toString()} className={message.author === name ? 'sent' : 'received'}>
-              <p>{message.body}</p>
-              <span>{message.author}{message.author === name && " (You)"} &bull; {new Date(message._creationTime).toLocaleTimeString()}</span>
-            </li>
-          ))}
-        </ul>
-        <form onSubmit={handleSendMessage}>
-          <input
-            type="text"
-            value={newMessageText}
-            onChange={event => setNewMessageText(event.target.value)}
-            placeholder="Write a message…"
-          />
-          <button type="submit" disabled={!newMessageText}>Send</button>
-        </form>
-      </main>
+    <main>
+      <header>
+        <h1>Convex Chat</h1>
+        <span>{name}</span>
+      </header>
+      <ul ref={messagesList}>
+        {messages.map(message => (
+          <li
+            key={message._id.toString()}
+            className={message.author === name ? "sent" : "received"}
+          >
+            <p>{message.body}</p>
+            <span>
+              {message.author}
+              {message.author === name && " (You)"} &bull;{" "}
+              {new Date(message._creationTime).toLocaleTimeString()}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <form onSubmit={handleSendMessage}>
+        <input
+          type="text"
+          value={newMessageText}
+          onChange={event => setNewMessageText(event.target.value)}
+          placeholder="Write a message…"
+        />
+        <button type="submit" disabled={!newMessageText}>
+          Send
+        </button>
+      </form>
+    </main>
   );
 }
