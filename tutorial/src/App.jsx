@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
 export default function App() {
@@ -6,7 +6,6 @@ export default function App() {
   const sendMessage = useMutation("sendMessage");
   const [newMessageText, setNewMessageText] = useState("");
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
-  const messagesList = useRef();
 
   async function handleSendMessage(event) {
     event.preventDefault();
