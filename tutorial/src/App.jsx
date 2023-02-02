@@ -36,7 +36,6 @@ export default function App() {
       </ul>
       <form onSubmit={handleSendMessage}>
         <input
-          type="text"
           value={newMessageText}
           onChange={event => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
