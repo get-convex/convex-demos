@@ -43,7 +43,7 @@ h1 {
   font-size: var(--size-2xl);
   font-family: var(--font-family-display);
   font-weight: 500;
-  font-stretch: var(--font-stretch-max);
+  font-variation-settings: "wdth" 151;
 }
 
 ul {
