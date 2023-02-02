@@ -19,7 +19,7 @@ export default function App() {
         <h1>Convex Chat</h1>
         <span>{name}</span>
       </header>
-      <ul ref={messagesList}>
+      <ul>
         {messages.map(message => (
           <li
             key={message._id.toString()}
