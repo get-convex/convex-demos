@@ -10,7 +10,7 @@ npx create-next-app@latest --ts
 After creating the project, convex was installed:
 
 ```bash
-npm install convex.
+npm install convex
 ```
 
 Convex functions were added to the `convex/` directory and a provider was added
