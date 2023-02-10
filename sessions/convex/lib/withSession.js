@@ -1,4 +1,4 @@
-import { mutation, query } from "./_generated/server";
+import { mutation, query } from "../_generated/server";
 
 /**
  * Wrapper for a Convex query or mutation function that provides a session in ctx.
@@ -13,11 +13,18 @@ import { mutation, query } from "./_generated/server";
  * @param func - Your function that can now take in a `session` in the first param.
  * @returns A function to be passed to `query` or `mutation`.
  */
-export const withSession = func => {
+export const withSession = (func, required) => {
   return async (ctx, sessionId, ...args) => {
     if (sessionId && sessionId.tableName !== "sessions")
       throw new Error("Invalid Session ID");
     const session = sessionId ? await ctx.db.get(sessionId) : null;
+    if (required && !session) {
+      throw new Error(
+        "Session must be initialized first. " +
+          "Are you wrapping your code with <SessionProvider>? " +
+          "Are you requiring a session from a query that executes immediately?"
+      );
+    }
     return func({ ...ctx, session }, ...args);
   };
 };
@@ -31,13 +38,15 @@ export const withSession = func => {
  * ```ts
  * export default mutationWithSession(async ({ db, auth, session }, arg1) => {...}));
  * ```
+ * If the session hasn't been initialized it will throw an Error. To use a
+ * muatation with an optional session instead, use mutation(withSession())
  *
  * @param func - Your function that can now take in a `session` in the ctx
- *   param. It will be null if the session hasn't been initialized yet.
+ *   param.
  * @returns A Convex serverless function.
  */
 export const mutationWithSession = func => {
-  return mutation(withSession(func));
+  return mutation(withSession(func), true);
 };
 
 /**
@@ -49,6 +58,8 @@ export const mutationWithSession = func => {
  * ```ts
  * export default queryWithSession(async ({ db, auth, session }, arg1) => {...}));
  * ```
+ * Because queries may make requests before a session is initialized, we default
+ * to optional. So it is your responsibility to handle a missing session.
  *
  * @param func - Your function that can now take in a `session` in the ctx
  *   param. It will be null if the session hasn't been initialized yet.
@@ -66,23 +77,4 @@ export const create = mutation(async ({ db }) => {
   return db.insert("sessions", {
     name: "User " + Math.floor(Math.random() * 10000),
   });
-});
-
-/**
- * Gets the current session.
- */
-export const get = queryWithSession(async ({ session }) => {
-  // Depending on what sensitive data you store in here, you might
-  // want to limit what you return to clients.
-  return session;
-});
-
-/**
- * Updates the current session data.
- */
-export const setName = mutationWithSession(async ({ db, session }, name) => {
-  if (!session) throw new Error("Session not initialized yet");
-  // Depending on your usecase, you might not want to allow patching
-  // all or any fields from the client.
-  db.patch(session._id, { name });
 });

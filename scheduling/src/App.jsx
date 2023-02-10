@@ -6,19 +6,14 @@ export default function App() {
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation("sendMessage");
-  const ping = useMutation("ping");
+  const sendExpiringMessage = useMutation("sendExpiringMessage");
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
-    if (newMessageText.startsWith("/ping")) {
-      const count = parseInt(newMessageText.slice(5));
-      if (!isFinite(count) || count < 0) {
-        alert("Invalid ping count!");
-        return;
-      }
-      await ping(name, count);
+    if (newMessageText.startsWith("/expiring ")) {
+      await sendExpiringMessage(newMessageText.slice(10), name);
     } else {
       await sendMessage(newMessageText, name);
     }
@@ -30,7 +25,7 @@ export default function App() {
         <span>{name}</span>
       </p>
       <div className="instructions">
-        To send a ping, use <span>/ping count</span>
+        To send a self-destructing message, use <span>/expiring message</span>
       </div>
       <ul>
         {messages.map(message => (

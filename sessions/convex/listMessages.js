@@ -1,4 +1,4 @@
-import { queryWithSession } from "./sessions";
+import { queryWithSession } from "./lib/withSession";
 
 export default queryWithSession(async ({ db, session }) => {
   const messages = await db.query("messages").collect();

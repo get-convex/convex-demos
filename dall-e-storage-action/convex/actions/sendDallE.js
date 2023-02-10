@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import { Configuration, OpenAIApi } from "openai";
 import { action } from "../_generated/server";
 
-export default action(async ({ mutation }, prompt, author) => {
+export default action(async ({ runMutation }, prompt, author) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
@@ -52,5 +52,5 @@ export default action(async ({ mutation }, prompt, author) => {
   const { storageId } = await postImageResponse.json();
 
   // Write storageId as the body of the message to the Convex database.
-  await mutation("sendMessage", storageId, author, "dall-e");
+  await runMutation("sendMessage", storageId, author, "dall-e");
 });

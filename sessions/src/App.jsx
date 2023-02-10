@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useSessionMutation, useSessionQuery } from "./sessionsClient";
+import { useSessionMutation, useSessionQuery } from "./session";
 
 export default function App() {
-  const session = useSessionQuery("sessions:get");
-  const updateName = useSessionMutation("sessions:setName");
+  const name = useSessionQuery("name:get");
+  const updateName = useSessionMutation("name:set");
   const messages = useSessionQuery("listMessages") || [];
 
   const [newMessageText, setNewMessageText] = useState("");
@@ -19,15 +19,13 @@ export default function App() {
       <h1>Convex Chat</h1>
       <p className="badge">
         <span>
-          {session && (
-            <input
-              name="name"
-              value={session.name}
-              type="text"
-              onChange={e => updateName(e.target.value)}
-              placeholder="Type Name"
-            />
-          )}
+          <input
+            name="name"
+            value={name ?? ""}
+            type="text"
+            onChange={e => updateName(e.target.value)}
+            placeholder="Type Name"
+          />
         </span>
       </p>
       <ul>

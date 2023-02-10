@@ -3,34 +3,28 @@ import { useMutation, useQuery } from "../convex/_generated/react";
 
 export default function App() {
   const messages = useQuery("listMessages") || [];
-  const sendMessage = useMutation("sendMessage");
-  const [newMessageText, setNewMessageText] = useState("");
-  const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
 
+  const [newMessageText, setNewMessageText] = useState("");
+  const sendMessage = useMutation("sendMessage");
+
+  const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
     await sendMessage(newMessageText, name);
   }
-
   return (
     <main>
-      <header>
-        <h1>Convex Chat</h1>
+      <h1>Convex Chat</h1>
+      <p className="badge">
         <span>{name}</span>
-      </header>
+      </p>
       <ul>
         {messages.map(message => (
-          <li
-            key={message._id.toString()}
-            className={message.author === name ? "sent" : "received"}
-          >
-            <p>{message.body}</p>
-            <span>
-              {message.author}
-              {message.author === name && " (You)"} &bull;{" "}
-              {new Date(message._creationTime).toLocaleTimeString()}
-            </span>
+          <li key={message._id.toString()}>
+            <span>{message.author}:</span>
+            <span>{message.body}</span>
+            <span>{new Date(message._creationTime).toLocaleTimeString()}</span>
           </li>
         ))}
       </ul>
@@ -40,9 +34,7 @@ export default function App() {
           onChange={event => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
         />
-        <button type="submit" disabled={!newMessageText}>
-          Send
-        </button>
+        <input type="submit" value="Send" disabled={!newMessageText} />
       </form>
     </main>
   );
