@@ -32,7 +32,7 @@ export default function App() {
         <h3>Send a message:</h3>
         <p
           style={{ whiteSpace: "break-spaces" }}
-        >{`curl -d '{ "author": "User 123", "body": "Hello world" } \\ \n -H 'content-type: application/json' ${convexSiteUrl}/postMessage`}</p>
+        >{`curl -d '{ "author": "User 123", "body": "Hello world" }' \\ \n -H 'content-type: application/json' ${convexSiteUrl}/postMessage`}</p>
         <h3>Read messages:</h3>
         <p>{`curl ${convexSiteUrl}/getMessagesByAuthor?authorNumber=123`}</p>
       </div>
