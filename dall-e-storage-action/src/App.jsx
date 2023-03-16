@@ -6,6 +6,7 @@ export default function App() {
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation("sendMessage");
+  const [sending, setSending] = useState(false);
   const sendDallE = useAction("actions/sendDallE");
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
@@ -17,7 +18,12 @@ export default function App() {
       newMessageText.startsWith("/dall-e ")
     ) {
       const prompt = newMessageText.split(" ").slice(1).join(" ");
-      await sendDallE(prompt, name);
+      setSending(true);
+      try {
+        await sendDallE(prompt, name);
+      } finally {
+        setSending(false);
+      }
     } else {
       await sendMessage(newMessageText, name, "text");
     }
@@ -36,18 +42,23 @@ export default function App() {
           <li key={message._id.toString()}>
             <span>{message.author}:</span>
             {message.format === "dall-e" ? (
-              <span>
-                <img src={message.body} />
+              <figure>
+                <img title={message.prompt} src={message.body} />
                 <div className="dall-e-attribution">
                   Powered by Dall-E (OpenAI)
                 </div>
-              </span>
+              </figure>
             ) : (
               <span>{message.body}</span>
             )}
             <span>{new Date(message._creationTime).toLocaleTimeString()}</span>
           </li>
         ))}
+        {sending && (
+          <li key="loading">
+            <div className="lds-dual-ring"></div>
+          </li>
+        )}
       </ul>
       <form onSubmit={handleSendMessage}>
         <input

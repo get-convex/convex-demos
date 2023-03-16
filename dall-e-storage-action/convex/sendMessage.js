@@ -6,8 +6,9 @@ export const generateUploadUrl = mutation(async ({ storage }) => {
 });
 
 export default mutation(
-  async ({ db }, body, author, format /* "text" or "dall-e" */) => {
+  async ({ db }, body, author, format /* "text" or "dall-e" */, prompt) => {
     const message = { body, author, format };
+    if (prompt) message.prompt = prompt;
     await db.insert("messages", message);
   }
 );

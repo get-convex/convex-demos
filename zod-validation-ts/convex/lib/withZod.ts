@@ -23,7 +23,7 @@ export const zid = <TableName extends TableNames>(tableName: TableName) =>
 /**
  * Zod helper for adding Convex system fields to a record to return.
  *
- * @param tableName - The table where records are from, i.e. Document<tableName>
+ * @param tableName - The table where records are from, i.e. Doc<tableName>
  * @param zObject - Validators for the user-defined fields on the document.
  * @returns - Zod shape for use with `z.object(shape)` that includes system fields.
  */

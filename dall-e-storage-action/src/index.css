@@ -45,7 +45,7 @@ h1 {
   color: #6c757d;
 }
 
-.giphy-attribution {
+.dall-e-attribution {
   font-size: x-small;
   font-weight: bold;
 }
@@ -120,4 +120,30 @@ button:hover {
 input[type="submit"]:disabled,
 button:disabled {
   background-color: rgb(122, 160, 248);
+}
+
+/* Courtesy of loading.io */
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid rgb(41, 93, 207);
+  border-color: rgb(122, 160, 248) transparent rgb(122, 160, 248) transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

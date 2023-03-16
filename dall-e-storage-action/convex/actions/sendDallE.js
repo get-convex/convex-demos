@@ -3,15 +3,14 @@ import { Configuration, OpenAIApi } from "openai";
 import { action } from "../_generated/server";
 
 export default action(async ({ runMutation }, prompt, author) => {
-  const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
-  if (!configuration) {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
     throw new Error(
       "Add your OPENAI_API_KEY as an env variable in the " +
         "[dashboard](https://dasboard.convex.dev)"
     );
   }
+  const configuration = new Configuration({ apiKey });
   const openai = new OpenAIApi(configuration);
 
   // Check if the prompt is offensive.
@@ -52,5 +51,5 @@ export default action(async ({ runMutation }, prompt, author) => {
   const { storageId } = await postImageResponse.json();
 
   // Write storageId as the body of the message to the Convex database.
-  await runMutation("sendMessage", storageId, author, "dall-e");
+  await runMutation("sendMessage", storageId, author, "dall-e", prompt);
 });
