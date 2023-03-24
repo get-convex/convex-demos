@@ -12,7 +12,7 @@ export default function App() {
   async function handleAddChannel(event) {
     event.preventDefault();
     setNewChannelName("");
-    const id = await addChannel(newChannelName);
+    const id = await addChannel({ name: newChannelName });
     setChannelId(id);
   }
   return (

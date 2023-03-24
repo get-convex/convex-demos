@@ -1,7 +1,10 @@
 import { mutation } from "./_generated/server";
 
 export default mutation(
-  async ({ db, auth }, counterName: string, increment: number) => {
+  async (
+    { db, auth },
+    { counterName, increment }: { counterName: string; increment: number }
+  ) => {
     const identity = await auth.getUserIdentity();
     if (!identity) {
       throw new Error("Unauthenticated call to incrementCounter");

@@ -18,7 +18,7 @@ export default function App() {
     event.preventDefault();
     setNewMessageText("");
     if (newMessageText) {
-      await sendMessage(newMessageText, name);
+      await sendMessage({ body: newMessageText, author: name });
     }
   }
 
@@ -37,7 +37,7 @@ export default function App() {
     });
     const { storageId } = await result.json();
     // Step 3: Save the newly allocated storage id to the messages table
-    await sendImage(storageId, name);
+    await sendImage({ storageId, author: name });
   }
 
   return (

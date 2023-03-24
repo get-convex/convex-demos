@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
 export default function ChatBox({ channelId, name }) {
-  const messages = useQuery("listMessages", channelId) || [];
+  const messages = useQuery("listMessages", { channelId }) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation("sendMessage");
@@ -10,7 +10,11 @@ export default function ChatBox({ channelId, name }) {
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
-    await sendMessage(channelId, newMessageText, name);
+    await sendMessage({
+      channel: channelId,
+      body: newMessageText,
+      author: name,
+    });
   }
   return (
     <div className="chat-box">

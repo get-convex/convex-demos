@@ -15,9 +15,9 @@ export default function App() {
     // If a /giphy command is entered, call the action.
     if (newMessageText.startsWith("/giphy ")) {
       const query = newMessageText.slice(7);
-      await sendGif(query, name);
+      await sendGif({ queryString: query, author: name });
     } else {
-      await sendMessage(newMessageText, name, "text");
+      await sendMessage({ body: newMessageText, author: name });
     }
   }
   return (

@@ -5,7 +5,10 @@ import { httpEndpoint } from "./_generated/server";
 const postMessage = httpEndpoint(async ({ runMutation }, request) => {
   const { author, body } = await request.json();
 
-  await runMutation("sendMessage", `Sent via HTTP endpoint: ${body}`, author);
+  await runMutation("sendMessage", {
+    body: `Sent via HTTP endpoint: ${body}`,
+    author,
+  });
   return new Response(null, {
     status: 200,
   });

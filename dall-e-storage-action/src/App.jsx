@@ -20,12 +20,12 @@ export default function App() {
       const prompt = newMessageText.split(" ").slice(1).join(" ");
       setSending(true);
       try {
-        await sendDallE(prompt, name);
+        await sendDallE({ prompt, author: name });
       } finally {
         setSending(false);
       }
     } else {
-      await sendMessage(newMessageText, name, "text");
+      await sendMessage({ body: newMessageText, author: name, format: "text" });
     }
   }
   return (

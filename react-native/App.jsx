@@ -22,7 +22,7 @@ function InnerApp() {
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText('');
-    await sendMessage(newMessageText, name);
+    await sendMessage({ body: newMessageText, author: name });
   }
 
   return (

@@ -6,9 +6,12 @@ import { useCallback } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
-  const counter = useQuery("getCounter", "clicks") ?? 0;
+  const counter = useQuery("getCounter", { counterName: "clicks" }) ?? 0;
   const increment = useMutation("incrementCounter");
-  const incrementByOne = useCallback(() => increment("clicks", 1), [increment]);
+  const incrementByOne = useCallback(
+    () => increment({ counterName: "clicks", increment: 1 }),
+    [increment]
+  );
   const { logout } = useAuth0();
 
   return (

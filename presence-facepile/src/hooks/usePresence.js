@@ -31,7 +31,7 @@ const OLD_MS = 10000;
  */
 export default (room, user, initialData) => {
   const [data, setData] = useState(initialData);
-  let presence = useQuery("presence:list", room);
+  let presence = useQuery("presence:list", { room });
   if (presence) {
     presence = presence.filter(p => p.user !== user);
   }
@@ -39,9 +39,9 @@ export default (room, user, initialData) => {
   const heartbeat = useSingleFlight(useMutation("presence:heartbeat"));
 
   useEffect(() => {
-    void updatePresence(room, user, data);
+    void updatePresence({ room, user, data });
     const intervalId = setInterval(() => {
-      void heartbeat(room, user);
+      void heartbeat({ room, user });
     }, HEARTBEAT_PERIOD);
     // Whenever we have any data change, it will get cleared.
     return () => clearInterval(intervalId);

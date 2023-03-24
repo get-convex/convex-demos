@@ -21,7 +21,7 @@ const LIST_LIMIT = 20;
  * page, chat channel, game instance.
  * @param user - The user associated with the presence data.
  */
-export const update = mutation(async ({ db }, room, user, data) => {
+export const update = mutation(async ({ db }, { room, user, data }) => {
   const existing = await db
     .query("presence")
     .withIndex("by_user_room", q => q.eq("user", user).eq("room", room))
@@ -45,7 +45,7 @@ export const update = mutation(async ({ db }, room, user, data) => {
  * page, chat channel, game instance.
  * @param user - The user associated with the presence data.
  */
-export const heartbeat = mutation(async ({ db }, room, user) => {
+export const heartbeat = mutation(async ({ db }, { room, user }) => {
   const existing = await db
     .query("presence")
     .withIndex("by_user_room", q => q.eq("user", user).eq("room", room))
@@ -63,7 +63,7 @@ export const heartbeat = mutation(async ({ db }, room, user) => {
  * @returns A list of presence objects, ordered by recent update, limited to
  * the most recent N.
  */
-export const list = query(async ({ db }, room) => {
+export const list = query(async ({ db }, { room }) => {
   const presence = await db
     .query("presence")
     .withIndex("by_room_updated", q => q.eq("room", room))

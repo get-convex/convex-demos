@@ -12,7 +12,7 @@ export default function App() {
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
-    await sendMessage(newMessageText);
+    await sendMessage({ body: newMessageText });
   }
   return (
     <main>
@@ -23,7 +23,7 @@ export default function App() {
             name="name"
             value={name ?? ""}
             type="text"
-            onChange={e => updateName(e.target.value)}
+            onChange={e => updateName({ name: e.target.value })}
             placeholder="Type Name"
           />
         </span>

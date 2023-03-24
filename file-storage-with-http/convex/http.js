@@ -27,7 +27,7 @@ http.route({
     const author = new URL(request.url).searchParams.get("author");
 
     // Save the storage ID to the messages table via a mutation
-    await runMutation("sendMessage:sendImage", storageId, author);
+    await runMutation("sendMessage:sendImage", { storageId, author });
     return new Response(null, {
       status: 200,
       // CORS headers

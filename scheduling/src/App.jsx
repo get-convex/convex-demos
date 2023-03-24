@@ -13,9 +13,12 @@ export default function App() {
     event.preventDefault();
     setNewMessageText("");
     if (newMessageText.startsWith("/expiring ")) {
-      await sendExpiringMessage(newMessageText.slice(10), name);
+      await sendExpiringMessage({
+        body: newMessageText.slice(10),
+        author: name,
+      });
     } else {
-      await sendMessage(newMessageText, name);
+      await sendMessage({ body: newMessageText, author: name });
     }
   }
   return (

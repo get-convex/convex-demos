@@ -11,7 +11,7 @@ function giphyUrl(queryString) {
 }
 
 // Post a GIF chat message corresponding to the query string.
-export default action(async ({ runMutation }, queryString, author) => {
+export default action(async ({ runMutation }, { queryString, author }) => {
   // Fetch GIF url from GIPHY.
   const data = await fetch(giphyUrl(queryString));
   const json = await data.json();
@@ -21,5 +21,8 @@ export default action(async ({ runMutation }, queryString, author) => {
   const gifEmbedUrl = json.data.embed_url;
 
   // Write GIF url to Convex.
-  await runMutation("sendMessage", gifEmbedUrl, author, "giphy");
+  await runMutation("sendMessage:sendGifMessage", {
+    body: gifEmbedUrl,
+    author,
+  });
 });

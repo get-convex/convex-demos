@@ -10,30 +10,14 @@ a "Log Out" button.
 
 ## Running the App
 
-Because this app uses authentication, it requires a bit of additional setup.
+Because this app uses authentication, it requires a bit of an additional setup.
 
-First, create the app with:
+Follow these instructions https://docs.convex.dev/auth/auth0 to setup Auth0 with
+Convex.
 
-```
-npm install
-npx convex init
-```
-
-Follow these instructions https://docs.convex.dev/using/auth#auth0 to setup
-Auth0.
-
-Run
+Additionally save your Auth0 credentials in the .env file:
 
 ```
-npx convex auth add
-```
-
-to configure Convex with your Auth0 URL and application ID. Instructions at
-https://docs.convex.dev/using/auth#configuring-convex.
-
-Finally, run:
-
-```
-npm run dev
-
+VITE_AUTH0_DOMAIN="<your domain>.us.auth0.com"
+VITE_AUTH0_CLIENT_ID="<your client id>"
 ```

@@ -2,24 +2,39 @@ import "../styles/globals.css";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-import { ConvexReactClient } from "convex/react";
+import {
+  ConvexReactClient,
+  Authenticated,
+  AuthLoading,
+  Unauthenticated,
+} from "convex/react";
 import { ConvexProviderWithAuth0 } from "convex/react-auth0";
-import { useAuth0 } from "@auth0/auth0-react";
-import convexConfig from "../convex.json";
+import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL);
-const authInfo = convexConfig.authInfo[0];
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <ConvexProviderWithAuth0
-      client={convex}
-      authInfo={authInfo}
-      loading={<Loading />}
-      loggedOut={<Login />}
+    <Auth0Provider
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN}
+      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri:
+          typeof window === "undefined" ? undefined : window.location.origin,
+      }}
     >
-      <Component {...pageProps} />
-    </ConvexProviderWithAuth0>
+      <ConvexProviderWithAuth0 client={convex}>
+        <Authenticated>
+          <Component {...pageProps} />
+        </Authenticated>
+        <Unauthenticated>
+          <Login />
+        </Unauthenticated>
+        <AuthLoading>
+          <Loading />
+        </AuthLoading>
+      </ConvexProviderWithAuth0>
+    </Auth0Provider>
   );
 }
 

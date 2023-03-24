@@ -1,24 +1,40 @@
+import { Auth0Provider } from "@auth0/auth0-react";
+import {
+  Authenticated,
+  AuthLoading,
+  ConvexReactClient,
+  Unauthenticated,
+} from "convex/react";
+import { ConvexProviderWithAuth0 } from "convex/react-auth0";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+import "./index.css";
 import LoginPage from "./LoginPage";
-import { ConvexReactClient } from "convex/react";
-import { ConvexProviderWithAuth0 } from "convex/react-auth0";
-import convexConfig from "../convex.json";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
-const authInfo = convexConfig.authInfo[0];
 
 ReactDOM.render(
   <StrictMode>
-    <ConvexProviderWithAuth0
-      client={convex}
-      authInfo={authInfo}
-      loggedOut={<LoginPage />}
+    <Auth0Provider
+      domain={import.meta.env.VITE_AUTH0_DOMAIN}
+      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
     >
-      <App />
-    </ConvexProviderWithAuth0>
+      <ConvexProviderWithAuth0 client={convex}>
+        <Authenticated>
+          <App />
+        </Authenticated>
+        <Unauthenticated>
+          <LoginPage />
+        </Unauthenticated>
+        <AuthLoading>
+          <main>Loading...</main>
+        </AuthLoading>
+      </ConvexProviderWithAuth0>
+    </Auth0Provider>
   </StrictMode>,
   document.getElementById("root")
 );

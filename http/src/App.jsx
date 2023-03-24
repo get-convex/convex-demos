@@ -11,7 +11,7 @@ export default function App() {
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
-    await sendMessage(newMessageText, name);
+    await sendMessage({ body: newMessageText, author: name });
   }
 
   const convexDeploymentUrl = import.meta.env.VITE_CONVEX_URL;

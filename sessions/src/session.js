@@ -30,13 +30,13 @@ const SessionContext = React.createContext(null);
  * To be used with useSessionQuery and useSessionMutation.
  */
 export const SessionProvider = ({ storageLocation, children }) => {
-  const store = window[storageLocation ?? "sessionStorage"];
-  const [sessionId, setSession] = useState(() => {
+  const store =
     // If it's rendering in SSR or such.
-    if (typeof window === "undefined") {
-      return null;
-    }
-    const stored = store.getItem(StoreKey);
+    typeof window === "undefined"
+      ? null
+      : window[storageLocation ?? "sessionStorage"];
+  const [sessionId, setSession] = useState(() => {
+    const stored = store?.getItem(StoreKey);
     if (stored) {
       return new Id("sessions", stored);
     }
@@ -47,7 +47,7 @@ export const SessionProvider = ({ storageLocation, children }) => {
   // Get or set the ID from our desired storage location, whenever it changes.
   useEffect(() => {
     if (sessionId) {
-      store.setItem(StoreKey, sessionId.id);
+      store?.setItem(StoreKey, sessionId.id);
     } else {
       void (async () => {
         setSession(await createSession());

@@ -11,11 +11,11 @@ export default function App() {
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
-    await sendMessage(newMessageText, name);
+    await sendMessage({ body: newMessageText, author: name });
   }
 
   const [searchText, setSearchText] = useState("");
-  const searchResults = useQuery("searchMessages", searchText) || [];
+  const searchResults = useQuery("searchMessages", { query: searchText }) || [];
 
   return (
     <main>

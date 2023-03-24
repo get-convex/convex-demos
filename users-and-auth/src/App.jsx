@@ -1,9 +1,11 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 import Badge from "./Badge";
 import LogoutButton from "./LogoutButton";
 
 export default function App() {
+  const { user } = useAuth0();
   const [userId, setUserId] = useState(null);
   const storeUser = useMutation("storeUser");
   // Call the `storeUser` mutation function to store
@@ -18,7 +20,9 @@ export default function App() {
     }
     createUser();
     return () => setUserId(null);
-  }, [storeUser]);
+    // Make sure the effect reruns if the user logs in with
+    // a different identity
+  }, [storeUser, user.email, user.phone_number]);
 
   const messages = useQuery("listMessages") || [];
 
@@ -28,7 +32,7 @@ export default function App() {
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
-    await sendMessage(newMessageText);
+    await sendMessage({ body: newMessageText });
   }
   return (
     <main>

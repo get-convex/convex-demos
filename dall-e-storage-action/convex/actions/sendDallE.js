@@ -2,7 +2,7 @@ import fetch from "node-fetch";
 import { Configuration, OpenAIApi } from "openai";
 import { action } from "../_generated/server";
 
-export default action(async ({ runMutation }, prompt, author) => {
+export default action(async ({ runMutation }, { prompt, author }) => {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error(
@@ -39,7 +39,7 @@ export default action(async ({ runMutation }, prompt, author) => {
   const image = Buffer.from(await imageResponse.arrayBuffer());
 
   // Create a Convex url to upload the image to.
-  const postUrl = await mutation("sendMessage:generateUploadUrl");
+  const postUrl = await runMutation("sendMessage:generateUploadUrl");
 
   // Upload the image to Convex storage.
   const postImageResponse = await fetch(postUrl, {
@@ -51,5 +51,9 @@ export default action(async ({ runMutation }, prompt, author) => {
   const { storageId } = await postImageResponse.json();
 
   // Write storageId as the body of the message to the Convex database.
-  await runMutation("sendMessage", storageId, author, "dall-e", prompt);
+  await runMutation("sendMessage:sendDallEMessage", {
+    body: storageId,
+    author,
+    prompt,
+  });
 });

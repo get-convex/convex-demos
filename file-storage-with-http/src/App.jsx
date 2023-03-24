@@ -17,7 +17,7 @@ export default function App() {
     event.preventDefault();
     setNewMessageText("");
     if (newMessageText) {
-      await sendMessage(newMessageText, name);
+      await sendMessage({ body: newMessageText, author: name });
     }
   }
 

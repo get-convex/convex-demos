@@ -11,7 +11,7 @@ export default function App() {
   async function handleSendMessage(event: FormEvent) {
     event.preventDefault();
     setNewMessageText("");
-    await sendMessage(newMessageText, name);
+    await sendMessage({ body: newMessageText, author: name });
   }
   return (
     <main>
