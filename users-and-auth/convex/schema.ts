@@ -1,12 +1,13 @@
-import { defineSchema, defineTable, s } from "convex/schema";
+import { defineSchema, defineTable } from "convex/schema";
+import { v } from "convex/values";
 
 export default defineSchema({
   messages: defineTable({
-    body: s.string(),
-    user: s.id("users"),
+    body: v.string(),
+    user: v.id("users"),
   }),
   users: defineTable({
-    name: s.string(),
-    tokenIdentifier: s.string(),
+    name: v.string(),
+    tokenIdentifier: v.string(),
   }).index("by_token", ["tokenIdentifier"]),
 });

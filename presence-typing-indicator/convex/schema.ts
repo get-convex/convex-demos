@@ -1,15 +1,16 @@
-import { defineSchema, defineTable, s } from "convex/schema";
+import { defineSchema, defineTable } from "convex/schema";
+import { v } from "convex/values";
 
 export default defineSchema({
   messages: defineTable({
-    author: s.string(),
-    body: s.string(),
+    author: v.string(),
+    body: v.string(),
   }),
   presence: defineTable({
-    user: s.string(),
-    room: s.string(),
-    updated: s.number(),
-    data: s.any(),
+    user: v.string(),
+    room: v.string(),
+    updated: v.number(),
+    data: v.any(),
   })
     .index("by_room_updated", ["room", "updated"])
     .index("by_user_room", ["user", "room"]),

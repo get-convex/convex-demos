@@ -1,14 +1,14 @@
-# File Storage with HTTP Endpoints
+# File Storage with HTTP Actions
 
 This example demonstrates how to use Convex file storage to augment Convex Chat
-with images via [HTTP endpoints](https://docs.convex.dev/using/http-endpoints).
+with images via [HTTP actions](https://docs.convex.dev/functions/http-actions).
 
 This app is an extension of the Convex chat tutorial including a new button for
 uploading images. Images will be stored in Convex file storage, with their
 storage IDs saved in the messages table for access.
 
 To learn more about storage see the
-[File Storage](https://docs.convex.dev/using/file-storage) documentation.
+[File Storage](https://docs.convex.dev/file-storage) documentation.
 
 ## Running the App
 
@@ -21,7 +21,7 @@ VITE_CONVEX_SITE_URL="https://happy-animal-123.convex.site"
 ```
 
 Additionally, add a
-[Convex environment variable](https://docs.convex.dev/using/environment-variables)
+[Convex environment variable](https://docs.convex.dev/production/hosting/environment-variables)
 named `CLIENT_ORIGIN` with the origin of your website (e.g.
 `http://localhost:3000` if developing locally).
 

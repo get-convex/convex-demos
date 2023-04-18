@@ -1,5 +1,4 @@
-import fetch from "node-fetch";
-import { action } from "../_generated/server";
+import { action, internalMutation } from "./_generated/server";
 
 function giphyUrl(queryString) {
   return (
@@ -21,8 +20,15 @@ export default action(async ({ runMutation }, { queryString, author }) => {
   const gifEmbedUrl = json.data.embed_url;
 
   // Write GIF url to Convex.
-  await runMutation("sendMessage:sendGifMessage", {
+  await runMutation("sendGif:sendGifMessage", {
     body: gifEmbedUrl,
     author,
   });
 });
+
+export const sendGifMessage = internalMutation(
+  async ({ db }, { body, author }) => {
+    const message = { body, author, format: "giphy" };
+    await db.insert("messages", message);
+  }
+);

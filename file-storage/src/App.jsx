@@ -7,12 +7,6 @@ export default function App() {
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation("sendMessage:sendMessage");
 
-  const generateUploadUrl = useMutation("sendMessage:generateUploadUrl");
-  const sendImage = useMutation("sendMessage:sendImage");
-
-  const imageInput = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
-
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
@@ -21,6 +15,12 @@ export default function App() {
       await sendMessage({ body: newMessageText, author: name });
     }
   }
+
+  const generateUploadUrl = useMutation("sendMessage:generateUploadUrl");
+  const sendImage = useMutation("sendMessage:sendImage");
+
+  const imageInput = useRef(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   async function handleSendImage(event) {
     event.preventDefault();
@@ -36,7 +36,7 @@ export default function App() {
       body: selectedImage,
     });
     const { storageId } = await result.json();
-    // Step 3: Save the newly allocated storage id to the messages table
+    // Step 3: Save the newly allocated storage id to the database
     await sendImage({ storageId, author: name });
   }
 

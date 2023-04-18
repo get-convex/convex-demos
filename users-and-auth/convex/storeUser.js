@@ -13,6 +13,7 @@ import { mutation } from "./_generated/server";
  */
 export default mutation(async ({ db, auth }) => {
   const identity = await auth.getUserIdentity();
+  console.log(identity);
   if (!identity) {
     throw new Error("Called storeUser without authentication present");
   }

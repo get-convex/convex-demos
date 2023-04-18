@@ -1,7 +1,7 @@
-# HTTP Endpoint Example App
+# HTTP Action Example App
 
 This example demonstrates how to use Convex
-[HTTP endpoints](https://docs.convex.dev/using/http-endpoints).
+[HTTP actions](https://docs.convex.dev/functions/http-actions).
 
 ## Running the App
 

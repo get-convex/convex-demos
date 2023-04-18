@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
 export default function App() {
-  const messages = useQuery("listMessages") || [];
+  const messages = useQuery("listMessages", {}) || [];
 
   console.log({ messages });
   const [newMessageText, setNewMessageText] = useState("");

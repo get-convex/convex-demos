@@ -1,7 +1,7 @@
 # Search Example App
 
 This example demonstrates how to use
-[Convex full text search](https://docs.convex.dev/using/search) to add search to
+[Convex full text search](https://docs.convex.dev/text-search) to add search to
 an app.
 
 In `schema.ts`, we define a search index on the `"messages"` table.

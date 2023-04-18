@@ -34,38 +34,7 @@ export const addSystemFields = <T>(tableName: TableNames, zObject: T) => {
 /**
  * Wraps a Convex function with input and (optional) output validation via Zod.
  *
- * @param zodArgs - A list of Zod objects for validating the arguments to func.
- * @param func - Your function that accepts validated inputs, along with the
- * Convex ctx arg, to be used with Convex serverless functions.
- * @param zodReturn - An optional Zod object to validate the return from func.
- * @returns A function that can be passed to `query`, `mutation` or `action`.
- */
-export const withZodArgs = <
-  Ctx,
-  Args extends [z.ZodTypeAny, ...z.ZodTypeAny[]] | [],
-  Returns extends z.ZodTypeAny
->(
-  zodArgs: Args,
-  func: (
-    ctx: Ctx,
-    ...args: z.output<z.ZodTuple<Args>>
-  ) => z.input<z.ZodPromise<Returns>>,
-  zodReturn?: Returns
-): ((
-  ctx: Ctx,
-  ...outerArgs: z.input<z.ZodTuple<Args>>
-) => z.output<z.ZodPromise<Returns>>) => {
-  return withZodFunction(
-    z.function(z.tuple(zodArgs), z.promise(zodReturn ?? z.unknown())),
-    func
-  );
-};
-
-/**
- * Wraps a Convex function with input and (optional) output validation via Zod.
- *
- * Assumes a single object argument to the function.
- * @param zodArg - A Zod object for validating the argument to func.
+ * @param zodArg - A Zod object for validating the arguments to func.
  * @param func - Your function that accepts validated inputs, along with the
  * Convex ctx arg, to be used with Convex serverless functions.
  * @param zodReturn - An optional Zod object to validate the return from func.
@@ -73,79 +42,30 @@ export const withZodArgs = <
  */
 export const withZodObjectArg = <
   Ctx,
-  Arg extends { [key: string]: z.ZodTypeAny },
+  Args extends { [key: string]: z.ZodTypeAny },
   Returns extends z.ZodTypeAny
 >(
-  zodArg: Arg,
+  zodArg: Args,
   func: (
     ctx: Ctx,
-    arg: z.output<z.ZodObject<Arg>>
+    arg: z.output<z.ZodObject<Args>>
   ) => z.input<z.ZodPromise<Returns>>,
   zodReturn?: Returns
-) => withZodArgs([z.object(zodArg)], func, zodReturn);
+): ((
+  ctx: Ctx,
+  args: z.input<z.ZodObject<Args>>
+) => z.output<z.ZodPromise<Returns>>) => {
+  return (ctx, args) => {
+    const innerFunc = (validatedArgs: z.output<z.ZodObject<Args>>) =>
+      func(ctx, validatedArgs);
 
-/**
- * Wraps a Convex function with validation via Zod.
- *
- * @param zFunc - A Zod function for validating the arguments and return of func
- * @param func - Your function that accepts validated inputs, along with the
- * Convex ctx arg, to be used with Convex serverless functions.
- * @returns A function that can be passed to `query`, `mutation` or `action`.
- */
-const withZodFunction = <
-  Ctx,
-  Args extends z.ZodTuple<[z.ZodTypeAny, ...z.ZodTypeAny[]] | [], null>,
-  Returns extends z.ZodTypeAny
->(
-  zFunc: z.ZodFunction<Args, Returns>,
-  func: (ctx: Ctx, ...args: z.output<Args>) => z.input<Returns>
-): ((ctx: Ctx, ...outerArgs: z.input<Args>) => z.output<Returns>) => {
-  return (ctx, ...outerArgs) => {
-    return zFunc.strictImplement(((...args) =>
-      func(ctx, ...args)) as z.InnerTypeOfFunction<Args, Returns>)(
-      ...outerArgs
+    const zodType = z.function(
+      z.tuple([z.object(zodArg)]),
+      z.promise(zodReturn ?? z.unknown())
     );
+    return zodType.implement(innerFunc)(args);
   };
 };
-
-// See withZodArgs
-export const queryWithZodArgs = <
-  Args extends [z.ZodTypeAny, ...z.ZodTypeAny[]] | [],
-  Returns extends z.ZodTypeAny
->(
-  zodArgs: Args,
-  func: (
-    ctx: QueryCtx,
-    ...args: z.output<z.ZodTuple<Args>>
-  ) => z.input<z.ZodPromise<Returns>>,
-  zodReturn?: Returns
-) => query(withZodArgs(zodArgs, func, zodReturn));
-
-// See withZodArgs
-export const mutationWithZodArgs = <
-  Args extends [z.ZodTypeAny, ...z.ZodTypeAny[]] | [],
-  Returns extends z.ZodTypeAny
->(
-  zodArgs: Args,
-  func: (
-    ctx: MutationCtx,
-    ...args: z.output<z.ZodTuple<Args>>
-  ) => z.input<z.ZodPromise<Returns>>,
-  zodReturn?: Returns
-) => mutation(withZodArgs(zodArgs, func, zodReturn));
-
-// See withZodArgs
-export const actionWithZodArgs = <
-  Args extends [z.ZodTypeAny, ...z.ZodTypeAny[]] | [],
-  Returns extends z.ZodTypeAny
->(
-  zodArgs: Args,
-  func: (
-    ctx: ActionCtx,
-    ...args: z.output<z.ZodTuple<Args>>
-  ) => z.input<z.ZodPromise<Returns>>,
-  zodReturn?: Returns
-) => action(withZodArgs(zodArgs, func, zodReturn));
 
 // See withZodObjectArg
 export const queryWithZodObjectArg = <
@@ -186,4 +106,4 @@ export const actionWithZodObjectArg = <
   zodReturn?: Returns
 ) => action(withZodObjectArg(zodArgs, func, zodReturn));
 
-export default withZodArgs;
+export default withZodObjectArg;

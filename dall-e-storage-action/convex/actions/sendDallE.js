@@ -1,8 +1,10 @@
+"use node";
+
 import fetch from "node-fetch";
 import { Configuration, OpenAIApi } from "openai";
 import { action } from "../_generated/server";
 
-export default action(async ({ runMutation }, { prompt, author }) => {
+export default action(async ({ runMutation, storage }, { prompt, author }) => {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     throw new Error(
@@ -36,19 +38,10 @@ export default action(async ({ runMutation }, { prompt, author }) => {
   if (!imageResponse.ok) {
     throw new Error(`failed to download: ${imageResponse.statusText}`);
   }
-  const image = Buffer.from(await imageResponse.arrayBuffer());
 
-  // Create a Convex url to upload the image to.
-  const postUrl = await runMutation("sendMessage:generateUploadUrl");
-
-  // Upload the image to Convex storage.
-  const postImageResponse = await fetch(postUrl, {
-    method: "POST",
-    headers: { "Content-Type": imageResponse.headers.get("content-type") },
-    body: image,
-  });
-  // Get the storageId for the upload.
-  const { storageId } = await postImageResponse.json();
+  // Store the image to Convex storage.
+  const image = await imageResponse.blob();
+  const storageId = await storage.store(image);
 
   // Write storageId as the body of the message to the Convex database.
   await runMutation("sendMessage:sendDallEMessage", {

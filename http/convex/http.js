@@ -1,14 +1,15 @@
 import { httpRouter } from "convex/server";
 import getMessagesByAuthor from "./getMessagesByAuthor";
-import { httpEndpoint } from "./_generated/server";
+import { httpAction } from "./_generated/server";
 
-const postMessage = httpEndpoint(async ({ runMutation }, request) => {
+const postMessage = httpAction(async ({ runMutation }, request) => {
   const { author, body } = await request.json();
 
   await runMutation("sendMessage", {
-    body: `Sent via HTTP endpoint: ${body}`,
+    body: `Sent via HTTP action: ${body}`,
     author,
   });
+
   return new Response(null, {
     status: 200,
   });

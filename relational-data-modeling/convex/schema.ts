@@ -1,12 +1,13 @@
-import { defineSchema, defineTable, s } from "convex/schema";
+import { defineSchema, defineTable } from "convex/schema";
+import { v } from "convex/values";
 
 export default defineSchema({
   channels: defineTable({
-    name: s.string(),
+    name: v.string(),
   }),
   messages: defineTable({
-    author: s.string(),
-    body: s.string(),
-    channel: s.id("channels"),
+    author: v.string(),
+    body: v.string(),
+    channel: v.id("channels"),
   }),
 });

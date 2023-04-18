@@ -1,33 +1,21 @@
 import { httpRouter } from "convex/server";
-import { httpEndpoint } from "./_generated/server";
+import { httpAction } from "./_generated/server";
 
 const http = httpRouter();
 
 http.route({
-  path: "/getImage",
-  method: "GET",
-  handler: httpEndpoint(async ({ storage }, request) => {
-    const storageId = new URL(request.url).searchParams.get("storageId");
-    const responseOrNull = await storage.get(storageId);
-    if (responseOrNull === null) {
-      return new Response("Image not found", {
-        status: 404,
-      });
-    }
-    return responseOrNull;
-  }),
-});
-
-http.route({
   path: "/sendImage",
   method: "POST",
-  handler: httpEndpoint(async ({ storage, runMutation }, request) => {
-    // Store the image
-    const storageId = await storage.store(request);
-    const author = new URL(request.url).searchParams.get("author");
+  handler: httpAction(async ({ storage, runMutation }, request) => {
+    // Step 1: Store the file
+    const blob = await request.blob();
+    const storageId = await storage.store(blob);
 
-    // Save the storage ID to the messages table via a mutation
+    // Step 2: Save the storage ID to the database via a mutation
+    const author = new URL(request.url).searchParams.get("author");
     await runMutation("sendMessage:sendImage", { storageId, author });
+
+    // Step 3: Return a response with the correct CORS headers
     return new Response(null, {
       status: 200,
       // CORS headers
@@ -40,11 +28,27 @@ http.route({
   }),
 });
 
+http.route({
+  path: "/getImage",
+  method: "GET",
+  handler: httpAction(async ({ storage }, request) => {
+    const { searchParams } = new URL(request.url);
+    const storageId = searchParams.get("storageId");
+    const blob = await storage.get(storageId);
+    if (blob === null) {
+      return new Response("Image not found", {
+        status: 404,
+      });
+    }
+    return new Response(blob);
+  }),
+});
+
 // Pre-flight request for /sendImage
 http.route({
   path: "/sendImage",
   method: "OPTIONS",
-  handler: httpEndpoint(async ({}, request) => {
+  handler: httpAction(async ({}, request) => {
     // Make sure the necessary headers are present
     // for this to be a valid pre-flight request
     let headers = request.headers;

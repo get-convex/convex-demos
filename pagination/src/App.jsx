@@ -2,9 +2,13 @@ import { useState } from "react";
 import { useMutation, usePaginatedQuery } from "../convex/_generated/react";
 
 export default function App() {
-  const { results, status, loadMore } = usePaginatedQuery("listMessages", {
-    initialNumItems: 5,
-  });
+  const { results, status, loadMore } = usePaginatedQuery(
+    "listMessages",
+    {},
+    {
+      initialNumItems: 5,
+    }
+  );
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation("sendMessage");

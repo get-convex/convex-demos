@@ -26,14 +26,14 @@ export default mutation(async ({ db, auth }) => {
     .unique();
   if (user !== null) {
     // If we've seen this identity before but the name has changed, patch the value.
-    if (user.name != identity.nickname) {
-      await db.patch(user._id, { name: identity.nickname });
+    if (user.name != identity.familyName) {
+      await db.patch(user._id, { name: identity.familyName });
     }
     return user._id;
   }
   // If it's a new identity, create a new `User`.
   return db.insert("users", {
-    name: identity.nickname,
+    name: identity.familyName,
     tokenIdentifier: identity.tokenIdentifier,
   });
 });

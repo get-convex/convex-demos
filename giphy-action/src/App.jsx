@@ -6,7 +6,7 @@ export default function App() {
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation("sendMessage");
-  const sendGif = useAction("actions/sendGif");
+  const sendGif = useAction("sendGif");
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {

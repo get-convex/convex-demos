@@ -1,6 +1,6 @@
-import { httpEndpoint } from "./_generated/server";
+import { httpAction } from "./_generated/server";
 
-export default httpEndpoint(async ({ runQuery }, request) => {
+export default httpAction(async ({ runQuery }, request) => {
   const url = new URL(request.url);
   const authorNumber =
     url.searchParams.get("authorNumber") ??

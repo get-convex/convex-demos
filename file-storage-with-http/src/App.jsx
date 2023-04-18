@@ -1,16 +1,11 @@
 import { useRef, useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 
-const convexSiteUrl = import.meta.env.VITE_CONVEX_SITE_URL;
-
 export default function App() {
   const messages = useQuery("listMessages") || [];
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation("sendMessage:sendMessage");
-
-  const imageInput = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
@@ -20,6 +15,9 @@ export default function App() {
       await sendMessage({ body: newMessageText, author: name });
     }
   }
+
+  const imageInput = useRef(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   async function handleSendImage(event) {
     event.preventDefault();
@@ -77,6 +75,8 @@ export default function App() {
     </main>
   );
 }
+
+const convexSiteUrl = import.meta.env.VITE_CONVEX_SITE_URL;
 
 function Image({ storageId }) {
   // e.g. https://happy-animal-123.convex.site/getImage?storageId=456
