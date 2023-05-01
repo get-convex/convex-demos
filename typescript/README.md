@@ -1,4 +1,4 @@
-# TypeScript and Schema Example App
+# TypeScript and Schemas Example App
 
 This example demonstrates how to write a Convex app in
 [TypeScript](https://docs.convex.dev/using/typescript).

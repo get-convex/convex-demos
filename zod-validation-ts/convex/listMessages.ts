@@ -1,8 +1,8 @@
 import { Doc } from "./_generated/dataModel";
-import { addSystemFields, queryWithZodObjectArg } from "./lib/withZod";
+import { addSystemFields, queryWithZod } from "./lib/withZod";
 import { z } from "zod";
 
-export default queryWithZodObjectArg(
+export default queryWithZod(
   {}, // We don't have any args to validate
   async ({ db }): Promise<Doc<"messages">[]> => {
     return await db.query("messages").collect();

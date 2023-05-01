@@ -2,15 +2,14 @@
   "name": "http",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npm-run-all init dev:init --parallel dev:server dev:client",
+    "dev": "npm-run-all dev:init --parallel dev:server dev:client",
     "build": "vite build",
-    "init": "convex init",
     "dev:server": "convex dev",
     "dev:client": "vite --open --clearScreen false",
     "dev:init": "convex dev --once"
   },
   "dependencies": {
-    "convex": "0.13.0",
+    "convex": "0.14.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },

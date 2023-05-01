@@ -40,7 +40,7 @@ export const addSystemFields = <T>(tableName: TableNames, zObject: T) => {
  * @param zodReturn - An optional Zod object to validate the return from func.
  * @returns A function that can be passed to `query`, `mutation` or `action`.
  */
-export const withZodObjectArg = <
+export const withZod = <
   Ctx,
   Args extends { [key: string]: z.ZodTypeAny },
   Returns extends z.ZodTypeAny
@@ -67,8 +67,8 @@ export const withZodObjectArg = <
   };
 };
 
-// See withZodObjectArg
-export const queryWithZodObjectArg = <
+// See withZod
+export const queryWithZod = <
   Arg extends { [key: string]: z.ZodTypeAny },
   Returns extends z.ZodTypeAny
 >(
@@ -78,10 +78,10 @@ export const queryWithZodObjectArg = <
     arg: z.output<z.ZodObject<Arg>>
   ) => z.input<z.ZodPromise<Returns>>,
   zodReturn?: Returns
-) => query(withZodObjectArg(zodArgs, func, zodReturn));
+) => query(withZod(zodArgs, func, zodReturn));
 
-// See withZodObjectArg
-export const mutationWithZodObjectArg = <
+// See withZod
+export const mutationWithZod = <
   Arg extends { [key: string]: z.ZodTypeAny },
   Returns extends z.ZodTypeAny
 >(
@@ -91,10 +91,10 @@ export const mutationWithZodObjectArg = <
     arg: z.output<z.ZodObject<Arg>>
   ) => z.input<z.ZodPromise<Returns>>,
   zodReturn?: Returns
-) => mutation(withZodObjectArg(zodArgs, func, zodReturn));
+) => mutation(withZod(zodArgs, func, zodReturn));
 
-// See withZodObjectArg
-export const actionWithZodObjectArg = <
+// See withZod
+export const actionWithZod = <
   Arg extends { [key: string]: z.ZodTypeAny },
   Returns extends z.ZodTypeAny
 >(
@@ -104,6 +104,6 @@ export const actionWithZodObjectArg = <
     arg: z.output<z.ZodObject<Arg>>
   ) => z.input<z.ZodPromise<Returns>>,
   zodReturn?: Returns
-) => action(withZodObjectArg(zodArgs, func, zodReturn));
+) => action(withZod(zodArgs, func, zodReturn));
 
-export default withZodObjectArg;
+export default withZod;
