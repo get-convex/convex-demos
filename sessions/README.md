@@ -10,7 +10,7 @@ and [sessionsClient.js](./src/sessionsClient.js) to wrap the `useQuery` and
 `useMutation` hooks in React.
 
 More detail can be found in the
-[Stack post](https://stack.convex/dev/sessions-wrappers-as-middleware).
+[Stack post](https://stack.convex.dev/sessions-wrappers-as-middleware).
 
 ## Using sessions yourself:
 
