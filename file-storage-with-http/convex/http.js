@@ -48,7 +48,7 @@ http.route({
 http.route({
   path: "/sendImage",
   method: "OPTIONS",
-  handler: httpAction(async ({}, request) => {
+  handler: httpAction(async (_, request) => {
     // Make sure the necessary headers are present
     // for this to be a valid pre-flight request
     let headers = request.headers;

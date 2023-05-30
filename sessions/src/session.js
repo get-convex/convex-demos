@@ -63,16 +63,18 @@ export const SessionProvider = ({ storageLocation, children }) => {
 };
 
 // Like useQuery, but for a Query that takes a session ID.
-export const useSessionQuery = (name, ...args) => {
+export const useSessionQuery = (name, args) => {
   const sessionId = useContext(SessionContext);
-  return useQuery(name, sessionId, ...args);
+  const newArgs = { ...(args || {}), sessionId };
+  return useQuery(name, newArgs);
 };
 
 // Like useMutation, but for a Mutation that takes a session ID.
 export const useSessionMutation = name => {
   const sessionId = useContext(SessionContext);
   const originalMutation = useMutation(name);
-  return (...args) => {
-    return originalMutation(sessionId, ...args);
+  return args => {
+    const newArgs = { ...(args || {}), sessionId };
+    return originalMutation(newArgs);
   };
 };

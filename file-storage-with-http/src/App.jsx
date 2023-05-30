@@ -10,10 +10,10 @@ export default function App() {
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     if (newMessageText) {
       await sendMessage({ body: newMessageText, author: name });
     }
+    setNewMessageText("");
   }
 
   const imageInput = useRef(null);
@@ -21,8 +21,6 @@ export default function App() {
 
   async function handleSendImage(event) {
     event.preventDefault();
-    setSelectedImage(null);
-    imageInput.current.value = "";
 
     // e.g. https://happy-animal-123.convex.site/sendImage?author=User+123
     const sendImageUrl = new URL(`${convexSiteUrl}/sendImage`);
@@ -33,6 +31,9 @@ export default function App() {
       headers: { "Content-Type": selectedImage.type },
       body: selectedImage,
     });
+
+    setSelectedImage(null);
+    imageInput.current.value = "";
   }
 
   return (

@@ -16,8 +16,8 @@ export default function App() {
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     await sendMessage({ body: newMessageText, author: name });
+    setNewMessageText("");
   }
   return (
     <main>

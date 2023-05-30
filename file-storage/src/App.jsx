@@ -10,10 +10,10 @@ export default function App() {
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     if (newMessageText) {
       await sendMessage({ body: newMessageText, author: name });
     }
+    setNewMessageText("");
   }
 
   const generateUploadUrl = useMutation("sendMessage:generateUploadUrl");
@@ -24,8 +24,6 @@ export default function App() {
 
   async function handleSendImage(event) {
     event.preventDefault();
-    setSelectedImage(null);
-    imageInput.current.value = "";
 
     // Step 1: Get a short-lived upload URL
     const postUrl = await generateUploadUrl();
@@ -38,6 +36,9 @@ export default function App() {
     const { storageId } = await result.json();
     // Step 3: Save the newly allocated storage id to the database
     await sendImage({ storageId, author: name });
+
+    setSelectedImage(null);
+    imageInput.current.value = "";
   }
 
   return (

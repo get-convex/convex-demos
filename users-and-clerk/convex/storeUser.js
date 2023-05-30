@@ -26,7 +26,7 @@ export default mutation(async ({ db, auth }) => {
     .unique();
   if (user !== null) {
     // If we've seen this identity before but the name has changed, patch the value.
-    if (user.name != identity.familyName) {
+    if (user.name !== identity.familyName) {
       await db.patch(user._id, { name: identity.familyName });
     }
     return user._id;

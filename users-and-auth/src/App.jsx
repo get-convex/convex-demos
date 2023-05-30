@@ -1,28 +1,11 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 import Badge from "./Badge";
 import LogoutButton from "./LogoutButton";
+import useStoreUserEffect from "./useStoreUserEffect";
 
 export default function App() {
-  const { user } = useAuth0();
-  const [userId, setUserId] = useState(null);
-  const storeUser = useMutation("storeUser");
-  // Call the `storeUser` mutation function to store
-  // the current user in the `users` table and return the `Id` value.
-  useEffect(() => {
-    // Store the user in the database.
-    // Recall that `storeUser` gets the user information via the `auth`
-    // object on the server. You don't need to pass anything manually here.
-    async function createUser() {
-      const id = await storeUser();
-      setUserId(id);
-    }
-    createUser();
-    return () => setUserId(null);
-    // Make sure the effect reruns if the user logs in with
-    // a different identity
-  }, [storeUser, user.email, user.phone_number]);
+  const userId = useStoreUserEffect();
 
   const messages = useQuery("listMessages") || [];
 
@@ -31,8 +14,8 @@ export default function App() {
 
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     await sendMessage({ body: newMessageText });
+    setNewMessageText("");
   }
   return (
     <main>
@@ -57,7 +40,7 @@ export default function App() {
         <input
           type="submit"
           value="Send"
-          disabled={!newMessageText || !userId}
+          disabled={newMessageText === "" || userId === null}
         />
       </form>
     </main>

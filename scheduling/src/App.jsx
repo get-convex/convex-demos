@@ -11,7 +11,6 @@ export default function App() {
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     if (newMessageText.startsWith("/expiring ")) {
       await sendExpiringMessage({
         body: newMessageText.slice(10),
@@ -20,6 +19,7 @@ export default function App() {
     } else {
       await sendMessage({ body: newMessageText, author: name });
     }
+    setNewMessageText("");
   }
   return (
     <main>

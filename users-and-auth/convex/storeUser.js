@@ -13,7 +13,6 @@ import { mutation } from "./_generated/server";
  */
 export default mutation(async ({ db, auth }) => {
   const identity = await auth.getUserIdentity();
-  console.log(identity);
   if (!identity) {
     throw new Error("Called storeUser without authentication present");
   }
@@ -27,7 +26,7 @@ export default mutation(async ({ db, auth }) => {
     .unique();
   if (user !== null) {
     // If we've seen this identity before but the name has changed, patch the value.
-    if (user.name != identity.name) {
+    if (user.name !== identity.name) {
       await db.patch(user._id, { name: identity.name });
     }
     return user._id;

@@ -11,7 +11,6 @@ export default function App() {
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     // If a /giphy command is entered, call the action.
     if (newMessageText.startsWith("/giphy ")) {
       const query = newMessageText.slice(7);
@@ -19,6 +18,7 @@ export default function App() {
     } else {
       await sendMessage({ body: newMessageText, author: name });
     }
+    setNewMessageText("");
   }
   return (
     <main>

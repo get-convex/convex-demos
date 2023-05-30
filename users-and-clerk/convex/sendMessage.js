@@ -1,6 +1,6 @@
 import { mutation } from "./_generated/server";
 
-export default mutation(async ({ db, auth }, body) => {
+export default mutation(async ({ db, auth }, { body }) => {
   const identity = await auth.getUserIdentity();
   if (!identity) {
     throw new Error("Unauthenticated call to mutation");

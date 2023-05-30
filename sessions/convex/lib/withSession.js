@@ -14,7 +14,7 @@ import { mutation, query } from "../_generated/server";
  * @returns A function to be passed to `query` or `mutation`.
  */
 export const withSession = (func, required) => {
-  return async (ctx, sessionId, ...args) => {
+  return async (ctx, { sessionId, ...args }) => {
     if (sessionId && sessionId.tableName !== "sessions")
       throw new Error("Invalid Session ID");
     const session = sessionId ? await ctx.db.get(sessionId) : null;
@@ -25,7 +25,7 @@ export const withSession = (func, required) => {
           "Are you requiring a session from a query that executes immediately?"
       );
     }
-    return func({ ...ctx, session }, ...args);
+    return func({ ...ctx, session }, args);
   };
 };
 

@@ -1,24 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMutation, useQuery } from "../convex/_generated/react";
 import Badge from "./Badge";
 import { SignOutButton } from "@clerk/clerk-react";
+import useStoreUserEffect from "./useStoreUserEffect";
 
 export default function App() {
-  const [userId, setUserId] = useState(null);
-  const storeUser = useMutation("storeUser");
-  // Call the `storeUser` mutation function to store
-  // the current user in the `users` table and return the `Id` value.
-  useEffect(() => {
-    // Store the user in the database.
-    // Recall that `storeUser` gets the user information via the `auth`
-    // object on the server. You don't need to pass anything manually here.
-    async function createUser() {
-      const id = await storeUser();
-      setUserId(id);
-    }
-    createUser();
-    return () => setUserId(null);
-  }, [storeUser]);
+  const userId = useStoreUserEffect();
 
   const messages = useQuery("listMessages") || [];
 
@@ -27,8 +14,8 @@ export default function App() {
 
   async function handleSendMessage(event) {
     event.preventDefault();
+    await sendMessage({ body: newMessageText });
     setNewMessageText("");
-    await sendMessage(newMessageText);
   }
   return (
     <main>
@@ -53,7 +40,7 @@ export default function App() {
         <input
           type="submit"
           value="Send"
-          disabled={!newMessageText || !userId}
+          disabled={newMessageText === "" || userId === null}
         />
       </form>
     </main>

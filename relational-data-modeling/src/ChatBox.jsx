@@ -9,12 +9,12 @@ export default function ChatBox({ channelId, name }) {
 
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     await sendMessage({
       channel: channelId,
       body: newMessageText,
       author: name,
     });
+    setNewMessageText("");
   }
   return (
     <div className="chat-box">

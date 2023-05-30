@@ -15,7 +15,7 @@ async function getAllMessages() {
   const results = [];
 
   while (!isDone) {
-    ({ continueCursor, isDone, page } = await client.query("listMessages")({
+    ({ continueCursor, isDone, page } = await client.query("listMessages", {
       paginationOpts: { numItems: 5, cursor: continueCursor },
     }));
     console.log("got", page.length);

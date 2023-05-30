@@ -12,7 +12,6 @@ export default function App() {
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     if (
       newMessageText.startsWith("/dalle ") ||
       newMessageText.startsWith("/dall-e ")
@@ -27,6 +26,7 @@ export default function App() {
     } else {
       await sendMessage({ body: newMessageText, author: name, format: "text" });
     }
+    setNewMessageText("");
   }
   return (
     <main>

@@ -4,13 +4,14 @@ This example demonstrates using a pattern to keep track of user sessions in a
 database table to track per-tab or per-browser data, even without being logged
 in.
 
-It leverages some helpful wrappers in [sessions.js](./convex/sessions.js) to
-wrap Convex [functions](https://docs.convex.dev/using/writing-convex-functions)
-and [sessionsClient.js](./src/sessionsClient.js) to wrap the `useQuery` and
+It leverages some helpful wrappers in
+[withSession.js](./convex/lib/withSession.js) to wrap Convex
+[functions](https://docs.convex.dev/using/writing-convex-functions) and
+[sessionsClient.js](./src/sessionsClient.js) to wrap the `useQuery` and
 `useMutation` hooks in React.
 
 More detail can be found in the
-[Stack post](https://stack.convex/dev/sessions-wrappers-as-middleware).
+[Stack post](https://stack.convex.dev/sessions-wrappers-as-middleware).
 
 ## Using sessions yourself:
 

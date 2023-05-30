@@ -22,6 +22,8 @@ export default function MyApp({ Component, pageProps }) {
         redirect_uri:
           typeof window === "undefined" ? undefined : window.location.origin,
       }}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
     >
       <ConvexProviderWithAuth0 client={convex}>
         <Authenticated>

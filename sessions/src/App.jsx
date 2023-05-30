@@ -11,8 +11,8 @@ export default function App() {
 
   async function handleSendMessage(event) {
     event.preventDefault();
-    setNewMessageText("");
     await sendMessage({ body: newMessageText });
+    setNewMessageText("");
   }
   return (
     <main>
