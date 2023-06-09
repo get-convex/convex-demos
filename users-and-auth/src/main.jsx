@@ -17,8 +17,13 @@ const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
 ReactDOM.render(
   <StrictMode>
     <Auth0Provider
-      domain={import.meta.env.VITE_AUTH0_DOMAIN}
-      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      // Replace these with your own Auth0 Domain and Client ID
+      // or with `{import.meta.env.VITE_AUTH0_DOMAIN}` and
+      // `{import.meta.env.VITE_AUTH0_CLIENT_ID}`
+      // and configure VITE_AUTH0_DOMAIN and VITE_AUTH0_CLIENT_ID
+      // in your .env.local
+      domain="dev-dr8esswf5jyzlaf6.us.auth0.com"
+      clientId="8DJpkTAjDwR9VOzNfyN7PLzhX3zcB7fd"
       authorizationParams={{
         redirect_uri: window.location.origin,
       }}

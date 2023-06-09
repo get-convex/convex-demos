@@ -1,34 +1,31 @@
-import { ConvexProvider, ConvexReactClient } from 'convex/react';
-import { CONVEX_URL } from 'env';
-import React, { StrictMode, useState } from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  Text,
-  TextInput,
-  View
-} from 'react-native';
-import { useMutation, useQuery } from './convex/_generated/react';
-import styles from './styles';
+import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { CONVEX_URL } from "@env";
+import React, { StrictMode, useState } from "react";
+import { FlatList, SafeAreaView, Text, TextInput, View } from "react-native";
+import { useMutation, useQuery } from "./convex/_generated/react";
+import styles from "./styles";
 
 function InnerApp() {
-  const messages = useQuery('listMessages') || [];
+  const messages = useQuery("listMessages") || [];
 
-  const [newMessageText, setNewMessageText] = useState('');
-  const sendMessage = useMutation('sendMessage');
+  const [newMessageText, setNewMessageText] = useState("");
+  const sendMessage = useMutation("sendMessage");
 
-
-  const [name] = useState(() => 'User ' + Math.floor(Math.random() * 10000));
+  const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
     event.preventDefault();
+    setNewMessageText("");
     await sendMessage({ body: newMessageText, author: name });
-    setNewMessageText('');
   }
 
   return (
     <SafeAreaView style={styles.body}>
       <Text style={styles.title}>Convex Chat</Text>
-      <View style={styles.name}><Text style={styles.nameText} testID="NameField">{name}</Text></View>
+      <View style={styles.name}>
+        <Text style={styles.nameText} testID="NameField">
+          {name}
+        </Text>
+      </View>
       <FlatList
         data={messages.slice(-10)}
         testID="MessagesList"
@@ -37,7 +34,8 @@ function InnerApp() {
           return (
             <View style={styles.messageContainer}>
               <Text>
-                <Text style={styles.messageAuthor}>{message.author}:</Text> {message.body}
+                <Text style={styles.messageAuthor}>{message.author}:</Text>{" "}
+                {message.body}
               </Text>
               <Text style={styles.timestamp}>
                 {new Date(message._creationTime).toLocaleTimeString()}
