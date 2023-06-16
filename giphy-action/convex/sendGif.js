@@ -1,4 +1,5 @@
 import { action, internalMutation } from "./_generated/server";
+import { api } from "./_generated/api";
 
 function giphyUrl(queryString) {
   return (
@@ -20,7 +21,7 @@ export default action(async ({ runMutation }, { queryString, author }) => {
   const gifEmbedUrl = json.data.embed_url;
 
   // Write GIF url to Convex.
-  await runMutation("sendGif:sendGifMessage", {
+  await runMutation(api.sendGif.sendGifMessage, {
     body: gifEmbedUrl,
     author,
   });

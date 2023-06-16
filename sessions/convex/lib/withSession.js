@@ -15,8 +15,9 @@ import { mutation, query } from "../_generated/server";
  */
 export const withSession = (func, required) => {
   return async (ctx, { sessionId, ...args }) => {
-    if (sessionId && sessionId.tableName !== "sessions")
+    if (sessionId && ctx.db.normalizeId("sessions", sessionId) !== null) {
       throw new Error("Invalid Session ID");
+    }
     const session = sessionId ? await ctx.db.get(sessionId) : null;
     if (required && !session) {
       throw new Error(

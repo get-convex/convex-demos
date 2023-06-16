@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useSessionMutation, useSessionQuery } from "./session";
+import { api } from "../convex/_generated/api";
 
 export default function App() {
-  const name = useSessionQuery("name:get");
-  const updateName = useSessionMutation("name:set");
-  const messages = useSessionQuery("listMessages") || [];
+  const name = useSessionQuery(api.name.get);
+  const updateName = useSessionMutation(api.name.set);
+  const messages = useSessionQuery(api.listMessages.default) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useSessionMutation("sendMessage");

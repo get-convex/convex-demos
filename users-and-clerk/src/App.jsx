@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "../convex/_generated/react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
 import Badge from "./Badge";
 import { SignOutButton } from "@clerk/clerk-react";
 import useStoreUserEffect from "./useStoreUserEffect";
@@ -7,10 +8,10 @@ import useStoreUserEffect from "./useStoreUserEffect";
 export default function App() {
   const userId = useStoreUserEffect();
 
-  const messages = useQuery("listMessages") || [];
+  const messages = useQuery(api.listMessages.default) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation("sendMessage");
+  const sendMessage = useMutation(api.sendMessage.default);
 
   async function handleSendMessage(event) {
     event.preventDefault();

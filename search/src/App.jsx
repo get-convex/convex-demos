@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "../convex/_generated/react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
 
 export default function App() {
-  const messages = useQuery("listMessages") || [];
+  const messages = useQuery(api.listMessages.default) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation("sendMessage");
+  const sendMessage = useMutation(api.sendMessage.default);
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
@@ -15,7 +16,8 @@ export default function App() {
   }
 
   const [searchText, setSearchText] = useState("");
-  const searchResults = useQuery("searchMessages", { query: searchText }) || [];
+  const searchResults =
+    useQuery(api.searchMessages.default, { query: searchText }) || [];
 
   return (
     <main>

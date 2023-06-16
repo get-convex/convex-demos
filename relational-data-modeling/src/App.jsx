@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "../convex/_generated/react";
+import { api } from "../convex/_generated/api";
+import { useMutation, useQuery } from "convex/react";
 import ChatBox from "./ChatBox";
 
 export default function App() {
-  const channels = useQuery("listChannels") || [];
+  const channels = useQuery(api.listChannels.default) || [];
   const [channelId, setChannelId] = useState(null);
   const [newChannelName, setNewChannelName] = useState("");
-  const addChannel = useMutation("addChannel");
+  const addChannel = useMutation(api.addChannel.default);
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
 
   async function handleAddChannel(event) {
@@ -29,7 +30,7 @@ export default function App() {
                 key={channel._id.toString()}
                 onClick={() => setChannelId(channel._id)}
                 style={{
-                  fontWeight: channel._id.equals(channelId) ? "bold" : "normal",
+                  fontWeight: channel._id === channelId ? "bold" : "normal",
                 }}
               >
                 {channel.name}

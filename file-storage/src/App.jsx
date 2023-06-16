@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
-import { useMutation, useQuery } from "../convex/_generated/react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
 
 export default function App() {
-  const messages = useQuery("listMessages") || [];
+  const messages = useQuery(api.messages.list) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation("sendMessage:sendMessage");
+  const sendMessage = useMutation(api.messages.sendMessage);
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
@@ -16,8 +17,8 @@ export default function App() {
     setNewMessageText("");
   }
 
-  const generateUploadUrl = useMutation("sendMessage:generateUploadUrl");
-  const sendImage = useMutation("sendMessage:sendImage");
+  const generateUploadUrl = useMutation(api.messages.generateUploadUrl);
+  const sendImage = useMutation(api.messages.sendImage);
 
   const imageInput = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);

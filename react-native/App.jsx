@@ -1,15 +1,16 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
-import { CONVEX_URL } from "@env";
+import { CONVEX_URL } from "env";
 import React, { StrictMode, useState } from "react";
 import { FlatList, SafeAreaView, Text, TextInput, View } from "react-native";
-import { useMutation, useQuery } from "./convex/_generated/react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "./convex/_generated/api";
 import styles from "./styles";
 
 function InnerApp() {
-  const messages = useQuery("listMessages") || [];
+  const messages = useQuery(api.listMessages.default) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation("sendMessage");
+  const sendMessage = useMutation(api.sendMessage.default);
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {

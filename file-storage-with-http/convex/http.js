@@ -1,5 +1,6 @@
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
+import { api } from "./_generated/api";
 
 const http = httpRouter();
 
@@ -13,7 +14,7 @@ http.route({
 
     // Step 2: Save the storage ID to the database via a mutation
     const author = new URL(request.url).searchParams.get("author");
-    await runMutation("sendMessage:sendImage", { storageId, author });
+    await runMutation(api.sendMessage.sendImage, { storageId, author });
 
     // Step 3: Return a response with the correct CORS headers
     return new Response(null, {

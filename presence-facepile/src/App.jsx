@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "../convex/_generated/react";
+import { useMutation, useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
 import FacePile from "./Facepile";
 import usePresence from "./hooks/usePresence";
 
@@ -11,10 +12,10 @@ const Emojis =
 const initialEmoji = Emojis[Math.floor(Math.random() * Emojis.length)];
 
 export default function App() {
-  const messages = useQuery("listMessages") || [];
+  const messages = useQuery(api.listMessages.default) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation("sendMessage");
+  const sendMessage = useMutation(api.sendMessage.default);
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   const [myPresence, othersPresence, updateMyPresence] = usePresence(

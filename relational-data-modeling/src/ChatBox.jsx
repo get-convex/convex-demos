@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { useMutation, useQuery } from "../convex/_generated/react";
+import { api } from "../convex/_generated/api";
+import { useMutation, useQuery } from "convex/react";
 
 export default function ChatBox({ channelId, name }) {
-  const messages = useQuery("listMessages", { channelId }) || [];
+  const messages = useQuery(api.listMessages.default, { channelId }) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation("sendMessage");
+  const sendMessage = useMutation(api.sendMessage.default);
 
   async function handleSendMessage(event) {
     event.preventDefault();

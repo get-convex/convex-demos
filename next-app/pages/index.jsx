@@ -1,13 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { useQuery, useMutation } from "../convex/_generated/react";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
 import { useCallback } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
-  const counter = useQuery("getCounter", { counterName: "clicks" }) ?? 0;
-  const increment = useMutation("incrementCounter");
+  const counter = useQuery(api.counter.get, { counterName: "clicks" }) ?? 0;
+  const increment = useMutation(api.counter.increment);
   const incrementByOne = useCallback(
     () => increment({ counterName: "clicks", increment: 1 }),
     [increment]

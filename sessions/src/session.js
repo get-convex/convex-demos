@@ -13,8 +13,8 @@
  * With the `SessionProvider` inside the `ConvexProvider` but outside your app.
  */
 import React, { useContext, useEffect, useState } from "react";
-import { Id } from "../convex/_generated/dataModel";
-import { useQuery, useMutation } from "../convex/_generated/react";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "../convex/_generated/api";
 
 const StoreKey = "ConvexSessionId";
 
@@ -38,16 +38,16 @@ export const SessionProvider = ({ storageLocation, children }) => {
   const [sessionId, setSession] = useState(() => {
     const stored = store?.getItem(StoreKey);
     if (stored) {
-      return new Id("sessions", stored);
+      return stored;
     }
     return null;
   });
-  const createSession = useMutation("lib/withSession:create");
+  const createSession = useMutation(api.lib.withSession.create);
 
   // Get or set the ID from our desired storage location, whenever it changes.
   useEffect(() => {
     if (sessionId) {
-      store?.setItem(StoreKey, sessionId.id);
+      store?.setItem(StoreKey, sessionId);
     } else {
       void (async () => {
         setSession(await createSession());
@@ -63,18 +63,18 @@ export const SessionProvider = ({ storageLocation, children }) => {
 };
 
 // Like useQuery, but for a Query that takes a session ID.
-export const useSessionQuery = (name, args) => {
+export const useSessionQuery = (functionReference, args) => {
   const sessionId = useContext(SessionContext);
-  const newArgs = { ...(args || {}), sessionId };
+  const newArgs = { ...args, sessionId };
   return useQuery(name, newArgs);
 };
 
 // Like useMutation, but for a Mutation that takes a session ID.
-export const useSessionMutation = name => {
+export const useSessionMutation = functionReference => {
   const sessionId = useContext(SessionContext);
-  const originalMutation = useMutation(name);
+  const originalMutation = useMutation(functionReference);
   return args => {
-    const newArgs = { ...(args || {}), sessionId };
+    const newArgs = { ...args, sessionId };
     return originalMutation(newArgs);
   };
 };

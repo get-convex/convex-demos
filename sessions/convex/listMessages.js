@@ -6,7 +6,7 @@ export default queryWithSession(async ({ db, session }) => {
     messages.map(async message => {
       const { sessionId, ...messageBody } = message;
       const author =
-        session && session._id.equals(message.sessionId)
+        session && session._id === message.sessionId
           ? session.name
           : (await db.get(sessionId)).name;
       return { author, ...messageBody };

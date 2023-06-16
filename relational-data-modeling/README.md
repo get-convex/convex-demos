@@ -10,7 +10,7 @@ embedding a channel ID in every message.
 Here is the resulting schema:
 
 ```typescript
-import { defineSchema, defineTable } from "convex/schema";
+import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
