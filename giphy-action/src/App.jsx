@@ -8,6 +8,7 @@ export default function App() {
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation(api.sendMessage.default);
   const sendGif = useAction(api.sendGif.default);
+  const sendRandomGif = useAction(api.sendRandomGif.default)
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {
@@ -16,7 +17,11 @@ export default function App() {
     if (newMessageText.startsWith("/giphy ")) {
       const query = newMessageText.slice(7);
       await sendGif({ queryString: query, author: name });
-    } else {
+    }
+    else if (newMessageText.startsWith("/random")) {
+      await sendRandomGif({ author: name });    
+    }
+    else {
       await sendMessage({ body: newMessageText, author: name });
     }
     setNewMessageText("");

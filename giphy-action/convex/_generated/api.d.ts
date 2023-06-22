@@ -13,6 +13,7 @@ import type { ApiFromModules } from "convex/server";
 import type * as listMessages from "../listMessages";
 import type * as sendGif from "../sendGif";
 import type * as sendMessage from "../sendMessage";
+import type * as sendRandomGif from "../sendRandomGif";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -26,4 +27,5 @@ export declare const api: ApiFromModules<{
   listMessages: typeof listMessages;
   sendGif: typeof sendGif;
   sendMessage: typeof sendMessage;
+  sendRandomGif: typeof sendRandomGif;
 }>;
