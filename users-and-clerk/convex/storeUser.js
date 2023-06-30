@@ -9,7 +9,8 @@ import { mutation } from "./_generated/server";
  * Keep in mind that `UserIdentity` has a number of optional fields, the
  * presence of which depends on the identity provider chosen. It's up to the
  * application developer to determine which ones are available and to decide
- * which of those need to be persisted.
+ * which of those need to be persisted. For Clerk the fields are determined
+ * by the JWT token's Claims config.
  */
 export default mutation(async ({ db, auth }) => {
   const identity = await auth.getUserIdentity();
@@ -26,14 +27,14 @@ export default mutation(async ({ db, auth }) => {
     .unique();
   if (user !== null) {
     // If we've seen this identity before but the name has changed, patch the value.
-    if (user.name !== identity.familyName) {
-      await db.patch(user._id, { name: identity.familyName });
+    if (user.name !== identity.name) {
+      await db.patch(user._id, { name: identity.name });
     }
     return user._id;
   }
   // If it's a new identity, create a new `User`.
   return db.insert("users", {
-    name: identity.familyName,
+    name: identity.name,
     tokenIdentifier: identity.tokenIdentifier,
   });
 });

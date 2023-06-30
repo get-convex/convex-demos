@@ -6,7 +6,7 @@ import { api } from "./_generated/api";
 const postMessage = httpAction(async ({ runMutation }, request) => {
   const { author, body } = await request.json();
 
-  await runMutation(api.sendMessage.default, {
+  await runMutation(api.messages.send, {
     body: `Sent via HTTP action: ${body}`,
     author,
   });
