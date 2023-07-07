@@ -9,7 +9,7 @@ import {
   Unauthenticated,
 } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
-import { ClerkProvider } from "@clerk/clerk-react";
+import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
 
@@ -21,7 +21,7 @@ ReactDOM.render(
       // and configure VITE_CLERK_PUBLISHABLE_KEY in your .env.local
       publishableKey="pk_test_YmlnLWNhaW1hbi01MS5jbGVyay5hY2NvdW50cy5kZXYk"
     >
-      <ConvexProviderWithClerk client={convex}>
+      <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
         <Authenticated>
           <App />
         </Authenticated>
