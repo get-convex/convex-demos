@@ -7,10 +7,10 @@ import { api } from "./convex/_generated/api";
 import styles from "./styles";
 
 function InnerApp() {
-  const messages = useQuery(api.listMessages.default) || [];
+  const messages = useQuery(api.messages.list) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
-  const sendMessage = useMutation(api.sendMessage.default);
+  const sendMessage = useMutation(api.messages.send);
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendMessage(event) {

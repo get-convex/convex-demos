@@ -4,14 +4,14 @@ import { Doc } from "./_generated/dataModel";
 
 export const send = mutationWithZod({
   args: { body: z.string(), author: z.string() },
-  handler: async ({ db }, { body, author }) => {
-    await db.insert("messages", { body, author });
+  handler: async (ctx, { body, author }) => {
+    await ctx.db.insert("messages", { body, author });
   },
 });
 
 export const list = queryWithZod({
   args: {}, // We don't have any args to validate
-  handler: async ({ db }): Promise<Doc<"messages">[]> => {
-    return await db.query("messages").collect();
+  handler: async (ctx): Promise<Doc<"messages">[]> => {
+    return await ctx.db.query("messages").collect();
   },
 });

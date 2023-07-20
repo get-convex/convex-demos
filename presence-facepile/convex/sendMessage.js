@@ -1,6 +1,6 @@
 import { mutation } from "./_generated/server";
 
-export default mutation(async ({ db }, { body, author }) => {
+export default mutation(async (ctx, { body, author }) => {
   const message = { body, author };
-  await db.insert("messages", message);
+  await ctx.db.insert("messages", message);
 });

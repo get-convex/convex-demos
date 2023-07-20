@@ -74,8 +74,8 @@ export const queryWithSession = func => {
  * Creates a session and returns the ID. For use with the {@link SessionProvider} on the
  * client.
  */
-export const create = mutation(async ({ db }) => {
-  return db.insert("sessions", {
+export const create = mutation(async ctx => {
+  return ctx.db.insert("sessions", {
     name: "User " + Math.floor(Math.random() * 10000),
   });
 });
