@@ -46,7 +46,7 @@ export const withSession = (func, required) => {
  *   param.
  * @returns A Convex serverless function.
  */
-export const mutationWithSession = func => {
+export const mutationWithSession = (func) => {
   return mutation(withSession(func), true);
 };
 
@@ -66,7 +66,7 @@ export const mutationWithSession = func => {
  *   param. It will be null if the session hasn't been initialized yet.
  * @returns A Convex serverless function.
  */
-export const queryWithSession = func => {
+export const queryWithSession = (func) => {
   return query(withSession(func));
 };
 
@@ -74,7 +74,7 @@ export const queryWithSession = func => {
  * Creates a session and returns the ID. For use with the {@link SessionProvider} on the
  * client.
  */
-export const create = mutation(async ctx => {
+export const create = mutation(async (ctx) => {
   return ctx.db.insert("sessions", {
     name: "User " + Math.floor(Math.random() * 10000),
   });

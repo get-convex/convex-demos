@@ -14,7 +14,7 @@ export const postMessage = httpAction(async (ctx, request) => {
   });
 });
 
-export const list = query(async ctx => {
+export const list = query(async (ctx) => {
   return await ctx.db.query("messages").collect();
 });
 
@@ -40,10 +40,10 @@ export const getByAuthor = httpAction(async ({ runQuery }, request) => {
 
   const messages = await runQuery(api.messages.list);
   const filteredMessages = messages
-    .filter(message => {
+    .filter((message) => {
       return message.author === `User ${authorNumber}`;
     })
-    .map(message => {
+    .map((message) => {
       return {
         body: message.body,
         author: message.author,

@@ -24,7 +24,7 @@ const LIST_LIMIT = 20;
 export const update = mutation(async (ctx, { room, user, data }) => {
   const existing = await ctx.db
     .query("presence")
-    .withIndex("by_user_room", q => q.eq("user", user).eq("room", room))
+    .withIndex("by_user_room", (q) => q.eq("user", user).eq("room", room))
     .unique();
   if (existing) {
     await ctx.db.patch(existing._id, { data, updated: Date.now() });
@@ -48,7 +48,7 @@ export const update = mutation(async (ctx, { room, user, data }) => {
 export const heartbeat = mutation(async (ctx, { room, user }) => {
   const existing = await ctx.db
     .query("presence")
-    .withIndex("by_user_room", q => q.eq("user", user).eq("room", room))
+    .withIndex("by_user_room", (q) => q.eq("user", user).eq("room", room))
     .unique();
   if (existing) {
     await ctx.db.patch(existing._id, { updated: Date.now() });
@@ -66,7 +66,7 @@ export const heartbeat = mutation(async (ctx, { room, user }) => {
 export const list = query(async (ctx, { room }) => {
   const presence = await ctx.db
     .query("presence")
-    .withIndex("by_room_updated", q => q.eq("room", room))
+    .withIndex("by_room_updated", (q) => q.eq("room", room))
     .order("desc")
     .take(LIST_LIMIT);
   return presence.map(({ _creationTime, updated, user, data }) => ({

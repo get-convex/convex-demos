@@ -13,7 +13,7 @@ export default ({ othersPresence }) => {
     <div className="facepile">
       {othersPresence
         .slice(0, 5)
-        .map(presence => ({
+        .map((presence) => ({
           ...presence,
           online: isOnline(presence),
         }))

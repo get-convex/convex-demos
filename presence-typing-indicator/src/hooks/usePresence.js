@@ -34,7 +34,7 @@ export default (room, user, initialData) => {
   const [data, setData] = useState(initialData);
   let presence = useQuery(api.presence.list, { room });
   if (presence) {
-    presence = presence.filter(p => p.user !== user);
+    presence = presence.filter((p) => p.user !== user);
   }
   const updatePresence = useSingleFlight(useMutation(api.presence.update));
   const heartbeat = useSingleFlight(useMutation(api.presence.heartbeat));
@@ -49,8 +49,8 @@ export default (room, user, initialData) => {
   }, [updatePresence, heartbeat, room, user, data]);
 
   // Updates the data, merged with previous data state.
-  const updateData = useCallback(patch => {
-    setData(prevState => {
+  const updateData = useCallback((patch) => {
+    setData((prevState) => {
       return { ...prevState, ...patch };
     });
   }, []);
@@ -64,6 +64,6 @@ export default (room, user, initialData) => {
  * @param presence - The presence data for one user returned from usePresence.
  * @returns True if the user has updated their presence recently.
  */
-export const isOnline = presence => {
+export const isOnline = (presence) => {
   return Date.now() - presence.updated < OLD_MS;
 };

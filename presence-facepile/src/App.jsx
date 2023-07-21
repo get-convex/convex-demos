@@ -38,15 +38,15 @@ export default function App() {
         <span>{name}</span>
         <select
           defaultValue={myPresence.emoji}
-          onChange={e => updateMyPresence({ emoji: e.target.value })}
+          onChange={(e) => updateMyPresence({ emoji: e.target.value })}
         >
-          {Emojis.map(e => (
+          {Emojis.map((e) => (
             <option key={e}>{e}</option>
           ))}
         </select>
       </p>
       <ul>
-        {messages.map(message => (
+        {messages.map((message) => (
           <li key={message._id.toString()}>
             <span>{message.author}:</span>
             <span>{message.body}</span>
@@ -58,7 +58,7 @@ export default function App() {
         <FacePile othersPresence={othersPresence ?? []} />
         <input
           value={newMessageText}
-          onChange={event => setNewMessageText(event.target.value)}
+          onChange={(event) => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
         />
         <input type="submit" value="Send" disabled={!newMessageText} />

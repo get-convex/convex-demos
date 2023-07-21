@@ -30,7 +30,7 @@ function InnerApp() {
       <FlatList
         data={messages.slice(-10)}
         testID="MessagesList"
-        renderItem={x => {
+        renderItem={(x) => {
           const message = x.item;
           return (
             <View style={styles.messageContainer}>
@@ -49,7 +49,7 @@ function InnerApp() {
         placeholder="Write a message…"
         style={styles.input}
         onSubmitEditing={handleSendMessage}
-        onChangeText={newText => setNewMessageText(newText)}
+        onChangeText={(newText) => setNewMessageText(newText)}
         defaultValue={newMessageText}
         testID="MessageInput"
       />

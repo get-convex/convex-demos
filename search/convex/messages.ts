@@ -1,7 +1,7 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
 
-export const list = query(async ctx => {
+export const list = query(async (ctx) => {
   return await ctx.db.query("messages").collect();
 });
 
@@ -10,7 +10,7 @@ export const search = query({
   handler: async (ctx, { query }) => {
     return await ctx.db
       .query("messages")
-      .withSearchIndex("search_body", q => q.search("body", query))
+      .withSearchIndex("search_body", (q) => q.search("body", query))
       .take(10);
   },
 });

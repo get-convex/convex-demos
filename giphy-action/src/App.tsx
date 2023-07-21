@@ -31,7 +31,7 @@ export default function App() {
         To send a GIF, use <span>/giphy message</span>
       </div>
       <ul>
-        {messages.map(message => (
+        {messages.map((message) => (
           <li key={message._id.toString()}>
             <span>{message.author}:</span>
             {message.format === "giphy" ? (
@@ -49,7 +49,7 @@ export default function App() {
       <form onSubmit={handleSendMessage}>
         <input
           value={newMessageText}
-          onChange={event => setNewMessageText(event.target.value)}
+          onChange={(event) => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
         />
         <input type="submit" value="Send" disabled={!newMessageText} />

@@ -26,7 +26,7 @@ export default function App() {
         <SignOutButton />
       </h2>
       <ul>
-        {messages.map(message => (
+        {messages.map((message) => (
           <li key={message._id.toString()}>
             <span>{message.author}:</span>
             <span>{message.body}</span>
@@ -37,7 +37,7 @@ export default function App() {
       <form onSubmit={handleSendMessage}>
         <input
           value={newMessageText}
-          onChange={event => setNewMessageText(event.target.value)}
+          onChange={(event) => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
         />
         <input

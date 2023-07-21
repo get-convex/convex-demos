@@ -12,6 +12,6 @@ export const send = mutation({
   },
 });
 
-export const list = query(async ctx => {
+export const list = query(async (ctx) => {
   return await ctx.db.query("messages").collect();
 });

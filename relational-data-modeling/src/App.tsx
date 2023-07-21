@@ -26,7 +26,7 @@ export default function App() {
       <div className="main-content">
         <div className="channel-box">
           <ul>
-            {channels.map(channel => (
+            {channels.map((channel) => (
               <li
                 key={channel._id.toString()}
                 onClick={() => setChannelId(channel._id)}
@@ -41,7 +41,7 @@ export default function App() {
           <form onSubmit={handleAddChannel}>
             <input
               value={newChannelName}
-              onChange={event => setNewChannelName(event.target.value)}
+              onChange={(event) => setNewChannelName(event.target.value)}
               placeholder="Add a channel..."
             />
             <input type="submit" value="Add" disabled={!newChannelName} />

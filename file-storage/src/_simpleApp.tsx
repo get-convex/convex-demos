@@ -37,7 +37,7 @@ export default function App() {
         type="file"
         accept="image/*"
         ref={imageInput}
-        onChange={event => setSelectedImage(event.target.files![0])}
+        onChange={(event) => setSelectedImage(event.target.files![0])}
         disabled={selectedImage !== null}
       />
       <input

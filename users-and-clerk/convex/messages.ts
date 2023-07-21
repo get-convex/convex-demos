@@ -15,7 +15,7 @@ export const send = mutation({
     //  .unique();
     const user = await ctx.db
       .query("users")
-      .withIndex("by_token", q =>
+      .withIndex("by_token", (q) =>
         q.eq("tokenIdentifier", identity.tokenIdentifier)
       )
       .unique();
@@ -29,10 +29,10 @@ export const send = mutation({
 
 export const list = query({
   args: {},
-  handler: async ctx => {
+  handler: async (ctx) => {
     const messages = await ctx.db.query("messages").collect();
     return Promise.all(
-      messages.map(async message => {
+      messages.map(async (message) => {
         // For each message in this channel, fetch the `User` who wrote it and
         // insert their name into the `author` field.
         const user = await ctx.db.get(message.user);

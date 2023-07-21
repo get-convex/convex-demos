@@ -44,7 +44,7 @@ export default function App() {
         <span>{name}</span>
       </p>
       <ul>
-        {messages.map(message => (
+        {messages.map((message) => (
           <li key={message._id.toString()}>
             <span>{message.author}:</span>
             {message.format === "image" ? (
@@ -59,7 +59,7 @@ export default function App() {
       <form onSubmit={handleSendMessage}>
         <input
           value={newMessageText}
-          onChange={event => setNewMessageText(event.target.value)}
+          onChange={(event) => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
         />
         <input type="submit" value="Send" disabled={!newMessageText} />
@@ -69,7 +69,7 @@ export default function App() {
           type="file"
           accept="image/*"
           ref={imageInput}
-          onChange={event => setSelectedImage(event.target.files![0])}
+          onChange={(event) => setSelectedImage(event.target.files![0])}
           disabled={selectedImage !== null}
         />
         <input

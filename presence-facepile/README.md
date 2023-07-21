@@ -74,7 +74,7 @@ useEffect(() => {
 It then uses `now` to determine which users are old:
 
 ```js
-othersPresence.map(presence => ({
+othersPresence.map((presence) => ({
   ...presence,
   old: presence.updated < now - OLD_MS,
 }));

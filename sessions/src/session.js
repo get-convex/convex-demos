@@ -70,10 +70,10 @@ export const useSessionQuery = (functionReference, args) => {
 };
 
 // Like useMutation, but for a Mutation that takes a session ID.
-export const useSessionMutation = functionReference => {
+export const useSessionMutation = (functionReference) => {
   const sessionId = useContext(SessionContext);
   const originalMutation = useMutation(functionReference);
-  return args => {
+  return (args) => {
     const newArgs = { ...args, sessionId };
     return originalMutation(newArgs);
   };

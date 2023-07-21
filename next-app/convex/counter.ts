@@ -4,7 +4,7 @@ export const get = query(
   async ({ db }, { counterName }: { counterName: string }): Promise<number> => {
     const counterDoc = await db
       .query("counter_table")
-      .filter(q => q.eq(q.field("name"), counterName))
+      .filter((q) => q.eq(q.field("name"), counterName))
       .first();
     console.log("Got stuff");
     if (counterDoc === null) {
@@ -25,7 +25,7 @@ export const increment = mutation(
     }
     const counterDoc = await db
       .query("counter_table")
-      .filter(q => q.eq(q.field("name"), counterName))
+      .filter((q) => q.eq(q.field("name"), counterName))
       .first();
     if (counterDoc === null) {
       await db.insert("counter_table", {

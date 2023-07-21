@@ -26,7 +26,7 @@ export default function App() {
         <span>{name}</span>
       </p>
       <ul>
-        {messages.map(message => (
+        {messages.map((message) => (
           <li key={message._id.toString()}>
             <span>{message.author}:</span>
             <span>{message.body}</span>
@@ -37,7 +37,7 @@ export default function App() {
       <form onSubmit={handleSendMessage}>
         <input
           value={newMessageText}
-          onChange={event => setNewMessageText(event.target.value)}
+          onChange={(event) => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
         />
         <input type="submit" value="Send" disabled={!newMessageText} />
@@ -46,11 +46,11 @@ export default function App() {
         <h2>Search Messages</h2>
         <input
           value={searchText}
-          onChange={event => setSearchText(event.target.value)}
+          onChange={(event) => setSearchText(event.target.value)}
           placeholder="Search!"
         />
         <ul>
-          {searchResults.map(searchResult => (
+          {searchResults.map((searchResult) => (
             <li key={searchResult._id.toString()}>
               <span>{searchResult.author}:</span>
               <span>{searchResult.body}</span>

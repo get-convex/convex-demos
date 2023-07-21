@@ -1,6 +1,6 @@
 import { query, internalMutation, mutation } from "./_generated/server";
 
-export const list = query(async ctx => {
+export const list = query(async (ctx) => {
   const messages = await ctx.db.query("messages").collect();
   for (const message of messages) {
     if (message.format === "dall-e") {
