@@ -13,10 +13,5 @@ a "Log Out" button.
 Because this app uses authentication, it requires a bit of an additional setup.
 
 Follow these instructions https://docs.convex.dev/auth/clerk to setup Clerk with
-Convex.
-
-Additionally save your Clerk credentials in the .env file:
-
-```
-VITE_CLERK_PUBLISHABLE_KEY="<your publishable key>"
-```
+Convex. You will have to update the client in `main.tsx` and the server in
+`auth.config.js`.

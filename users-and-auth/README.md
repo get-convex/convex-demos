@@ -13,11 +13,5 @@ a "Log Out" button.
 Because this app uses authentication, it requires a bit of an additional setup.
 
 Follow these instructions https://docs.convex.dev/auth/auth0 to setup Auth0 with
-Convex.
-
-Additionally save your Auth0 credentials in the .env file:
-
-```
-VITE_AUTH0_DOMAIN="<your domain>.us.auth0.com"
-VITE_AUTH0_CLIENT_ID="<your client id>"
-```
+Convex. You will have to update the client in `main.tsx` and the server in
+`auth.config.js`.
