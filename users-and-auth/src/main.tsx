@@ -7,14 +7,14 @@ import {
 } from "convex/react";
 import { ConvexProviderWithAuth0 } from "convex/react-auth0";
 import { StrictMode } from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 import LoginPage from "./LoginPage";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Auth0Provider
       // Replace these with your own Auth0 Domain and Client ID
@@ -42,6 +42,5 @@ ReactDOM.render(
         </AuthLoading>
       </ConvexProviderWithAuth0>
     </Auth0Provider>
-  </StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 );

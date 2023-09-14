@@ -45,7 +45,7 @@ export default function App() {
       </p>
       <ul>
         {messages.map((message) => (
-          <li key={message._id.toString()}>
+          <li key={message._id}>
             <span>{message.author}:</span>
             {message.format === "image" ? (
               <Image storageId={message.body} />

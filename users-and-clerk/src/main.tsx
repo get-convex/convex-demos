@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import LoginPage from "./LoginPage";
@@ -13,7 +13,7 @@ import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL);
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ClerkProvider
       // Replace this with your Clerk Publishable Key
@@ -30,6 +30,5 @@ ReactDOM.render(
         </Unauthenticated>
       </ConvexProviderWithClerk>
     </ClerkProvider>
-  </StrictMode>,
-  document.getElementById("root")
+  </StrictMode>
 );

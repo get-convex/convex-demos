@@ -32,7 +32,7 @@ export default function App() {
       </div>
       <ul>
         {messages.map((message) => (
-          <li key={message._id.toString()}>
+          <li key={message._id}>
             <span>{message.author}:</span>
             {message.format === "giphy" ? (
               <span>

@@ -28,7 +28,7 @@ export default function App() {
           <ul>
             {channels.map((channel) => (
               <li
-                key={channel._id.toString()}
+                key={channel._id}
                 onClick={() => setChannelId(channel._id)}
                 style={{
                   fontWeight: channel._id === channelId ? "bold" : "normal",

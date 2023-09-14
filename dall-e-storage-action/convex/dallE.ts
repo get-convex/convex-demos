@@ -1,7 +1,7 @@
 "use node";
 
 import fetch from "node-fetch";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import { action } from "./_generated/server";
 import { internal } from "./_generated/api";
 
@@ -14,14 +14,13 @@ export const send = action(
           "[dashboard](https://dasboard.convex.dev)"
       );
     }
-    const configuration = new Configuration({ apiKey });
-    const openai = new OpenAIApi(configuration);
+    const openai = new OpenAI({ apiKey });
 
     // Check if the prompt is offensive.
-    const modResponse = await openai.createModeration({
+    const modResponse = await openai.moderations.create({
       input: prompt,
     });
-    const modResult = modResponse.data.results[0];
+    const modResult = modResponse.results[0];
     if (modResult.flagged) {
       throw new Error(
         `Your prompt was flagged: ${JSON.stringify(modResult.categories)}`
@@ -29,11 +28,11 @@ export const send = action(
     }
 
     // Query OpenAI for the image.
-    const opanaiResponse = await openai.createImage({
+    const opanaiResponse = await openai.images.generate({
       prompt,
       size: "256x256",
     });
-    const dallEImageUrl = opanaiResponse.data.data[0]["url"]!;
+    const dallEImageUrl = opanaiResponse.data[0]["url"]!;
 
     // Download the image
     const imageResponse = await fetch(dallEImageUrl);

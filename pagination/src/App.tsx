@@ -34,7 +34,7 @@ export default function App() {
       </form>
       <ul>
         {results.map((message) => (
-          <li key={message._id.toString()}>
+          <li key={message._id}>
             <span>{message.author}:</span>
             <span>{message.body}</span>
             <span>{new Date(message._creationTime).toLocaleTimeString()}</span>

@@ -27,7 +27,7 @@ export default function App() {
       </p>
       <ul>
         {messages.map((message) => (
-          <li key={message._id.toString()}>
+          <li key={message._id}>
             <span>{message.author}:</span>
             <span>{message.body}</span>
             <span>{new Date(message._creationTime).toLocaleTimeString()}</span>
@@ -51,7 +51,7 @@ export default function App() {
         />
         <ul>
           {searchResults.map((searchResult) => (
-            <li key={searchResult._id.toString()}>
+            <li key={searchResult._id}>
               <span>{searchResult.author}:</span>
               <span>{searchResult.body}</span>
               <span>
