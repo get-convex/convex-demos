@@ -9,7 +9,7 @@
     "dev:init": "convex dev --once"
   },
   "dependencies": {
-    "convex": "1.4.1",
+    "convex": "1.5.1",
     "node-fetch": "^2.6.1",
     "openai": "^4.6.0",
     "react": "^18.0.0",

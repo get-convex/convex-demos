@@ -10,7 +10,7 @@
     "dev:init": "convex dev --once"
   },
   "dependencies": {
-    "convex": "1.4.1",
+    "convex": "1.5.1",
     "dotenv": "^16.0.3",
     "ws": "^8.11.0",
     "ts-node": "~10.9.1"
