@@ -21,7 +21,7 @@ http.route({
       status: 200,
       // CORS headers
       headers: new Headers({
-        // e.g. https://mywebsite.com
+        // e.g. https://mywebsite.com, configured on your Convex dashboard
         "Access-Control-Allow-Origin": process.env.CLIENT_ORIGIN!,
         Vary: "origin",
       }),
@@ -34,6 +34,7 @@ http.route({
   method: "GET",
   handler: httpAction(async (ctx, request) => {
     const { searchParams } = new URL(request.url);
+    // This storageId param should be an Id<"_storage">
     const storageId = searchParams.get("storageId")!;
     const blob = await ctx.storage.get(storageId);
     if (blob === null) {
@@ -60,7 +61,7 @@ http.route({
     ) {
       return new Response(null, {
         headers: new Headers({
-          // e.g. https://mywebsite.com
+          // e.g. https://mywebsite.com, configured on your Convex dashboard
           "Access-Control-Allow-Origin": process.env.CLIENT_ORIGIN!,
           "Access-Control-Allow-Methods": "POST",
           "Access-Control-Allow-Headers": "Content-Type, Digest",
