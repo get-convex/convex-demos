@@ -2,14 +2,14 @@
   "name": "system-tables",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npm-run-all dev:init --parallel dev:server dev:client",
+    "dev": "npm-run-all --parallel dev:server dev:client",
     "build": "vite build",
     "dev:server": "convex dev --typecheck=disable",
     "dev:client": "vite --open --clearScreen false",
-    "dev:init": "convex dev --once --typecheck=disable"
+    "predev": "convex dev --until-success --typecheck=disable"
   },
   "dependencies": {
-    "convex": "1.6.3",
+    "convex": "1.7.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.18.0"

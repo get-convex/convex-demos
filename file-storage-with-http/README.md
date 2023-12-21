@@ -12,22 +12,27 @@ To learn more about storage see the
 
 ## Running the App
 
-Make sure your `.env` file contains both `VITE_CONVEX_URL` and
-`VITE_CONVEX_SITE_URL`, which should look something like this:
+### 1. Start dev
+
+```
+npm install
+npm run dev
+```
+
+### 2. Add `VITE_CONVEX_SITE_URL` variable
+
+Afterwards add `VITE_CONVEX_SITE_URL` to your `.env.local` file, by copying
+`VITE_CONVEX_URL` and changing the top-level domain from `cloud` to `site`, like
+this:
 
 ```
 VITE_CONVEX_URL="https://happy-animal-123.convex.cloud"
 VITE_CONVEX_SITE_URL="https://happy-animal-123.convex.site"
 ```
 
-Additionally, add a
-[Convex environment variable](https://docs.convex.dev/production/hosting/environment-variables)
-named `CLIENT_ORIGIN` with the origin of your website (e.g.
-`http://localhost:3000` if developing locally).
+### 3. Set `CLIENT_ORIGIN` variable
 
-Run:
-
-```
-npm install
-npm run dev
-```
+Also add a `CLIENT_ORIGIN`
+[Convex environment variable](https://docs.convex.dev/production/environment-variables)
+on your [Convex dashboard](https://dashboard.convex.dev/) with the origin of
+your website (e.g. `http://localhost:5173` if developing locally).

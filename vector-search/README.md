@@ -12,8 +12,7 @@ The "Movies search" shows some alternative pattens documented
 
 ## Running the App
 
-This app uses OpenAI to generate embeddings. Set the `OPENAI_KEY` environment
-variable to your OpenAI API key in the convex dashboard.
+### 1. Start dev
 
 Run:
 
@@ -21,3 +20,10 @@ Run:
 npm install
 npm run dev
 ```
+
+### 2. Add `OPENAI_KEY` variable
+
+This app uses OpenAI to generate embeddings. Add `OPENAI_KEY`
+[Convex environment variable](https://docs.convex.dev/production/environment-variables)
+on your [Convex dashboard](https://dashboard.convex.dev/) with your OpenAI API
+key.

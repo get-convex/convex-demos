@@ -3,19 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm-run-all dev:init --parallel dev:server dev:client",
+    "dev": "npm-run-all --parallel dev:server dev:client",
     "build": "tsc && next build",
     "dev:server": "convex dev",
     "dev:client": "next dev",
-    "dev:init": "convex dev --once",
+    "predev": "convex dev --until-success",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "^14.0.1",
+    "next": "^14.0.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "convex": "1.6.3",
+    "convex": "1.7.1",
     "@auth0/auth0-react": "2.0.1"
   },
   "devDependencies": {

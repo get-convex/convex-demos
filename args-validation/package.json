@@ -2,14 +2,14 @@
   "name": "args-validation",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npm-run-all dev:init --parallel dev:server dev:client",
+    "dev": "npm-run-all --parallel dev:server dev:client",
     "build": "vite build",
     "dev:server": "convex dev",
     "dev:client": "vite --open --clearScreen false",
-    "dev:init": "convex dev --once"
+    "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.6.3",
+    "convex": "1.7.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

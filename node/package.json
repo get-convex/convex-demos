@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm-run-all dev:init --parallel dev:server dev:client",
+    "dev": "npm-run-all --parallel dev:server dev:client",
     "build": "tsc && vite build",
     "dev:server": "convex dev",
     "dev:client": "vite --open",
-    "dev:init": "convex dev --once"
+    "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.6.3",
+    "convex": "1.7.1",
     "dotenv": "^16.0.3",
     "ws": "^8.11.0",
     "ts-node": "~10.9.1"
