@@ -1,5 +1,5 @@
 {
-  "name": "next-app",
+  "name": "nextjs-pages-router",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
     "next": "^14.0.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "convex": "1.7.1",
+    "convex": "1.8.0",
     "@auth0/auth0-react": "2.0.1"
   },
   "devDependencies": {
