@@ -1,6 +1,7 @@
-import { mutationWithZod, queryWithZod } from "./lib/withZod";
+import { mutationWithZod, queryWithZod } from "./lib/zod";
 import { z } from "zod";
 import { Doc } from "./_generated/dataModel";
+import { withSystemFields } from "convex-helpers/server/zod";
 
 export const send = mutationWithZod({
   args: { body: z.string(), author: z.string() },
@@ -14,4 +15,10 @@ export const list = queryWithZod({
   handler: async (ctx): Promise<Doc<"messages">[]> => {
     return await ctx.db.query("messages").collect();
   },
+  // Output validation is optional
+  output: z.array(
+    z.object(
+      withSystemFields("messages", { body: z.string(), author: z.string() })
+    )
+  ),
 });
