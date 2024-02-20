@@ -30,9 +30,10 @@ h1 {
   margin-bottom: 16px;
 }
 .badge span {
-  border-color: #6c757d;
-  border: solid;
+  background-color: #212529;
+  color: #ffffff;
   border-radius: 6px;
+  font-weight: bold;
   padding: 4px 8px 4px 8px;
   font-size: 0.75em;
 }

@@ -6,7 +6,7 @@
     "build": "echo build steps are for squares"
   },
   "devDependencies": {
-    "convex": "1.9.0",
+    "convex": "1.9.1",
     "typescript": "~5.0.3"
   }
 }

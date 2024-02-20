@@ -1,14 +1,13 @@
 # Sessions Example App
 
 This example demonstrates using a pattern to keep track of user sessions in a
-database table to track per-tab or per-browser data, even without being logged
-in.
+database table to track per-tab or per-browser data, without being logged in.
 
-It leverages some helpful wrappers in
-[withSession.js](./convex/lib/withSession.js) to wrap Convex
+It leverages [`convex-helpers`](https://www.npmjs.com/package/convex-helpers) in
+[sessions.ts](./convex/lib/sessions.js) to wrap Convex
 [functions](https://docs.convex.dev/using/writing-convex-functions) and
-[sessionsClient.js](./src/sessionsClient.js) to wrap the `useQuery` and
-`useMutation` hooks in React.
+[useSession.ts](./src/useSession.ts) to wrap the `useQuery` and `useMutation`
+hooks in React.
 
 More detail can be found in the
 [Stack post](https://stack.convex.dev/sessions-wrappers-as-middleware).
@@ -16,32 +15,41 @@ More detail can be found in the
 ## Using sessions yourself:
 
 1. In addition to a `ConvexProvider`, wrap your app with a `SessionProvider`:
+
    ```
    <ConvexProvider client={convex}>
-     <SessionProvider storageLocation={"sessionStorage"}>
+     <SessionProvider>
        <App />
      </SessionProvider>
    </ConvexProvider>
    ```
-2. Use `queryWithSession` or `mutationWithSession` as your function:
+
+2. Use `queryWithSession` to define your function:
+
    ```
-   export default queryWithSession(async ({ db, session }, yourArg) => {
+   export const myQuery = queryWithSession({
+     args: {},
+     handler: async (ctx, args) => {
+      console.log(ctx.session._id);
        ...
+     },
    });
    ```
-3. Use `useSessionQuery` or `useSessionQuery` in your React client:
+
+3. Use `useSessionQuery` in your React client:
+
    ```
-   const messages = useSessionQuery('listMessages');
+   const messages = useSessionQuery(api.myModule.myQuery);
    ...
    ```
+
+   Note: the same utilities are available for mutations & actions.
+
 4. [Optional] Write any data that you want to be available in subsequent session
    requests to the `sessions` table :
    ```
-   db.patch(session._id, {new: data});
+   db.patch(session._id, { userId });
    ```
-5. [Optional] Update the [sessions:create](./convex/sessions.js) function to
-   initialize the session data. In this example, we initialize a random user
-   name.
 
 ## Running the App
 
