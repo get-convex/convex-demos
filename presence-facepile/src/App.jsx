@@ -6,7 +6,7 @@ import usePresence from "./hooks/usePresence";
 
 const Emojis =
   "😀 😃 😄 😁 😆 😅 😂 🤣 🥲 🥹 😊 😇 🙂 🙃 😉 😌 😍 🥰 😘 😗 😙 😚 😋 😛 😝 😜 🤪 😎 🥸 🤩 🥳 😏 😳 🤔 🫢 🤭 🤫 😶 🫠 😮 🤤 😵‍💫 🥴 🤑 🤠".split(
-    " "
+    " ",
   );
 
 const initialEmoji = Emojis[Math.floor(Math.random() * Emojis.length)];
@@ -24,7 +24,7 @@ export default function App() {
     {
       name,
       emoji: initialEmoji,
-    }
+    },
   );
   async function handleSendMessage(event) {
     event.preventDefault();

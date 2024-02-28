@@ -12,7 +12,7 @@ export const list = query({
         ...(message.format === "image"
           ? { url: await ctx.storage.getUrl(message.body) }
           : {}),
-      }))
+      })),
     );
   },
 });

@@ -19,7 +19,7 @@ export default function App() {
   const convexSiteUrl = convexDeploymentUrl.endsWith(".cloud")
     ? convexDeploymentUrl.substring(
         0,
-        convexDeploymentUrl.length - ".cloud".length
+        convexDeploymentUrl.length - ".cloud".length,
       ) + ".site"
     : convexDeploymentUrl;
   return (

@@ -16,7 +16,7 @@ export const send = mutation({
     const user = await ctx.db
       .query("users")
       .withIndex("by_token", (q) =>
-        q.eq("tokenIdentifier", identity.tokenIdentifier)
+        q.eq("tokenIdentifier", identity.tokenIdentifier),
       )
       .unique();
     if (!user) {
@@ -40,7 +40,7 @@ export const list = query({
           author: user!.name,
           ...message,
         };
-      })
+      }),
     );
   },
 });

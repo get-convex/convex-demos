@@ -17,7 +17,7 @@ export const list = query({
     return Promise.all(
       messages.map(async (message) => ({
         ...message,
-      }))
+      })),
     );
   },
 });
@@ -41,7 +41,7 @@ export const clearMessages = mutation({
         const id = message._id;
         await ctx.db.delete(id);
         return id;
-      })
+      }),
     );
   },
 });

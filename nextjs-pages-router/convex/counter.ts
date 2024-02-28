@@ -11,13 +11,13 @@ export const get = query(
       return 0;
     }
     return counterDoc.counter;
-  }
+  },
 );
 
 export const increment = mutation(
   async (
     { db, auth },
-    { counterName, increment }: { counterName: string; increment: number }
+    { counterName, increment }: { counterName: string; increment: number },
   ) => {
     const identity = await auth.getUserIdentity();
     if (!identity) {
@@ -39,5 +39,5 @@ export const increment = mutation(
       await db.replace(counterDoc._id, counterDoc);
       console.log(`Value of counter is now ${counterDoc.counter}.`);
     }
-  }
+  },
 );

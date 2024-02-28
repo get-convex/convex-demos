@@ -18,7 +18,7 @@ export const list = queryWithZod({
   // Output validation is optional
   output: z.array(
     z.object(
-      withSystemFields("messages", { body: z.string(), author: z.string() })
-    )
+      withSystemFields("messages", { body: z.string(), author: z.string() }),
+    ),
   ),
 });

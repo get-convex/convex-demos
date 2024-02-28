@@ -13,7 +13,7 @@ export const Link = fr<
       ref={ref}
       className={cn(
         "font-medium text-primary underline underline-offset-4 hover:no-underline cursor-pointer",
-        className
+        className,
       )}
       {...props}
     >

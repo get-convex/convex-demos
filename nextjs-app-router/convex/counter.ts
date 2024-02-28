@@ -11,7 +11,7 @@ export const get = query(
       return 0;
     }
     return counterDoc.counter;
-  }
+  },
 );
 
 export const increment = mutation(
@@ -32,8 +32,8 @@ export const increment = mutation(
       counterDoc.counter += incrementBy;
       await db.replace(counterDoc._id, counterDoc);
       console.log(
-        `Value of counter ${counterName} is now ${counterDoc.counter}.`
+        `Value of counter ${counterName} is now ${counterDoc.counter}.`,
       );
     }
-  }
+  },
 );

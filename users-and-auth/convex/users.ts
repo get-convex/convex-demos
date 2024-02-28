@@ -21,7 +21,7 @@ export const store = mutation(async ({ db, auth }) => {
   const user = await db
     .query("users")
     .withIndex("by_token", (q) =>
-      q.eq("tokenIdentifier", identity.tokenIdentifier)
+      q.eq("tokenIdentifier", identity.tokenIdentifier),
     )
     .unique();
   if (user !== null) {

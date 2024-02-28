@@ -6,7 +6,7 @@ const crons = cronJobs();
 crons.interval(
   "clear messages table",
   { minutes: 1 },
-  internal.messages.clearAll
+  internal.messages.clearAll,
 );
 
 export default crons;

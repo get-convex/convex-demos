@@ -29,5 +29,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </Unauthenticated>
       </ConvexProviderWithClerk>
     </ClerkProvider>
-  </StrictMode>
+  </StrictMode>,
 );

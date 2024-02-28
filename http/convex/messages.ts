@@ -34,7 +34,7 @@ export const getByAuthor = httpAction(async ({ runQuery }, request) => {
       "Did not specify authorNumber as query param or header",
       {
         status: 400,
-      }
+      },
     );
   }
 

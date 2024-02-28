@@ -37,7 +37,7 @@ export default function Admin() {
           .filter(
             (sendJob) =>
               sendJob.state.kind === "pending" ||
-              sendJob.state.kind === "inProgress"
+              sendJob.state.kind === "inProgress",
           )
           .map((sendJob) => (
             <li key={sendJob._id} style={{ display: "inline-block" }}>

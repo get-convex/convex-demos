@@ -29,7 +29,7 @@ export const sendExpiringMessage = mutation({
         messageId: id,
         body,
         secondsLeft: 4,
-      }
+      },
     );
   },
 });
@@ -50,7 +50,7 @@ export const updateExpiringMessage = internalMutation({
           messageId,
           body,
           secondsLeft: secondsLeft - 1,
-        }
+        },
       );
     } else {
       await ctx.db.delete(messageId);

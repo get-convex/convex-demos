@@ -6,7 +6,7 @@ export default function App() {
   const { results, status, loadMore } = usePaginatedQuery(
     api.messages.list,
     {},
-    { initialNumItems: 5 }
+    { initialNumItems: 5 },
   );
 
   const [newMessageText, setNewMessageText] = useState("");

@@ -10,5 +10,5 @@ export const send = mutation(
   async (ctx, { body, author }: { body: string; author: string }) => {
     const message = { body, author };
     await ctx.db.insert("messages", message);
-  }
+  },
 );

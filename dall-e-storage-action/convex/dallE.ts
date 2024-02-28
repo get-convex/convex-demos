@@ -11,7 +11,7 @@ export const send = action(
     if (!apiKey) {
       throw new Error(
         "Add your OPENAI_API_KEY as an env variable in the " +
-          "[dashboard](https://dasboard.convex.dev)"
+          "[dashboard](https://dasboard.convex.dev)",
       );
     }
     const openai = new OpenAI({ apiKey });
@@ -23,7 +23,7 @@ export const send = action(
     const modResult = modResponse.results[0];
     if (modResult.flagged) {
       throw new Error(
-        `Your prompt was flagged: ${JSON.stringify(modResult.categories)}`
+        `Your prompt was flagged: ${JSON.stringify(modResult.categories)}`,
       );
     }
 
@@ -51,5 +51,5 @@ export const send = action(
       author,
       prompt,
     });
-  }
+  },
 );

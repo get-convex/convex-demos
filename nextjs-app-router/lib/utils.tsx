@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 // forward refs
 export function fr<T = HTMLElement, P = React.HTMLAttributes<T>>(
-  component: ForwardRefRenderFunction<T, P>
+  component: ForwardRefRenderFunction<T, P>,
 ) {
   const wrapped = forwardRef(component);
   wrapped.displayName = component.name;
@@ -18,7 +18,7 @@ export function fr<T = HTMLElement, P = React.HTMLAttributes<T>>(
 // styled element
 export function se<
   T = HTMLElement,
-  P extends React.HTMLAttributes<T> = React.HTMLAttributes<T>
+  P extends React.HTMLAttributes<T> = React.HTMLAttributes<T>,
 >(Tag: keyof React.ReactHTML, ...classNames: ClassValue[]) {
   const component = fr<T, P>(({ className, ...props }, ref) => (
     // @ts-expect-error Too complicated for TypeScript

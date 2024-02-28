@@ -42,5 +42,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </AuthLoading>
       </ConvexProviderWithAuth0>
     </Auth0Provider>
-  </StrictMode>
+  </StrictMode>,
 );

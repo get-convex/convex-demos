@@ -14,7 +14,7 @@ export const list = query({
         ...(message.format === "image"
           ? { url: await ctx.storage.getUrl(message.body) }
           : {}),
-      }))
+      })),
     );
   },
 });
@@ -55,7 +55,7 @@ export const scheduleMessage = mutation({
       {
         body: args.body,
         author: args.author,
-      }
+      },
     );
     return job_id;
   },

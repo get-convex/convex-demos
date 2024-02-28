@@ -11,7 +11,7 @@ const Home = () => {
   const increment = useMutation(api.counter.increment);
   const incrementByOne = useCallback(
     () => increment({ counterName: "clicks", increment: 1 }),
-    [increment]
+    [increment],
   );
   const { logout } = useAuth0();
 

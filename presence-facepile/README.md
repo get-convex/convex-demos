@@ -17,7 +17,7 @@ const [myPresence, othersPresence, updateMyPresence] = usePresence(
   {
     name,
     emoji: initialEmoji,
-  }
+  },
 );
 ```
 

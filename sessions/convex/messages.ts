@@ -11,7 +11,7 @@ export const list = query({
         const { author, ...messageBody } = message;
         const name = (await ctx.db.get(author))!.name;
         return { author: name, ...messageBody };
-      })
+      }),
     );
   },
 });

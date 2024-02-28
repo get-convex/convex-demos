@@ -20,7 +20,7 @@ export default ({ othersPresence }) => {
         .sort((presence1, presence2) =>
           presence1.online === presence2.online
             ? presence1.created - presence2.created
-            : Number(presence1.online) - Number(presence2.online)
+            : Number(presence1.online) - Number(presence2.online),
         )
         .map((presence, i) => (
           <span

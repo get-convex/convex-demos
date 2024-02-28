@@ -44,5 +44,5 @@ export const sendGifMessage = internalMutation(
   async (ctx, { body, author }) => {
     const message = { body, author, format: "giphy" };
     await ctx.db.insert("messages", message);
-  }
+  },
 );

@@ -14,7 +14,7 @@ export const sendDallEMessage = internalMutation(
   async (ctx, { body, author, prompt }) => {
     const message = { body, author, format: "dall-e", prompt };
     await ctx.db.insert("messages", message);
-  }
+  },
 );
 
 export const send = mutation(async (ctx, { body, author }) => {

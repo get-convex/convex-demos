@@ -102,7 +102,7 @@ export const list = query(async (ctx) => {
 export const fetchResults = query({
   args: {
     results: v.array(
-      v.object({ _id: v.id("movieEmbeddings"), _score: v.float64() })
+      v.object({ _id: v.id("movieEmbeddings"), _score: v.float64() }),
     ),
   },
   handler: async (ctx, args) => {

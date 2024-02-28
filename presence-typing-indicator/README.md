@@ -13,7 +13,7 @@ It can store arbitrary presence data using the
 const [myPresence, othersPresence, updateMyPresence] = usePresence(
   "chat-room",
   name,
-  { typing: false }
+  { typing: false },
 );
 ```
 

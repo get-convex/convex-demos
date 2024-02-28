@@ -57,6 +57,6 @@ export default function useSingleFlight(fn) {
       })();
       return firstReq;
     },
-    [fn]
+    [fn],
   );
 }

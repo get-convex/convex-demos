@@ -26,7 +26,7 @@ export const similarFoods = action({
     }
     const rows: SearchResult[] = await ctx.runQuery(
       internal.foods.fetchResults,
-      { results }
+      { results },
     );
     return rows;
   },

@@ -14,5 +14,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <App />
       </SessionProvider>
     </ConvexProvider>
-  </StrictMode>
+  </StrictMode>,
 );
