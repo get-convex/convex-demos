@@ -24,16 +24,20 @@ export const listWithExtraArg = query({
   },
 });
 
-export const listWithArgsValidation = query({
-  args: {
-    paginationOpts: paginationOptsValidator,
-  },
-
+export const listWithTransformation = query({
+  args: { paginationOpts: paginationOptsValidator },
   handler: async (ctx, args) => {
-    return await ctx.db
+    const results = await ctx.db
       .query("messages")
       .order("desc")
       .paginate(args.paginationOpts);
+    return {
+      ...results,
+      page: results.page.map((message) => ({
+        author: message.author.slice(0, 1),
+        body: message.body.toUpperCase(),
+      })),
+    };
   },
 });
 

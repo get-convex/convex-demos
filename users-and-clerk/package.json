@@ -9,11 +9,11 @@
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.10.0",
+    "convex": "1.11.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "@clerk/clerk-react": "4.18.0",
-    "prettier": "2.8.8"
+    "prettier": "3.2.5"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.0",
