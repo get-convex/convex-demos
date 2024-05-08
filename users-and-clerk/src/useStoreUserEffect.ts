@@ -5,8 +5,8 @@ import { useMutation } from "convex/react";
 import { api } from "../convex/_generated/api";
 import { Id } from "../convex/_generated/dataModel";
 
-export default function useStoreUserEffect() {
-  const { isAuthenticated } = useConvexAuth();
+export function useStoreUserEffect() {
+  const { isLoading, isAuthenticated } = useConvexAuth();
   const { user } = useUser();
   // When this state is set we know the server
   // has stored the user.
@@ -31,5 +31,9 @@ export default function useStoreUserEffect() {
     // Make sure the effect reruns if the user logs in with
     // a different identity
   }, [isAuthenticated, storeUser, user?.id]);
-  return userId;
+  // Combine the local state with the state from context
+  return {
+    isLoading: isLoading || (isAuthenticated && userId === null),
+    isAuthenticated: isAuthenticated && userId !== null,
+  };
 }

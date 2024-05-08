@@ -1,4 +1,4 @@
-import { httpAction, mutation, query } from "./_generated/server";
+import { ActionCtx, httpAction, mutation, query } from "./_generated/server";
 import { api } from "./_generated/api";
 
 export const postMessage = httpAction(async (ctx, request) => {
@@ -23,22 +23,8 @@ export const send = mutation(async (ctx, { body, author }) => {
   await ctx.db.insert("messages", message);
 });
 
-export const getByAuthor = httpAction(async ({ runQuery }, request) => {
-  const url = new URL(request.url);
-  const authorNumber =
-    url.searchParams.get("authorNumber") ??
-    request.headers.get("authorNumber") ??
-    null;
-  if (authorNumber === null) {
-    return new Response(
-      "Did not specify authorNumber as query param or header",
-      {
-        status: 400,
-      },
-    );
-  }
-
-  const messages = await runQuery(api.messages.list);
+const queryByAuthor = async (ctx: ActionCtx, authorNumber: string) => {
+  const messages = await ctx.runQuery(api.messages.list);
   const filteredMessages = messages
     .filter((message) => {
       return message.author === `User ${authorNumber}`;
@@ -55,4 +41,33 @@ export const getByAuthor = httpAction(async ({ runQuery }, request) => {
     },
     status: 200,
   });
+};
+
+export const getByAuthor = httpAction(async (ctx, request) => {
+  const url = new URL(request.url);
+  const authorNumber =
+    url.searchParams.get("authorNumber") ??
+    request.headers.get("authorNumber") ??
+    null;
+  if (authorNumber === null) {
+    return new Response(
+      "Did not specify authorNumber as query param or header",
+      {
+        status: 400,
+      },
+    );
+  }
+  return await queryByAuthor(ctx, authorNumber);
+});
+
+export const getByAuthorPathSuffix = httpAction(async (ctx, request) => {
+  const url = new URL(request.url);
+  const pathParts = url.pathname.split("/");
+  if (pathParts.length < 3) {
+    return new Response(
+      "Missing authorNumber path suffix, URL path should be in the form /getAuthorMessages/[author]",
+    );
+  }
+  const authorNumber = pathParts[pathParts.length - 1];
+  return await queryByAuthor(ctx, authorNumber);
 });

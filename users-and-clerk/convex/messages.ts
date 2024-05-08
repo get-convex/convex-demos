@@ -1,5 +1,5 @@
-import { v } from "convex/values";
 import { query } from "./_generated/server";
+import { v } from "convex/values";
 import { mutation } from "./_generated/server";
 
 export const send = mutation({
@@ -9,10 +9,6 @@ export const send = mutation({
     if (!identity) {
       throw new Error("Unauthenticated call to mutation");
     }
-    // Note: If you don't want to define an index right away, you can use
-    // ctx.db.query("users")
-    //  .filter(q => q.eq(q.field("tokenIdentifier"), identity.tokenIdentifier))
-    //  .unique();
     const user = await ctx.db
       .query("users")
       .withIndex("by_token", (q) =>
@@ -22,7 +18,6 @@ export const send = mutation({
     if (!user) {
       throw new Error("Unauthenticated call to mutation");
     }
-
     await ctx.db.insert("messages", { body: args.body, user: user._id });
   },
 });

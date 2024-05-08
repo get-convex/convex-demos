@@ -3,10 +3,10 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../convex/_generated/api";
 import Badge from "./Badge";
 import { SignOutButton } from "@clerk/clerk-react";
-import useStoreUserEffect from "./useStoreUserEffect";
+import { useStoreUserEffect } from "./useStoreUserEffect";
 
 export default function App() {
-  const userId = useStoreUserEffect();
+  const { isAuthenticated } = useStoreUserEffect();
 
   const messages = useQuery(api.messages.list) || [];
 
@@ -43,7 +43,7 @@ export default function App() {
         <input
           type="submit"
           value="Send"
-          disabled={newMessageText === "" || userId === null}
+          disabled={newMessageText === "" || !isAuthenticated}
         />
       </form>
     </main>

@@ -2,26 +2,26 @@
   "name": "typescript-demo",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npm-run-all --parallel dev:server dev:client",
+    "dev": "npm-run-all --parallel dev:backend dev:frontend",
     "build": "tsc && vite build",
-    "dev:server": "convex dev",
-    "dev:client": "vite --open",
+    "dev:backend": "convex dev",
+    "dev:frontend": "vite --open",
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.11.0",
+    "convex": "1.11.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "prettier": "3.2.5"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.0",
-    "@types/node": "^16.11.12",
+    "@types/node": "^18.17.0",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@vitejs/plugin-react": "^4.1.1",
+    "@vitejs/plugin-react": "^4.2.1",
     "typescript": "~5.0.3",
-    "vite": "4.5.2",
+    "vite": "5.2.10",
     "npm-run-all": "^4.1.5"
   }
 }
