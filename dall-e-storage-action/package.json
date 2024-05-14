@@ -9,7 +9,7 @@
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.11.3",
+    "convex": "1.12.0",
     "node-fetch": "^2.6.1",
     "openai": "^4.6.0",
     "react": "^18.0.0",
