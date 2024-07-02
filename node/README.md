@@ -32,9 +32,8 @@ that uses import/export syntax with no extra setup.
 _TypeScript with ESM without a compile step_
 
 If you want to run your TypeScript script directly without a compile step,
-installing [ts-node-esm](https://www.npmjs.com/package/ts-node) and running your
-script with ts-node-esm should work if you use `"type": "module"` in your
-package.json.
+installing [tsx](https://www.npmjs.com/package/tsx) and running your script with
+tsx should work.
 
 _CommonJS (require syntax)_
 
@@ -62,7 +61,7 @@ const httpClient = new ConvexHttpClient(CONVEX_URL_GOES_HERE);
 _TypeScript with CommonJS without a compile step_
 
 Follow the steps above for CommonJS and use
-[`ts-node`](https://www.npmjs.com/package/ts-node) to run you code. Be your
+[`tsx`](https://www.npmjs.com/package/tsx) to run you code. Be sure your
 tsconfig.json is configured for CommonJS output.
 
 ## Using Convex with Node.js without codegen
@@ -80,5 +79,5 @@ Then try these scripts:
 ```
 node script.js
 node script.cjs
-node ts-node-esm script-in-typescript.ts
+node tsx script-in-typescript.ts
 ```

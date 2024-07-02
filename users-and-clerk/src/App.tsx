@@ -1,13 +1,27 @@
-import { FormEvent, useState } from "react";
+import { SignOutButton } from "@clerk/clerk-react";
 import { useMutation, useQuery } from "convex/react";
+import { FormEvent, useState } from "react";
 import { api } from "../convex/_generated/api";
 import Badge from "./Badge";
-import { SignOutButton } from "@clerk/clerk-react";
+import LoginPage from "./LoginPage";
 import { useStoreUserEffect } from "./useStoreUserEffect";
 
 export default function App() {
-  const { isAuthenticated } = useStoreUserEffect();
+  const { isLoading, isAuthenticated } = useStoreUserEffect();
+  return (
+    <main>
+      {isLoading ? (
+        <>Loading...</>
+      ) : isAuthenticated ? (
+        <Content />
+      ) : (
+        <LoginPage />
+      )}
+    </main>
+  );
+}
 
+function Content() {
   const messages = useQuery(api.messages.list) || [];
 
   const [newMessageText, setNewMessageText] = useState("");
@@ -40,11 +54,7 @@ export default function App() {
           onChange={(event) => setNewMessageText(event.target.value)}
           placeholder="Write a message…"
         />
-        <input
-          type="submit"
-          value="Send"
-          disabled={newMessageText === "" || !isAuthenticated}
-        />
+        <input type="submit" value="Send" disabled={newMessageText === ""} />
       </form>
     </main>
   );
