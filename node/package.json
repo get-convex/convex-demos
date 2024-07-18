@@ -7,9 +7,9 @@
     "build": "tsc"
   },
   "dependencies": {
-    "convex": "1.13.0",
+    "convex": "1.13.1",
     "dotenv": "^16.0.3",
-    "ws": "^8.11.0",
+    "ws": "8.18.0",
     "tsx": "~4.15.6"
   },
   "devDependencies": {
