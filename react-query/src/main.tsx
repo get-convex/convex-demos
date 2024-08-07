@@ -1,4 +1,4 @@
-import { ConvexQueryClient } from "@convex-dev/convex-react-query";
+import { ConvexQueryClient } from "@convex-dev/react-query";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 import ReactDOM from "react-dom/client";

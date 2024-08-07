@@ -1,6 +1,5 @@
 "use node";
 
-import fetch from "node-fetch";
 import OpenAI from "openai";
 import { action } from "./_generated/server";
 import { internal } from "./_generated/api";
@@ -42,7 +41,7 @@ export const send = action(
 
     // Store the image to Convex storage.
     const image = await imageResponse.blob();
-    // TODO update storage.store to accept whatever kind of Blob is returned from node-fetch
+    // TODO update storage.store to accept whatever kind of Blob is returned from fetch
     const storageId = await ctx.storage.store(image as Blob);
 
     // Write storageId as the body of the message to the Convex database.

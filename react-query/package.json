@@ -10,12 +10,12 @@
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.13.1",
+    "convex": "1.14.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "prettier": "3.2.5",
-    "@convex-dev/convex-react-query": "workspace:*",
-    "@tanstack/react-query": "^5.0.0",
+    "@convex-dev/react-query": "workspace:*",
+    "@tanstack/react-query": "^5.51.15",
     "@tanstack/react-query-devtools": "^5.40.1"
   },
   "devDependencies": {
