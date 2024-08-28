@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "2.0.1",
-    "convex": "1.14.0",
+    "convex": "1.15.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "prettier": "3.2.5"

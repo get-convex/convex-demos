@@ -15,7 +15,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "next": "^14.0.4",
-    "convex": "1.14.0",
+    "convex": "1.15.0",
     "prettier": "3.2.5"
   },
   "devDependencies": {

@@ -32,7 +32,7 @@ export const list = query({
         // insert their name into the `author` field.
         const user = await ctx.db.get(message.user);
         return {
-          author: user!.name,
+          author: user?.name ?? "Anonymous",
           ...message,
         };
       }),

@@ -1,6 +1,7 @@
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
 import { api } from "./_generated/api";
+import { Id } from "./_generated/dataModel";
 
 const http = httpRouter();
 
@@ -34,8 +35,7 @@ http.route({
   method: "GET",
   handler: httpAction(async (ctx, request) => {
     const { searchParams } = new URL(request.url);
-    // This storageId param should be an Id<"_storage">
-    const storageId = searchParams.get("storageId")!;
+    const storageId = searchParams.get("storageId")! as Id<"_storage">;
     const blob = await ctx.storage.get(storageId);
     if (blob === null) {
       return new Response("Image not found", {
