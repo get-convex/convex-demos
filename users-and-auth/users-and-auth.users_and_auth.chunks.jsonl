@@ -1,0 +1,10 @@
+{"kind":"O","text":"Invoking: tsc --noEmit && vite build \n"}
+{"kind":"O","text":"vite v5.2.14 building for production...\n"}
+{"kind":"O","text":"transforming...\n"}
+{"kind":"O","text":"✓ 102 modules transformed.\n"}
+{"kind":"O","text":"rendering chunks...\n"}
+{"kind":"O","text":"computing gzip size...\n"}
+{"kind":"O","text":"dist/index.html                   0.40 kB │ gzip:  0.27 kB\n"}
+{"kind":"O","text":"dist/assets/index-C4Nr8V36.css    1.36 kB │ gzip:  0.60 kB\n"}
+{"kind":"O","text":"dist/assets/index-DaznAWKd.js   245.34 kB │ gzip: 77.45 kB\n"}
+{"kind":"O","text":"✓ built in 1.82s\n"}
