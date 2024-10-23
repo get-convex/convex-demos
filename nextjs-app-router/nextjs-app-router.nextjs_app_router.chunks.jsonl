@@ -18,7 +18,7 @@
 {"kind":"O","text":"┌ ○ /                                    383 B          94.2 kB\n"}
 {"kind":"O","text":"├ ○ /_not-found                          875 B          87.9 kB\n"}
 {"kind":"O","text":"├ ƒ /pureserver                          137 B          87.2 kB\n"}
-{"kind":"O","text":"└ ƒ /vote/[option]                       11.7 kB         121 kB\n"}
+{"kind":"O","text":"└ ƒ /vote/[option]                       11.9 kB         122 kB\n"}
 {"kind":"O","text":"+ First Load JS shared by all            87.1 kB\n"}
 {"kind":"O","text":"  ├ chunks/3925a7c3-39872cdae0dfc6a6.js  53.7 kB\n"}
 {"kind":"O","text":"  ├ chunks/532-f0adac014a10ab3d.js       31.5 kB\n"}

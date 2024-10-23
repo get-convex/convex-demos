@@ -1,5 +1,3 @@
-/* prettier-ignore-start */
-
 /* eslint-disable */
 /**
  * Generated `api` utility.
@@ -15,5 +13,3 @@ module.exports = {
   api: anyApi,
   internal: anyApi,
 };
-
-/* prettier-ignore-end */
