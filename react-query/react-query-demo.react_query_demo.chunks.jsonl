@@ -1,10 +1,10 @@
 {"kind":"O","text":"Invoking: tsc && vite build \n"}
 {"kind":"O","text":"vite v5.2.14 building for production...\n"}
 {"kind":"O","text":"transforming...\n"}
-{"kind":"O","text":"✓ 138 modules transformed.\n"}
+{"kind":"O","text":"✓ 139 modules transformed.\n"}
 {"kind":"O","text":"rendering chunks...\n"}
 {"kind":"O","text":"computing gzip size...\n"}
 {"kind":"O","text":"dist/index.html                   0.40 kB │ gzip:  0.27 kB\n"}
 {"kind":"O","text":"dist/assets/index-DUZ1gwZR.css    1.32 kB │ gzip:  0.60 kB\n"}
-{"kind":"O","text":"dist/assets/index-D8vEsJB_.js   239.79 kB │ gzip: 73.81 kB\n"}
-{"kind":"O","text":"✓ built in 1.03s\n"}
+{"kind":"O","text":"dist/assets/index-BpqyseCC.js   240.70 kB │ gzip: 74.32 kB\n"}
+{"kind":"O","text":"✓ built in 1.55s\n"}
