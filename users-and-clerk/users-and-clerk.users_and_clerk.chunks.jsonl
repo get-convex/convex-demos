@@ -6,5 +6,5 @@
 {"kind":"O","text":"computing gzip size...\n"}
 {"kind":"O","text":"dist/index.html                   0.40 kB │ gzip:  0.27 kB\n"}
 {"kind":"O","text":"dist/assets/index-C4Nr8V36.css    1.36 kB │ gzip:  0.60 kB\n"}
-{"kind":"O","text":"dist/assets/index-Cpk0x-E4.js   278.70 kB │ gzip: 84.97 kB\n"}
-{"kind":"O","text":"✓ built in 1.80s\n"}
+{"kind":"O","text":"dist/assets/index-Cef_54PA.js   278.70 kB │ gzip: 84.97 kB\n"}
+{"kind":"O","text":"✓ built in 1.56s\n"}

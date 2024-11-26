@@ -21,7 +21,7 @@
 {"kind":"O","text":"└ ƒ /vote/[option]                       11.9 kB         122 kB\n"}
 {"kind":"O","text":"+ First Load JS shared by all            87.1 kB\n"}
 {"kind":"O","text":"  ├ chunks/3925a7c3-39872cdae0dfc6a6.js  53.7 kB\n"}
-{"kind":"O","text":"  ├ chunks/532-f0adac014a10ab3d.js       31.5 kB\n"}
+{"kind":"O","text":"  ├ chunks/532-0c6aad28dacccf4d.js       31.5 kB\n"}
 {"kind":"O","text":"  └ other shared chunks (total)          1.85 kB\n"}
 {"kind":"O","text":"\n"}
 {"kind":"O","text":"\n"}

@@ -24,7 +24,7 @@
 {"kind":"O","text":"+ First Load JS shared by all              111 kB\n"}
 {"kind":"O","text":"  ├ chunks/framework-0cb1542af97d89ec.js   44.9 kB\n"}
 {"kind":"O","text":"  ├ chunks/main-8acc1526d711e4dc.js        32 kB\n"}
-{"kind":"O","text":"  ├ chunks/pages/_app-4ddb068505a5ebff.js  32.1 kB\n"}
+{"kind":"O","text":"  ├ chunks/pages/_app-4450184f37a39bad.js  32.1 kB\n"}
 {"kind":"O","text":"  └ other shared chunks (total)            1.58 kB\n"}
 {"kind":"O","text":"\n"}
 {"kind":"O","text":"○  (Static)   prerendered as static content\n"}
