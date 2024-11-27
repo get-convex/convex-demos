@@ -9,7 +9,7 @@
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.17.2",
+    "convex": "1.17.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "convex-helpers": "0.1.50",

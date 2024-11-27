@@ -15,7 +15,7 @@
     "next": "14.2.10",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "convex": "1.17.2",
+    "convex": "1.17.3",
     "@auth0/auth0-react": "2.0.1",
     "prettier": "3.2.5"
   },

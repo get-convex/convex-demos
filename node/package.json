@@ -7,7 +7,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "convex": "1.17.2",
+    "convex": "1.17.3",
     "dotenv": "^16.0.3",
     "ws": "8.18.0",
     "tsx": "~4.15.6"
