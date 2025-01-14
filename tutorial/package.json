@@ -1,5 +1,5 @@
 {
-  "name": "convex-tutorial",
+  "name": "convex-tutorial-original",
   "version": "0.0.0",
   "scripts": {
     "dev": "npm-run-all --parallel dev:backend dev:frontend",
@@ -9,10 +9,10 @@
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.17.3",
+    "convex": "1.18.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "prettier": "3.2.5",
+    "prettier": "3.4.2",
     "@types/detect-port": "~1.3.5"
   },
   "devDependencies": {
