@@ -41,7 +41,10 @@ export const listWithTransformation = query({
   },
 });
 
-export const send = mutation(async (ctx, args) => {
-  const { body, author } = args;
-  await ctx.db.insert("messages", { body, author });
+export const send = mutation({
+  args: { body: v.string(), author: v.string() },
+  handler: async (ctx, args) => {
+    const { body, author } = args;
+    await ctx.db.insert("messages", { body, author });
+  },
 });
