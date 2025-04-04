@@ -9,10 +9,10 @@
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "convex": "1.22.0",
+    "convex": "1.23.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "prettier": "3.5.1"
+    "prettier": "3.5.2"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.0",
