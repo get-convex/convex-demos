@@ -9,11 +9,11 @@
     "predev": "convex dev --until-success"
   },
   "dependencies": {
-    "@auth0/auth0-react": "2.2.4",
-    "convex": "1.23.0",
+    "@auth0/auth0-react": "2.4.0",
+    "convex": "1.28.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "prettier": "3.5.2"
+    "prettier": "3.6.2"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.0",
@@ -22,7 +22,7 @@
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "~5.0.3",
-    "vite": "^5.4.12",
+    "vite": "^6.3.6",
     "npm-run-all2": "^7.0.0"
   }
 }
