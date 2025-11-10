@@ -6,6 +6,6 @@
     "build": "echo build steps are for squares"
   },
   "dependencies": {
-    "convex": "1.28.0"
+    "convex": "1.29.0"
   }
 }
