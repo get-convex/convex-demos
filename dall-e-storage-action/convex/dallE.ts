@@ -3,9 +3,14 @@
 import OpenAI from "openai";
 import { action } from "./_generated/server";
 import { internal } from "./_generated/api";
+import { v } from "convex/values";
 
-export const send = action(
-  async (ctx, { prompt, author }: { prompt: string; author: string }) => {
+export const send = action({
+  args: {
+    prompt: v.string(),
+    author: v.string(),
+  },
+  handler: async (ctx, { prompt, author }) => {
     const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
       throw new Error(
@@ -27,11 +32,11 @@ export const send = action(
     }
 
     // Query OpenAI for the image.
-    const opanaiResponse = await openai.images.generate({
+    const openaiResponse = await openai.images.generate({
       prompt,
       size: "256x256",
     });
-    const dallEImageUrl = opanaiResponse.data[0]["url"]!;
+    const dallEImageUrl = openaiResponse.data![0]["url"]!;
 
     // Download the image
     const imageResponse = await fetch(dallEImageUrl);
@@ -51,4 +56,4 @@ export const send = action(
       prompt,
     });
   },
-);
+});

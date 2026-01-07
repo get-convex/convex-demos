@@ -3,12 +3,17 @@ import { internal } from "./_generated/api";
 import { v } from "convex/values";
 
 export const list = query({
+  args: {},
   handler: async (ctx) => {
     return await ctx.db.query("messages").collect();
   },
 });
 
 export const send = mutation({
+  args: {
+    body: v.string(),
+    author: v.string(),
+  },
   handler: async (ctx, { body, author }) => {
     const message = { body, author, format: "text" };
     await ctx.db.insert("messages", message);
@@ -45,6 +50,10 @@ export const sendGif = action({
 });
 
 export const sendGifMessage = internalMutation({
+  args: {
+    body: v.string(),
+    author: v.string(),
+  },
   handler: async (ctx, { body, author }) => {
     const message = { body, author, format: "giphy" };
     await ctx.db.insert("messages", message);

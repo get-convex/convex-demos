@@ -1,0 +1,25 @@
+{
+  "name": "convex-test-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p convex/tsconfig.json --noEmit",
+    "dev": "convex dev",
+    "test": "vitest",
+    "test:once": "vitest run",
+    "test:debug": "vitest --inspect-brk --no-file-parallelism",
+    "test:coverage": "vitest run --coverage --coverage.reporter=text"
+  },
+  "dependencies": {
+    "convex": "1.31.3"
+  },
+  "devDependencies": {
+    "@edge-runtime/vm": "^5.0.0",
+    "convex-test": "^0.0.41",
+    "globals": "~16.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "vite": "^6.4.1"
+  }
+}
