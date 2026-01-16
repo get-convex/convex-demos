@@ -1,5 +1,4 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
-import { CONVEX_URL } from "env";
 import React, { StrictMode, useState } from "react";
 import { FlatList, SafeAreaView, Text, TextInput, View } from "react-native";
 import { useMutation, useQuery } from "convex/react";
@@ -58,7 +57,7 @@ function InnerApp() {
 }
 
 const App = () => {
-  const convex = new ConvexReactClient(CONVEX_URL, {
+  const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL, {
     // We need to disable this to be compatible with React Native
     unsavedChangesWarning: false,
   });
