@@ -12,14 +12,14 @@
     "test:coverage": "vitest run --coverage --coverage.reporter=text"
   },
   "dependencies": {
-    "convex": "1.31.7"
+    "convex": "1.33.0"
   },
   "devDependencies": {
     "@edge-runtime/vm": "^5.0.0",
     "convex-test": "^0.0.41",
-    "globals": "~16.5.0",
+    "globals": "~17.0.0",
     "typescript": "^5.9.2",
-    "vitest": "^3.2.4",
+    "vitest": "4.0.18",
     "vite": "^6.4.1"
   }
 }
