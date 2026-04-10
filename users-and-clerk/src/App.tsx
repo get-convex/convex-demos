@@ -1,4 +1,4 @@
-import { SignOutButton } from "@clerk/clerk-react";
+import { SignOutButton } from "@clerk/react";
 import { useMutation, useQuery } from "convex/react";
 import { FormEvent, useState } from "react";
 import { api } from "../convex/_generated/api";
@@ -22,7 +22,9 @@ export default function App() {
 }
 
 function Content() {
-  const messages = useQuery(api.messages.list) || [];
+  const messages =
+    useQuery({ query: api.messages.list, args: {}, throwOnError: true }).data ??
+    [];
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation(api.messages.send);

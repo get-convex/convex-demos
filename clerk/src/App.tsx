@@ -1,4 +1,4 @@
-import { SignOutButton } from "@clerk/clerk-react";
+import { SignOutButton } from "@clerk/react";
 import {
   Authenticated,
   Unauthenticated,
@@ -24,7 +24,11 @@ export default function App() {
 }
 
 function Content() {
-  const messages = useQuery(api.messages.list) || [];
+  const { data: messages = [] } = useQuery({
+    query: api.messages.list,
+    args: {},
+    throwOnError: true,
+  });
 
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation(api.messages.send);
