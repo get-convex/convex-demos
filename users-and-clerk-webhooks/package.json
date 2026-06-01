@@ -6,10 +6,10 @@
     "build": "tsc --noEmit && vite build"
   },
   "dependencies": {
-    "convex": "1.39.1",
+    "convex": "1.40.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@clerk/backend": "^3.0.0",
+    "@clerk/backend": "^3.2.14",
     "@clerk/react": "^6.4.3",
     "prettier": "3.8.1",
     "svix": "^1.21.0"
