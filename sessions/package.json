@@ -6,7 +6,7 @@
     "build": "tsc --noEmit && vite build"
   },
   "dependencies": {
-    "convex": "1.41.0",
+    "convex": "1.42.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "convex-helpers": "^0.1.105",
@@ -19,6 +19,6 @@
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^4.2.1",
     "typescript": "~5.0.3",
-    "vite": "^6.4.2"
+    "vite": "^6.4.3"
   }
 }
