@@ -10,7 +10,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "convex": "1.42.0",
+    "convex": "1.42.1",
     "expo": "^55.0.18",
     "expo-status-bar": "^55.0.5",
     "react": "^19.2.4",

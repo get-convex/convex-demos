@@ -6,7 +6,7 @@
     "build": "tsc --noEmit && vite build"
   },
   "dependencies": {
-    "convex": "1.42.0",
+    "convex": "1.42.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.30.4",
