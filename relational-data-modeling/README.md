@@ -21,7 +21,7 @@ export default defineSchema({
     author: v.string(),
     body: v.string(),
     channel: v.id("channels"),
-  }),
+  }).index("by_channel", ["channel"]),
 });
 ```
 
