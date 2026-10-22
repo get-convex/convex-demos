@@ -6,11 +6,11 @@
     "build": "tsc --noEmit && vite build"
   },
   "dependencies": {
-    "convex": "1.47.0",
+    "convex": "1.48.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "zod": "^3.25.0",
-    "convex-helpers": "^0.1.128"
+    "convex-helpers": "^0.1.129"
   },
   "devDependencies": {
     "@types/babel__core": "^7.20.0",
